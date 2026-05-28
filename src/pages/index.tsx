@@ -1,76 +1,104 @@
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import { Geist } from "next/font/google";
+import { useProvisioning } from "@/hooks/useProvisioning";
+import { ApiKeyStep } from "@/components/onboarding/ApiKeyStep";
+import { ProvisioningStep } from "@/components/onboarding/ProvisioningStep";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const STEPS = ["Connect", "Set Up Environment", "Explore"];
+
+function Stepper({ activeStep }: { activeStep: number }) {
+  return (
+    <div className="flex items-center justify-center gap-2">
+      {STEPS.map((label, i) => (
+        <div key={label} className="flex items-center gap-2">
+          <div className="flex items-center gap-2">
+            <div
+              className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-semibold ${
+                i <= activeStep
+                  ? "bg-blue-1 text-white"
+                  : "bg-black-4 text-black-3"
+              }`}
+            >
+              {i < activeStep ? (
+                <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                  <path
+                    fillRule="evenodd"
+                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              ) : (
+                i + 1
+              )}
+            </div>
+            <span
+              className={`text-sm ${
+                i <= activeStep
+                  ? "font-medium text-black-1"
+                  : "text-black-3"
+              }`}
+            >
+              {label}
+            </span>
+          </div>
+          {i < STEPS.length - 1 && (
+            <div
+              className={`h-px w-10 ${
+                i < activeStep ? "bg-blue-1" : "bg-stroke-1"
+              }`}
+            />
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
 
 export default function Home() {
+  const { state, setApiKey, goBack, retry } = useProvisioning();
+  const router = useRouter();
+
+  // Redirect to playground once provisioning is complete
+  useEffect(() => {
+    if (state.activeStep === 2) {
+      router.replace("/playground");
+    }
+  }, [state.activeStep, router]);
+
   return (
     <div
-      className={`${geistSans.className} ${geistMono.className} flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black`}
+      className={`${geistSans.className} flex min-h-[calc(100vh-56px)] items-start justify-center pt-16 font-sans`}
     >
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the index.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+      <main className="w-full max-w-xl">
+        <h1 className="mb-8 text-center text-lg font-semibold text-black-1">
+          Zilliz Cloud Onboarding
+        </h1>
+
+        <div className="mb-10">
+          <Stepper activeStep={state.activeStep} />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+
+        <div className="rounded-card border border-stroke-1 bg-white p-8 shadow-light">
+          {state.activeStep === 0 && <ApiKeyStep onSubmit={setApiKey} />}
+
+          {state.activeStep === 1 && (
+            <ProvisioningStep
+              phase={state.provisioningPhase}
+              error={state.error}
+              projectCreated={!!state.projectId}
+              clusterReady={!!state.clusterEndpoint}
+              collectionCreated={state.collectionCreated}
+              onRetry={retry}
+              onGoBack={goBack}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs/pages/getting-started?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          )}
+
         </div>
       </main>
     </div>

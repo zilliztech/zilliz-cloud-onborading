@@ -5,11 +5,62 @@
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  /* --- Blue colors --- */
+  --color-blue-1: #3f46ff;
+  --color-blue-2: #6066fd;
+  --color-blue-3: #dbe0ff;
+  --color-blue-4: #f2f3ff;
+  --color-blue-5: #f7f8ff;
+  --color-blue-dark-1: #181eca;
+  --color-blue-dark-2: #141c63;
+  --color-blue-light-1: #ebedff;
+
+  /* --- Black colors --- */
+  --color-black-1: #1d2939;
+  --color-black-2: #5d6d85;
+  --color-black-3: #a6b1be;
+  --color-black-4: #f0f2f4;
+  --color-black-5: #f9f9fb;
+
+  /* --- Green colors --- */
+  --color-green-1: #166434;
+  --color-green-2: #49de80;
+  --color-green-3: #adf8c9;
+  --color-green-4: #effdf4;
+
+  /* --- Yellow colors --- */
+  --color-yellow-1: #854d0f;
+  --color-yellow-2: #ffb800;
+  --color-yellow-3: #ffe7a9;
+  --color-yellow-4: #fff8e2;
+
+  /* --- Red colors --- */
+  --color-red-1: #991b1b;
+  --color-red-2: #f26868;
+  --color-red-3: #fbc6c6;
+  --color-red-4: #fff1f1;
+
+  /* --- Stroke colors --- */
+  --color-stroke-1: #e4eaf1;
+  --color-stroke-2: #cdd8e8;
+
+  /* --- Shadows --- */
+  --shadow-light: 0px 1px 2px 0px rgba(33, 37, 44, 0.08);
+  --shadow-dark: 0px 1px 10px 0px rgba(107, 121, 141, 0.3);
+
+  /* --- Border radius --- */
+  --radius-card: 12px;
+  --radius-badge: 8px;
+
+  /* --- Breakpoints (min-width, mobile-first) --- */
+  --breakpoint-sm: 500px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1440px;
+  --breakpoint-3xl: 1600px;
+  --breakpoint-4xl: 1920px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -20,7 +71,7 @@
 }
 
 body {
-  background: var(--background);
+  background: var(--color-black-5);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }

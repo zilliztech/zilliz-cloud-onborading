@@ -1,0 +1,310 @@
+import { useEffect, useState } from "react";
+import { StepProgress } from "./StepProgress";
+import { CodeBlock } from "./CodeBlock";
+import { ArrowRightIcon, ArrowLeftIcon } from "@/components/icons/ArrowRightIcon";
+import { Tag } from "@/components/ui/Tag";
+import type { DatasetId } from "@/pages/playground";
+import { StepNavButtons } from "./StepNavButtons";
+import { DATASET_FILE_MAP, DATASET_LABELS } from "@/pages/playground";
+
+interface SearchSectionProps {
+  datasetId: DatasetId;
+}
+
+interface Hit {
+  score: number;
+  text: string;
+  source: string;
+  chunkId: number;
+}
+
+interface Variant {
+  label: string;
+  filter: string | null;
+  hits: Hit[];
+  answer: string;
+  citations: string[];
+}
+
+interface Question {
+  id: string;
+  query: string;
+  variants: Variant[];
+}
+
+function SimBar({ score }: { score: number }) {
+  const pct = Math.round(score * 100);
+  return (
+    <div className="relative mb-2 h-1 overflow-hidden rounded-full bg-[#eceff3]">
+      <span
+        className="absolute inset-0 rounded-full bg-gradient-to-r from-[#75d0ff] to-[#1493dc]"
+        style={{ width: `${pct}%` }}
+      />
+    </div>
+  );
+}
+
+export function SearchSection({ datasetId }: SearchSectionProps) {
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [selectedQ, setSelectedQ] = useState(0);
+  const [selectedVariant, setSelectedVariant] = useState(0);
+
+  const datasetFile = DATASET_FILE_MAP[datasetId];
+  const datasetLabel = DATASET_LABELS[datasetId];
+
+  useEffect(() => {
+    let stale = false;
+    fetch(`/api/datasets/retrieval?dataset=${datasetFile}`)
+      .then((res) => res.json())
+      .then((d) => {
+        if (!stale) {
+          setQuestions(d.questions);
+          setSelectedQ(0);
+          setSelectedVariant(0);
+        }
+      });
+    return () => { stale = true; };
+  }, [datasetFile]);
+
+  const question = questions[selectedQ];
+  const variant = question?.variants[selectedVariant];
+  // First variant (index 0) is always "All" — use it as dense baseline
+  const baselineHits = question?.variants[0]?.hits ?? [];
+
+  const codeSnippet = `from pymilvus import AnnSearchRequest, WeightedRanker
+
+q_dense = oai.embeddings.create(
+    model="text-embedding-3-small",
+    input="${question?.query ?? "..."}",
+).data[0].embedding
+
+dense_req = AnnSearchRequest(
+    data=[q_dense], anns_field="dense",
+    param={"metric_type": "COSINE"}, limit=3,
+)
+bm25_req = AnnSearchRequest(
+    data=["${question?.query ?? "..."}"],
+    anns_field="sparse",
+    param={"metric_type": "BM25"}, limit=3,
+)
+
+hits = client.hybrid_search(
+    collection_name="${datasetFile}",
+    reqs=[dense_req, bm25_req],
+    ranker=WeightedRanker(0.7, 0.3),
+    limit=3,
+    output_fields=["text", "source", "chunk_id", "visibility"],
+)[0]
+
+context = "\\n\\n".join(h["entity"]["text"] for h in hits)
+answer = oai.chat.completions.create(model="gpt-4o", ...)`;
+
+  return (
+    <section id="step-search" className="animate-[rise_500ms_cubic-bezier(.2,.7,.2,1)_both]">
+      {/* Header */}
+      <div className="rounded-xl border border-[rgba(22,26,35,0.06)] bg-white p-5 shadow-[0_1px_2px_rgba(13,43,72,0.04),0_4px_12px_rgba(20,147,220,0.08)]">
+        <div className="mb-1 flex items-center gap-2">
+          <span className="font-mono text-[11px] uppercase tracking-widest text-blue-1">Step 6 of 7</span>
+          <span className="h-1 w-1 rounded-full bg-[#b0bac9]" />
+          <span className="font-mono text-[11px] uppercase tracking-widest text-[#8592a8]">Retrieval + Generation</span>
+        </div>
+        <h1 className="text-[22px] font-semibold leading-tight tracking-tight text-[#0a0d14]">
+          Retrieve relevant passages + generate answers
+        </h1>
+        <p className="mt-0.5 text-[14px] text-[#64718a]">
+          Compare Hybrid Search recall side-by-side, plus metadata filtering for more precise results
+          <a href="https://docs.zilliz.com/docs/hybrid-search" target="_blank" rel="noopener noreferrer"
+            className="ml-2 inline-flex items-center gap-[3px] whitespace-nowrap text-[11.5px] font-medium text-blue-1 no-underline hover:text-blue-dark-1 hover:underline hover:[text-underline-offset:3px]">
+            Hybrid search docs <ArrowRightIcon size={12} />
+          </a>
+        </p>
+        <StepProgress currentStep={5} />
+      </div>
+
+      {/* Content grid */}
+      <div className="mt-6 grid grid-cols-12 gap-6">
+        {/* LEFT: Query interface */}
+        <div className="col-span-12 lg:col-span-5">
+          <div className="rounded-xl border border-[rgba(22,26,35,0.06)] bg-white p-5 shadow-[0_1px_2px_rgba(13,43,72,0.04),0_4px_12px_rgba(20,147,220,0.08)]">
+            {/* Header */}
+            <div className="mb-3 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <svg viewBox="0 0 20 20" className="h-4 w-4 text-blue-1">
+                  <path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" fill="currentColor" />
+                </svg>
+                <span className="text-[13px] font-medium">Conversational query</span>
+              </div>
+              <span className="font-mono text-[11px] text-[#8592a8]">Collection: {datasetLabel}</span>
+            </div>
+
+            {/* Question selection */}
+            <div className="mb-4">
+              <div className="mb-2 text-[12px] font-medium text-[#3d4659]">Select a question</div>
+              <div className="grid grid-cols-1 gap-2 md:grid-cols-3">
+                {questions.map((q, i) => (
+                  <button
+                    key={q.id}
+                    onClick={() => { setSelectedQ(i); setSelectedVariant(0); }}
+                    className={`group min-h-[74px] cursor-pointer rounded-[12px] p-[1.5px] text-left transition-all ${
+                      selectedQ === i
+                        ? "bg-gradient-to-l from-[#FF058A] via-[#B92BBA] to-[#531AEE]"
+                        : "bg-stroke-1 hover:bg-[linear-gradient(270deg,#FF058A,#B92BBA,#531AEE)]"
+                    }`}
+                  >
+                    <div className="h-full rounded-[10.5px] bg-white px-3 py-2.5">
+                      <div className={`font-mono text-[10px] uppercase tracking-[0.1em] ${selectedQ === i ? "text-blue-1" : "text-[#8592a8]"}`}>
+                        Question {i + 1}
+                      </div>
+                      <div className={`mt-1 text-[12.5px] font-medium leading-snug ${selectedQ === i ? "text-black-1" : "text-black-2"}`}>
+                        {q.query}
+                      </div>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Filter bar */}
+            {question && (
+              <div className="mb-4 overflow-hidden rounded-xl border border-[rgba(22,26,35,0.06)] bg-[rgba(246,247,249,0.5)]">
+                <div className="flex items-center justify-between gap-3 border-b border-[rgba(22,26,35,0.06)] bg-white px-3.5 py-2.5">
+                  <div className="flex items-center gap-2">
+                    <svg viewBox="0 0 20 20" className="h-4 w-4 shrink-0 text-blue-1">
+                      <path d="M3 4h14l-5 6v4l-4 2V10L3 4z" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinejoin="round" />
+                    </svg>
+                    <span className="text-[12px] font-medium text-[#3d4659]">Metadata filter</span>
+                  </div>
+                  <div className="shrink-0 font-mono text-[11px] text-[#8592a8]">
+                    {variant?.hits.length ?? 0}/{baselineHits.length} hits
+                  </div>
+                </div>
+                <div className="px-3.5 py-3">
+                  <div className="flex flex-wrap gap-2">
+                    {question.variants.map((v, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setSelectedVariant(i)}
+                        className={`cursor-pointer rounded-md border px-3 py-1.5 text-[12px] font-medium transition ${
+                          selectedVariant === i
+                            ? "border-[#2cb7ff] bg-[#1493dc] text-white"
+                            : "border-[rgba(22,26,35,0.06)] bg-white text-[#4d5870] hover:border-[#75d0ff] hover:text-[#0a5f9e]"
+                        }`}
+                      >
+                        {v.label}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="mt-2 font-mono text-[10.5px] text-[#8592a8]">
+                    filter: {variant?.filter ?? "none"}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Retrieval results */}
+            {variant && (
+              <div className="space-y-2">
+                <div className="mb-2.5 flex items-center gap-1.5">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#1493dc]" />
+                  <span className="font-mono text-[11px] uppercase tracking-wider text-blue-1">Hybrid results</span>
+                  <span className="ml-auto font-mono text-[10.5px] text-[#059669]">dense + sparse</span>
+                </div>
+                {variant.hits.map((hit, i) => (
+                  <div key={i} className="rounded-lg border border-[rgba(22,26,35,0.06)] bg-white p-2.5">
+                    <div className="mb-1.5 flex items-center justify-between">
+                      <span className="font-mono text-[10px] text-[#8592a8]">#{i + 1}</span>
+                      <span className="font-mono text-[10px] font-semibold text-blue-1">{hit.score.toFixed(3)}</span>
+                    </div>
+                    <SimBar score={hit.score} />
+                    <p className="text-[11.5px] leading-relaxed text-[#3d4659]">
+                      {hit.text.length > 200 ? hit.text.slice(0, 200) + "..." : hit.text}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {/* Generated answer */}
+            {variant?.answer && (
+              <div className="mt-5 border-t border-[rgba(22,26,35,0.06)] pt-5">
+                <div className="mb-3 flex items-center gap-2">
+                  <svg viewBox="0 0 20 20" className="h-4 w-4 text-blue-1">
+                    <path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2H6l-4 3V5z" stroke="currentColor" strokeWidth="1.5" fill="none" />
+                  </svg>
+                  <span className="text-[12px] font-medium">Generated answer</span>
+                  <span className="font-mono text-[10.5px] text-[#8592a8]">precomputed</span>
+                </div>
+                <div className="rounded-2xl rounded-bl border border-[rgba(22,26,35,0.08)] bg-white p-4 text-[13px] leading-[1.75] text-[#2c3343] shadow-[0_1px_2px_rgba(13,43,72,0.04),0_4px_14px_rgba(13,43,72,0.05)]">
+                  {variant.answer}
+                  <div className="mt-3 flex flex-wrap items-center gap-1.5">
+                    {variant.citations.map((c, i) => (
+                      <Tag key={i} label={c} variant="info" size="small" />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* RIGHT: Concept + Code */}
+        <div className="col-span-12 space-y-5 lg:col-span-7">
+          {/* Concept card */}
+          <div className="rounded-xl border border-[rgba(22,26,35,0.06)] bg-white p-6 shadow-[0_1px_2px_rgba(13,43,72,0.04),0_4px_12px_rgba(20,147,220,0.08)]">
+            <div className="mb-3">
+              <span className="font-mono text-[11px] uppercase tracking-widest text-blue-1">Concept</span>
+            </div>
+            <h2 className="text-[20px] font-semibold leading-snug tracking-tight">
+              Why is Hybrid Search more accurate than Dense only?
+            </h2>
+            <p className="mt-3 text-[14.5px] leading-[1.75] text-[#4d5870]">
+              Dense excels at <span className="font-medium text-[#161a23]">&quot;meaning&quot;</span> but is
+              insensitive to terminology, proper nouns, and version numbers. Sparse (BM25) is the opposite.{" "}
+              <span className="font-medium text-[#161a23]">Hybrid uses RRF to merge both retrieval paths</span>,
+              complementing each other&apos;s strengths.
+            </p>
+
+            {/* Dense vs Hybrid comparison */}
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <div className="rounded-lg border border-[rgba(22,26,35,0.06)] bg-[rgba(246,247,249,0.7)] p-4">
+                <div className="mb-2 flex items-center gap-2">
+                  <div className="flex h-6 w-6 items-center justify-center rounded-md border border-[rgba(22,26,35,0.06)] bg-white">
+                    <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 text-[#64718a]">
+                      <circle cx="8" cy="8" r="5" stroke="currentColor" strokeWidth="1.5" fill="none" />
+                    </svg>
+                  </div>
+                  <span className="text-[13px] font-medium text-[#2c3343]">Dense only</span>
+                </div>
+                <div className="space-y-1.5 text-[12px] text-[#64718a]">
+                  <div>&#10003; Semantic similarity</div>
+                  <div className="text-[#8592a8]">&#10007; Misses terminology</div>
+                  <div className="text-[#8592a8]">&#10007; Recall@10: <span className="font-mono">0.76</span></div>
+                </div>
+              </div>
+              <div className="rounded-lg border border-[#b6e4ff] bg-gradient-to-br from-[#eff9ff] to-white p-4">
+                <div className="mb-2 flex items-center gap-2">
+                  <div className="flex h-6 w-6 items-center justify-center rounded-md bg-[#1493dc] text-white">
+                    <svg viewBox="0 0 16 16" className="h-3.5 w-3.5">
+                      <path d="M8 2l1.5 4.5h4.5L10.5 9.5 12 14 8 11.5 4 14l1.5-4.5L2 6.5h4.5z" fill="currentColor" />
+                    </svg>
+                  </div>
+                  <span className="text-[13px] font-medium text-[#161a23]">Hybrid</span>
+                </div>
+                <div className="space-y-1.5 text-[12px]">
+                  <div className="text-[#047857]">&#10003; Semantic + keywords</div>
+                  <div className="text-[#047857]">&#10003; Proper noun recall</div>
+                  <div className="text-[#047857]">&#10003; Recall@10: <span className="font-mono font-semibold">0.89</span> <span className="text-[10.5px] text-[#8592a8]">(+17%)</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Code block */}
+          <CodeBlock filename="hybrid_search.py" code={codeSnippet} />
+        </div>
+      </div>
+
+      <StepNavButtons prevLabel="Previous" prevAnchor="#step-ingest" />
+    </section>
+  );
+}
