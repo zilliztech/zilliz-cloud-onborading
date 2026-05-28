@@ -1,0 +1,3197 @@
+{
+  "step1": {
+    "docs": [
+      {
+        "label": "enterprise_docs.step2-source.md · chunk 0",
+        "text": "# Milvus Documentation Dataset\n\nSource: public Milvus documentation pages from the milvus-io/milvus-docs GitHub repository, branch v3.0.x.\n\nUse case: ..."
+      },
+      {
+        "label": "enterprise_docs.step2-source.md · chunk 1",
+        "text": "# Comparing Milvus with Alternatives..."
+      },
+      {
+        "label": "enterprise_docs.step2-source.md · chunk 2",
+        "text": "When exploring various vector database options, this comprehensive guide will help you understand Milvus's unique features, ensuring you choose a data..."
+      }
+    ],
+    "legal": [
+      {
+        "label": "legal_contracts.step2-source.md · chunk 0",
+        "text": "# CUAD Contract Dataset Excerpts\n\nSource: real contracts from CUAD v1, a public contract understanding dataset released by The Atticus Project.\n\nUse c..."
+      },
+      {
+        "label": "legal_contracts.step2-source.md · chunk 1",
+        "text": "EXHIBIT 10.6\n\n DISTRIBUTOR AGREEMENT\n\n THIS DISTRIBUTOR AGREEMENT (the \"Agreement\") is made by and between Electric City Corp., a Delaware corporation..."
+      },
+      {
+        "label": "legal_contracts.step2-source.md · chunk 2",
+        "text": "RECITALS\n\n A. The Company's Business. The Company is presently engaged in the business of selling an energy efficiency device, which is referred to as..."
+      }
+    ],
+    "arxiv": [
+      {
+        "label": "arxiv_papers.step2-source.md · chunk 0",
+        "text": "# arXiv Retrieval/RAG Paper Abstracts\n\nSource: arXiv API search results for retrieval, RAG, and retrieval augmented generation.\n\nUse case: academic pa..."
+      },
+      {
+        "label": "arxiv_papers.step2-source.md · chunk 1",
+        "text": "arXiv URL: http://arxiv.org/abs/2605.10879v1\nPublished: 2026-05-11T17:27:33Z\nUpdated: 2026-05-11T17:27:33Z\nAuthors: Mohamed Nomeir, Shreya Meel, Sennu..."
+      },
+      {
+        "label": "arxiv_papers.step2-source.md · chunk 2",
+        "text": "We reformulate the definition of privacy in the private information retrieval (PIR) problem to accommodate flexible privacy requirements. We focus on ..."
+      }
+    ]
+  },
+  "step2": {
+    "docs": {
+      "small": {
+        "chunkSize": 256,
+        "chunkOverlap": 40,
+        "chunkCount": 9105,
+        "chunks": [
+          {
+            "text": "# Milvus Documentation Dataset\n\nSource: public Milvus documentation pages from the milvus-io/milvus-docs GitHub repository, branch v3.0.x."
+          },
+          {
+            "text": "Use case: technical documentation search, hybrid retrieval, metadata filtering, collection design, indexing, search, query, and data mutation Q&A.\n\n\n## Document 1: Comparing Milvus with Alternatives"
+          },
+          {
+            "text": "Source path: `site/en/about/comparison.md`\nSource URL: https://github.com/milvus-io/milvus-docs/blob/v3.0.x/site/en/about/comparison.md\n\n# Comparing Milvus with Alternatives"
+          },
+          {
+            "text": "When exploring various vector database options, this comprehensive guide will help you understand Milvus's unique features, ensuring you choose a database that best fits your specific needs"
+          }
+        ]
+      },
+      "balanced": {
+        "chunkSize": 512,
+        "chunkOverlap": 80,
+        "chunkCount": 4365,
+        "chunks": [
+          {
+            "text": "# Milvus Documentation Dataset\n\nSource: public Milvus documentation pages from the milvus-io/milvus-docs GitHub repository, branch v3.0.x.\n\nUse case: technical documentation search, hybrid retrieval, metadata filtering, collection design, indexing, search, query, and data mutation Q&A.\n\n\n## Document 1: Comparing Milvus with Alternatives\n\nSource path: `site/en/about/comparison.md`\nSource URL: https://github.com/milvus-io/milvus-docs/blob/v3.0.x/site/en/about/comparison.md"
+          },
+          {
+            "text": "# Comparing Milvus with Alternatives"
+          }
+        ]
+      },
+      "large": {
+        "chunkSize": 1024,
+        "chunkOverlap": 160,
+        "chunkCount": 2014,
+        "chunks": [
+          {
+            "text": "# Milvus Documentation Dataset\n\nSource: public Milvus documentation pages from the milvus-io/milvus-docs GitHub repository, branch v3.0.x.\n\nUse case: technical documentation search, hybrid retrieval, metadata filtering, collection design, indexing, search, query, and data mutation Q&A.\n\n\n## Document 1: Comparing Milvus with Alternatives\n\nSource path: `site/en/about/comparison.md`\nSource URL: https://github.com/milvus-io/milvus-docs/blob/v3.0.x/site/en/about/comparison.md\n\n# Comparing Milvus with"
+          }
+        ]
+      }
+    },
+    "legal": {
+      "small": {
+        "chunkSize": 256,
+        "chunkOverlap": 40,
+        "chunkCount": 9336,
+        "chunks": [
+          {
+            "text": "# CUAD Contract Dataset Excerpts\n\nSource: real contracts from CUAD v1, a public contract understanding dataset released by The Atticus Project."
+          },
+          {
+            "text": "Use case: legal contract search, clause retrieval, confidentiality, termination, payment, liability, assignment, exclusivity, and governing law Q&A.\n\n\n## Contract 1: LIMEENERGYCO_09_09_1999-EX-10-DISTRIBUTOR AGREEMENT\n\nEXHIBIT 10.6"
+          },
+          {
+            "text": "EXHIBIT 10.6\n\n DISTRIBUTOR AGREEMENT\n\n THIS DISTRIBUTOR AGREEMENT (the \"Agreement\") is made by and between Electric City Corp., a Delaware corporation (\"Company\") and Electric City of Illinois LLC (\"Distributor\") this 7th day of September, 1999."
+          },
+          {
+            "text": "RECITALS"
+          }
+        ]
+      },
+      "balanced": {
+        "chunkSize": 512,
+        "chunkOverlap": 80,
+        "chunkCount": 4644,
+        "chunks": [
+          {
+            "text": "# CUAD Contract Dataset Excerpts\n\nSource: real contracts from CUAD v1, a public contract understanding dataset released by The Atticus Project.\n\nUse case: legal contract search, clause retrieval, confidentiality, termination, payment, liability, assignment, exclusivity, and governing law Q&A.\n\n\n## Contract 1: LIMEENERGYCO_09_09_1999-EX-10-DISTRIBUTOR AGREEMENT\n\nEXHIBIT 10.6\n\n DISTRIBUTOR AGREEMENT"
+          },
+          {
+            "text": "EXHIBIT 10.6\n\n DISTRIBUTOR AGREEMENT\n\n THIS DISTRIBUTOR AGREEMENT (the \"Agreement\") is made by and between Electric City Corp., a Delaware corporation (\"Company\") and Electric City of Illinois LLC (\"Distributor\") this 7th day of September, 1999.\n\n RECITALS"
+          }
+        ]
+      },
+      "large": {
+        "chunkSize": 1024,
+        "chunkOverlap": 160,
+        "chunkCount": 2246,
+        "chunks": [
+          {
+            "text": "# CUAD Contract Dataset Excerpts\n\nSource: real contracts from CUAD v1, a public contract understanding dataset released by The Atticus Project.\n\nUse case: legal contract search, clause retrieval, confidentiality, termination, payment, liability, assignment, exclusivity, and governing law Q&A.\n\n\n## Contract 1: LIMEENERGYCO_09_09_1999-EX-10-DISTRIBUTOR AGREEMENT\n\nEXHIBIT 10.6\n\n DISTRIBUTOR AGREEMENT\n\n THIS DISTRIBUTOR AGREEMENT (the \"Agreement\") is made by and between Electric City Corp., a Delawa"
+          }
+        ]
+      }
+    },
+    "arxiv": {
+      "small": {
+        "chunkSize": 256,
+        "chunkOverlap": 40,
+        "chunkCount": 9485,
+        "chunks": [
+          {
+            "text": "# arXiv Retrieval/RAG Paper Abstracts\n\nSource: arXiv API search results for retrieval, RAG, and retrieval augmented generation.\n\nUse case: academic paper search, abstract retrieval, method comparison, and citation-style RAG answers."
+          },
+          {
+            "text": "## Paper 1: Private Information Retrieval With Arbitrary Privacy Requirements for Graph-Based Storage"
+          },
+          {
+            "text": "arXiv URL: http://arxiv.org/abs/2605.10879v1\nPublished: 2026-05-11T17:27:33Z\nUpdated: 2026-05-11T17:27:33Z\nAuthors: Mohamed Nomeir, Shreya Meel, Sennur Ulukus\nCategories: cs.IT, cs.CR, cs.NI, eess.SP\n\n### Abstract"
+          },
+          {
+            "text": "We reformulate the definition of privacy in the private information retrieval (PIR) problem to accommodate flexible privacy requirements"
+          }
+        ]
+      },
+      "balanced": {
+        "chunkSize": 512,
+        "chunkOverlap": 80,
+        "chunkCount": 4359,
+        "chunks": [
+          {
+            "text": "# arXiv Retrieval/RAG Paper Abstracts\n\nSource: arXiv API search results for retrieval, RAG, and retrieval augmented generation.\n\nUse case: academic paper search, abstract retrieval, method comparison, and citation-style RAG answers.\n\n\n## Paper 1: Private Information Retrieval With Arbitrary Privacy Requirements for Graph-Based Storage"
+          },
+          {
+            "text": "arXiv URL: http://arxiv.org/abs/2605.10879v1\nPublished: 2026-05-11T17:27:33Z\nUpdated: 2026-05-11T17:27:33Z\nAuthors: Mohamed Nomeir, Shreya Meel, Sennur Ulukus\nCategories: cs.IT, cs.CR, cs.NI, eess.SP\n\n### Abstract"
+          }
+        ]
+      },
+      "large": {
+        "chunkSize": 1024,
+        "chunkOverlap": 160,
+        "chunkCount": 2637,
+        "chunks": [
+          {
+            "text": "# arXiv Retrieval/RAG Paper Abstracts\n\nSource: arXiv API search results for retrieval, RAG, and retrieval augmented generation.\n\nUse case: academic paper search, abstract retrieval, method comparison, and citation-style RAG answers.\n\n\n## Paper 1: Private Information Retrieval With Arbitrary Privacy Requirements for Graph-Based Storage\n\narXiv URL: http://arxiv.org/abs/2605.10879v1\nPublished: 2026-05-11T17:27:33Z\nUpdated: 2026-05-11T17:27:33Z\nAuthors: Mohamed Nomeir, Shreya Meel, Sennur Ulukus\nCat"
+          }
+        ]
+      }
+    }
+  },
+  "step3": {
+    "docs": {
+      "small": {
+        "metadataFields": [
+          "source",
+          "chunk_id",
+          "page",
+          "section",
+          "product_area",
+          "visibility"
+        ],
+        "chunkCount": 9105,
+        "chunks": [
+          {
+            "text": "# Milvus Documentation Dataset\n\nSource: public Milvus documentation pages from the milvus-io/milvus-docs GitHub reposito...",
+            "meta": {
+              "source": "enterprise_docs.step2-source.md",
+              "chunk_id": 0,
+              "visibility": "public",
+              "page": 1,
+              "section": "Milvus Documentation Dataset",
+              "product_area": "overview"
+            }
+          },
+          {
+            "text": "Use case: technical documentation search, hybrid retrieval, metadata filtering, collection design, indexing, search, que...",
+            "meta": {
+              "source": "enterprise_docs.step2-source.md",
+              "chunk_id": 1,
+              "visibility": "public",
+              "page": 1,
+              "section": "Document 1: Comparing Milvus with Alternatives",
+              "product_area": "overview"
+            }
+          },
+          {
+            "text": "Source path: `site/en/about/comparison.md`\nSource URL: https://github.com/milvus-io/milvus-docs/blob/v3.0.x/site/en/abou...",
+            "meta": {
+              "source": "enterprise_docs.step2-source.md",
+              "chunk_id": 2,
+              "visibility": "public",
+              "page": 1,
+              "section": "Comparing Milvus with Alternatives",
+              "product_area": "overview"
+            }
+          },
+          {
+            "text": "When exploring various vector database options, this comprehensive guide will help you understand Milvus's unique featur...",
+            "meta": {
+              "source": "enterprise_docs.step2-source.md",
+              "chunk_id": 3,
+              "visibility": "public",
+              "page": 1,
+              "section": "Comparing Milvus with Alternatives",
+              "product_area": "overview"
+            }
+          }
+        ]
+      },
+      "balanced": {
+        "metadataFields": [
+          "source",
+          "chunk_id",
+          "page",
+          "section",
+          "product_area",
+          "visibility"
+        ],
+        "chunkCount": 4365,
+        "chunks": [
+          {
+            "text": "# Milvus Documentation Dataset\n\nSource: public Milvus documentation pages from the milvus-io/milvus-docs GitHub reposito...",
+            "meta": {
+              "source": "enterprise_docs.step2-source.md",
+              "chunk_id": 0,
+              "visibility": "public",
+              "page": 1,
+              "section": "Milvus Documentation Dataset",
+              "product_area": "overview"
+            }
+          },
+          {
+            "text": "# Comparing Milvus with Alternatives...",
+            "meta": {
+              "source": "enterprise_docs.step2-source.md",
+              "chunk_id": 1,
+              "visibility": "public",
+              "page": 1,
+              "section": "Comparing Milvus with Alternatives",
+              "product_area": "overview"
+            }
+          },
+          {
+            "text": "When exploring various vector database options, this comprehensive guide will help you understand Milvus's unique featur...",
+            "meta": {
+              "source": "enterprise_docs.step2-source.md",
+              "chunk_id": 2,
+              "visibility": "public",
+              "page": 1,
+              "section": "Comparing Milvus with Alternatives",
+              "product_area": "overview"
+            }
+          },
+          {
+            "text": "## Milvus highlights\n\n- **Functionality**: Milvus goes beyond basic vector similarity search by supporting advanced func...",
+            "meta": {
+              "source": "enterprise_docs.step2-source.md",
+              "chunk_id": 3,
+              "visibility": "public",
+              "page": 1,
+              "section": "Milvus highlights",
+              "product_area": "overview"
+            }
+          }
+        ]
+      },
+      "large": {
+        "metadataFields": [
+          "source",
+          "chunk_id",
+          "page",
+          "section",
+          "product_area",
+          "visibility"
+        ],
+        "chunkCount": 2014,
+        "chunks": [
+          {
+            "text": "# Milvus Documentation Dataset\n\nSource: public Milvus documentation pages from the milvus-io/milvus-docs GitHub reposito...",
+            "meta": {
+              "source": "enterprise_docs.step2-source.md",
+              "chunk_id": 0,
+              "visibility": "public",
+              "page": 1,
+              "section": "Milvus Documentation Dataset",
+              "product_area": "overview"
+            }
+          },
+          {
+            "text": "# Comparing Milvus with Alternatives\n\nWhen exploring various vector database options, this comprehensive guide will help...",
+            "meta": {
+              "source": "enterprise_docs.step2-source.md",
+              "chunk_id": 1,
+              "visibility": "public",
+              "page": 1,
+              "section": "Comparing Milvus with Alternatives",
+              "product_area": "overview"
+            }
+          },
+          {
+            "text": "- **Flexibility**: Milvus accommodates various deployment modes and multiple SDKs, all within a robust, integrated ecosy...",
+            "meta": {
+              "source": "enterprise_docs.step2-source.md",
+              "chunk_id": 2,
+              "visibility": "public",
+              "page": 1,
+              "section": "Overall comparison",
+              "product_area": "overview"
+            }
+          },
+          {
+            "text": "| Feature | Pinecone | Milvus | Remarks |\n| --- | --- | --- | --- |\n| Deployment Modes | SaaS-only | Milvus Lite, On-pre...",
+            "meta": {
+              "source": "enterprise_docs.step2-source.md",
+              "chunk_id": 3,
+              "visibility": "public",
+              "page": 1,
+              "section": "Overall comparison",
+              "product_area": "overview"
+            }
+          }
+        ]
+      }
+    },
+    "legal": {
+      "small": {
+        "metadataFields": [
+          "source",
+          "chunk_id",
+          "page",
+          "clause_type",
+          "party",
+          "effective_date",
+          "visibility"
+        ],
+        "chunkCount": 9336,
+        "chunks": [
+          {
+            "text": "# CUAD Contract Dataset Excerpts\n\nSource: real contracts from CUAD v1, a public contract understanding dataset released ...",
+            "meta": {
+              "source": "legal_contracts.step2-source.md",
+              "chunk_id": 0,
+              "visibility": "public",
+              "page": 1,
+              "clause_type": "general",
+              "party": "company",
+              "effective_date": "2026-01-01"
+            }
+          },
+          {
+            "text": "Use case: legal contract search, clause retrieval, confidentiality, termination, payment, liability, assignment, exclusi...",
+            "meta": {
+              "source": "legal_contracts.step2-source.md",
+              "chunk_id": 1,
+              "visibility": "public",
+              "page": 1,
+              "clause_type": "term",
+              "party": "distributor",
+              "effective_date": "2026-01-01"
+            }
+          },
+          {
+            "text": "EXHIBIT 10.6\n\n DISTRIBUTOR AGREEMENT\n\n THIS DISTRIBUTOR AGREEMENT (the \"Agreement\") is made by and between Electric City...",
+            "meta": {
+              "source": "legal_contracts.step2-source.md",
+              "chunk_id": 2,
+              "visibility": "public",
+              "page": 1,
+              "clause_type": "general",
+              "party": "both",
+              "effective_date": "2026-01-01"
+            }
+          },
+          {
+            "text": "RECITALS...",
+            "meta": {
+              "source": "legal_contracts.step2-source.md",
+              "chunk_id": 3,
+              "visibility": "public",
+              "page": 1,
+              "clause_type": "general",
+              "party": "company",
+              "effective_date": "2026-01-01"
+            }
+          }
+        ]
+      },
+      "balanced": {
+        "metadataFields": [
+          "source",
+          "chunk_id",
+          "page",
+          "clause_type",
+          "party",
+          "effective_date",
+          "visibility"
+        ],
+        "chunkCount": 4644,
+        "chunks": [
+          {
+            "text": "# CUAD Contract Dataset Excerpts\n\nSource: real contracts from CUAD v1, a public contract understanding dataset released ...",
+            "meta": {
+              "source": "legal_contracts.step2-source.md",
+              "chunk_id": 0,
+              "visibility": "public",
+              "page": 1,
+              "clause_type": "term",
+              "party": "company",
+              "effective_date": "2026-01-01"
+            }
+          },
+          {
+            "text": "EXHIBIT 10.6\n\n DISTRIBUTOR AGREEMENT\n\n THIS DISTRIBUTOR AGREEMENT (the \"Agreement\") is made by and between Electric City...",
+            "meta": {
+              "source": "legal_contracts.step2-source.md",
+              "chunk_id": 1,
+              "visibility": "public",
+              "page": 1,
+              "clause_type": "general",
+              "party": "distributor",
+              "effective_date": "2026-01-01"
+            }
+          },
+          {
+            "text": "RECITALS\n\n A. The Company's Business. The Company is presently engaged in the business of selling an energy efficiency d...",
+            "meta": {
+              "source": "legal_contracts.step2-source.md",
+              "chunk_id": 2,
+              "visibility": "public",
+              "page": 1,
+              "clause_type": "general",
+              "party": "both",
+              "effective_date": "2026-01-01"
+            }
+          },
+          {
+            "text": "B. Representations. As an inducement to the Company to enter into this Agreement, the Distributor has represented that i...",
+            "meta": {
+              "source": "legal_contracts.step2-source.md",
+              "chunk_id": 3,
+              "visibility": "public",
+              "page": 1,
+              "clause_type": "term",
+              "party": "company",
+              "effective_date": "2026-01-01"
+            }
+          }
+        ]
+      },
+      "large": {
+        "metadataFields": [
+          "source",
+          "chunk_id",
+          "page",
+          "clause_type",
+          "party",
+          "effective_date",
+          "visibility"
+        ],
+        "chunkCount": 2246,
+        "chunks": [
+          {
+            "text": "# CUAD Contract Dataset Excerpts\n\nSource: real contracts from CUAD v1, a public contract understanding dataset released ...",
+            "meta": {
+              "source": "legal_contracts.step2-source.md",
+              "chunk_id": 0,
+              "visibility": "public",
+              "page": 1,
+              "clause_type": "term",
+              "party": "company",
+              "effective_date": "2026-01-01"
+            }
+          },
+          {
+            "text": "RECITALS\n\n A. The Company's Business. The Company is presently engaged in the business of selling an energy efficiency d...",
+            "meta": {
+              "source": "legal_contracts.step2-source.md",
+              "chunk_id": 1,
+              "visibility": "public",
+              "page": 1,
+              "clause_type": "term",
+              "party": "distributor",
+              "effective_date": "2026-01-01"
+            }
+          },
+          {
+            "text": "C. The Distributor's Objectives. The Distributor desires to become a distributor for the Company and to develop demand f...",
+            "meta": {
+              "source": "legal_contracts.step2-source.md",
+              "chunk_id": 2,
+              "visibility": "public",
+              "page": 1,
+              "clause_type": "appointment",
+              "party": "both",
+              "effective_date": "2026-01-01"
+            }
+          },
+          {
+            "text": "1.1 Grant and Acceptance. Company hereby appoints Distributor as Company's exclusive distributor within the Market and g...",
+            "meta": {
+              "source": "legal_contracts.step2-source.md",
+              "chunk_id": 3,
+              "visibility": "public",
+              "page": 1,
+              "clause_type": "appointment",
+              "party": "company",
+              "effective_date": "2026-01-01"
+            }
+          }
+        ]
+      }
+    },
+    "arxiv": {
+      "small": {
+        "metadataFields": [
+          "source",
+          "chunk_id",
+          "arxiv_id",
+          "category",
+          "year",
+          "section",
+          "visibility"
+        ],
+        "chunkCount": 9485,
+        "chunks": [
+          {
+            "text": "# arXiv Retrieval/RAG Paper Abstracts\n\nSource: arXiv API search results for retrieval, RAG, and retrieval augmented gene...",
+            "meta": {
+              "source": "arxiv_papers.step2-source.md",
+              "chunk_id": 0,
+              "visibility": "public",
+              "arxiv_id": "2605.10853",
+              "category": "cs.CL",
+              "year": 2026,
+              "section": "arXiv Retrieval/RAG Paper Abstracts"
+            }
+          },
+          {
+            "text": "## Paper 1: Private Information Retrieval With Arbitrary Privacy Requirements for Graph-Based Storage...",
+            "meta": {
+              "source": "arxiv_papers.step2-source.md",
+              "chunk_id": 1,
+              "visibility": "public",
+              "arxiv_id": "2605.10828",
+              "category": "cs.AI",
+              "year": 2026,
+              "section": "Paper 1: Private Information Retrieval With Arbitrary Privacy Requirements for Graph-Based Storage"
+            }
+          },
+          {
+            "text": "arXiv URL: http://arxiv.org/abs/2605.10879v1\nPublished: 2026-05-11T17:27:33Z\nUpdated: 2026-05-11T17:27:33Z\nAuthors: Moha...",
+            "meta": {
+              "source": "arxiv_papers.step2-source.md",
+              "chunk_id": 2,
+              "visibility": "public",
+              "arxiv_id": "2605.10791",
+              "category": "cs.IR",
+              "year": 2026,
+              "section": "Abstract"
+            }
+          },
+          {
+            "text": "We reformulate the definition of privacy in the private information retrieval (PIR) problem to accommodate flexible priv...",
+            "meta": {
+              "source": "arxiv_papers.step2-source.md",
+              "chunk_id": 3,
+              "visibility": "public",
+              "arxiv_id": "2605.10296",
+              "category": "cs.CL",
+              "year": 2026,
+              "section": "Abstract"
+            }
+          }
+        ]
+      },
+      "balanced": {
+        "metadataFields": [
+          "source",
+          "chunk_id",
+          "arxiv_id",
+          "category",
+          "year",
+          "section",
+          "visibility"
+        ],
+        "chunkCount": 4359,
+        "chunks": [
+          {
+            "text": "# arXiv Retrieval/RAG Paper Abstracts\n\nSource: arXiv API search results for retrieval, RAG, and retrieval augmented gene...",
+            "meta": {
+              "source": "arxiv_papers.step2-source.md",
+              "chunk_id": 0,
+              "visibility": "public",
+              "arxiv_id": "2605.10853",
+              "category": "cs.CL",
+              "year": 2026,
+              "section": "arXiv Retrieval/RAG Paper Abstracts"
+            }
+          },
+          {
+            "text": "arXiv URL: http://arxiv.org/abs/2605.10879v1\nPublished: 2026-05-11T17:27:33Z\nUpdated: 2026-05-11T17:27:33Z\nAuthors: Moha...",
+            "meta": {
+              "source": "arxiv_papers.step2-source.md",
+              "chunk_id": 1,
+              "visibility": "public",
+              "arxiv_id": "2605.10828",
+              "category": "cs.AI",
+              "year": 2026,
+              "section": "Abstract"
+            }
+          },
+          {
+            "text": "We reformulate the definition of privacy in the private information retrieval (PIR) problem to accommodate flexible priv...",
+            "meta": {
+              "source": "arxiv_papers.step2-source.md",
+              "chunk_id": 2,
+              "visibility": "public",
+              "arxiv_id": "2605.10791",
+              "category": "cs.IR",
+              "year": 2026,
+              "section": "Abstract"
+            }
+          },
+          {
+            "text": ". Since both the storage and privacy requirement sets have many possibilities, we focus on two specific storage settings...",
+            "meta": {
+              "source": "arxiv_papers.step2-source.md",
+              "chunk_id": 3,
+              "visibility": "public",
+              "arxiv_id": "2605.10296",
+              "category": "cs.CL",
+              "year": 2026,
+              "section": "Abstract"
+            }
+          }
+        ]
+      },
+      "large": {
+        "metadataFields": [
+          "source",
+          "chunk_id",
+          "arxiv_id",
+          "category",
+          "year",
+          "section",
+          "visibility"
+        ],
+        "chunkCount": 2637,
+        "chunks": [
+          {
+            "text": "# arXiv Retrieval/RAG Paper Abstracts\n\nSource: arXiv API search results for retrieval, RAG, and retrieval augmented gene...",
+            "meta": {
+              "source": "arxiv_papers.step2-source.md",
+              "chunk_id": 0,
+              "visibility": "public",
+              "arxiv_id": "2605.10853",
+              "category": "cs.CL",
+              "year": 2026,
+              "section": "arXiv Retrieval/RAG Paper Abstracts"
+            }
+          },
+          {
+            "text": "We reformulate the definition of privacy in the private information retrieval (PIR) problem to accommodate flexible priv...",
+            "meta": {
+              "source": "arxiv_papers.step2-source.md",
+              "chunk_id": 1,
+              "visibility": "public",
+              "arxiv_id": "2605.10828",
+              "category": "cs.AI",
+              "year": 2026,
+              "section": "arXiv Retrieval/RAG Paper Abstracts"
+            }
+          },
+          {
+            "text": ". Of particular interest are the privacy sets that comprise the indices of messages stored at servers within a neighborh...",
+            "meta": {
+              "source": "arxiv_papers.step2-source.md",
+              "chunk_id": 2,
+              "visibility": "public",
+              "arxiv_id": "2605.10791",
+              "category": "cs.IR",
+              "year": 2026,
+              "section": "arXiv Retrieval/RAG Paper Abstracts"
+            }
+          },
+          {
+            "text": "## Paper 2: Neural at ArchEHR-QA 2026: One Method Fits All: Unified Prompt Optimization for Clinical QA over EHRs\n\narXiv...",
+            "meta": {
+              "source": "arxiv_papers.step2-source.md",
+              "chunk_id": 3,
+              "visibility": "public",
+              "arxiv_id": "2605.10296",
+              "category": "cs.CL",
+              "year": 2026,
+              "section": "Paper 2: Neural at ArchEHR-QA 2026: One Method Fits All: Unified Prompt Optimization for Clinical QA over EHRs"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "step4": {
+    "docs": {
+      "model": "text-embedding-3-small",
+      "dimension": 1536,
+      "chunks": [
+        {
+          "id": "c1",
+          "displayText": "# Milvus Documentation Dataset Source: public Milvus documentation pages from the milvus-io/milvus-docs GitHub repositor...",
+          "embeddingFirst64": [
+            -0.0287628173828125,
+            0.0262603759765625,
+            0.053680419921875,
+            -0.03509521484375,
+            -0.032806396484375,
+            0.0015134811401367188,
+            -0.01558685302734375,
+            -0.00809478759765625,
+            0.0209808349609375,
+            -0.003154754638671875,
+            0.0115203857421875,
+            -0.08331298828125,
+            0.00011211633682250977,
+            -0.0015592575073242188,
+            0.06390380859375,
+            0.0625,
+            -0.0035419464111328125,
+            -0.0014162063598632812,
+            -0.01219940185546875,
+            0.0250244140625,
+            0.04296875,
+            0.01995849609375,
+            0.00098419189453125,
+            0.03643798828125,
+            0.006977081298828125,
+            -0.048614501953125,
+            -0.01383209228515625,
+            0.0034313201904296875,
+            0.0186614990234375,
+            -0.04736328125,
+            0.032196044921875,
+            -0.014434814453125,
+            -0.0196990966796875,
+            0.023712158203125,
+            -0.049591064453125,
+            0.03271484375,
+            0.023223876953125,
+            0.0140533447265625,
+            -0.02569580078125,
+            0.04498291015625,
+            0.0083160400390625,
+            -0.022491455078125,
+            0.0219573974609375,
+            -0.0077056884765625,
+            0.0033283233642578125,
+            -0.01357269287109375,
+            0.0455322265625,
+            0.0012426376342773438,
+            0.032745361328125,
+            -0.0022068023681640625,
+            -0.0206146240234375,
+            -0.041229248046875,
+            -0.031982421875,
+            -0.03216552734375,
+            0.05560302734375,
+            -0.0273284912109375,
+            -0.031463623046875,
+            -0.032806396484375,
+            -0.010162353515625,
+            0.005962371826171875,
+            0.00026679039001464844,
+            -0.017669677734375,
+            0.00030922889709472656,
+            -0.023040771484375
+          ]
+        },
+        {
+          "id": "c2",
+          "displayText": "# Comparing Milvus with Alternatives...",
+          "embeddingFirst64": [
+            -0.052093505859375,
+            0.019622802734375,
+            0.045562744140625,
+            -0.019317626953125,
+            -0.0305938720703125,
+            -0.0079193115234375,
+            0.005443572998046875,
+            -0.0167083740234375,
+            0.063232421875,
+            0.012115478515625,
+            0.00585174560546875,
+            -0.0633544921875,
+            5.811452865600586e-05,
+            0.054290771484375,
+            0.064453125,
+            0.01776123046875,
+            -0.0256805419921875,
+            -0.01407623291015625,
+            -0.0438232421875,
+            0.048858642578125,
+            0.02642822265625,
+            0.0260009765625,
+            0.01535797119140625,
+            0.0235443115234375,
+            -0.0002448558807373047,
+            -0.05059814453125,
+            -0.029205322265625,
+            9.191036224365234e-05,
+            0.0028476715087890625,
+            -0.053985595703125,
+            0.040069580078125,
+            -0.0261993408203125,
+            -0.0204620361328125,
+            0.0260772705078125,
+            -0.054779052734375,
+            0.030181884765625,
+            0.0281982421875,
+            0.02789306640625,
+            -0.0045318603515625,
+            0.052734375,
+            0.0108642578125,
+            -0.01200103759765625,
+            0.01824951171875,
+            0.0030231475830078125,
+            0.0247955322265625,
+            0.0221099853515625,
+            0.03515625,
+            0.006046295166015625,
+            -0.0269622802734375,
+            0.01078033447265625,
+            -0.021514892578125,
+            -0.0283355712890625,
+            -0.0212554931640625,
+            -0.03509521484375,
+            0.048095703125,
+            -0.0447998046875,
+            -0.0255279541015625,
+            -0.034027099609375,
+            0.0360107421875,
+            0.0120086669921875,
+            -0.031707763671875,
+            -0.028839111328125,
+            -0.0219879150390625,
+            -0.028839111328125
+          ]
+        },
+        {
+          "id": "c3",
+          "displayText": "When exploring various vector database options, this comprehensive guide will help you understand Milvus's unique featur...",
+          "embeddingFirst64": [
+            -0.020477294921875,
+            0.050750732421875,
+            0.031890869140625,
+            -0.0322265625,
+            -0.035919189453125,
+            -0.037353515625,
+            -0.00762939453125,
+            -0.0165863037109375,
+            0.00948333740234375,
+            0.01163482666015625,
+            0.0252838134765625,
+            -0.031890869140625,
+            0.0235443115234375,
+            -0.0161285400390625,
+            0.060882568359375,
+            0.042938232421875,
+            -0.03369140625,
+            -0.0007424354553222656,
+            -0.03021240234375,
+            -0.008026123046875,
+            0.041168212890625,
+            0.04010009765625,
+            0.03387451171875,
+            0.0218353271484375,
+            -0.007755279541015625,
+            -0.0268707275390625,
+            -0.0179901123046875,
+            0.049468994140625,
+            0.0013856887817382812,
+            -0.0401611328125,
+            0.03515625,
+            -0.00684356689453125,
+            -0.02618408203125,
+            -0.0119476318359375,
+            -0.052886962890625,
+            -0.00872802734375,
+            0.039276123046875,
+            0.01195526123046875,
+            -0.00478363037109375,
+            0.051055908203125,
+            0.007480621337890625,
+            0.00782012939453125,
+            0.04302978515625,
+            -0.039886474609375,
+            0.047515869140625,
+            0.023101806640625,
+            0.0244293212890625,
+            -0.00948333740234375,
+            -0.0294952392578125,
+            -0.00922393798828125,
+            -0.031646728515625,
+            -0.0068817138671875,
+            -0.037506103515625,
+            -0.032867431640625,
+            0.0196685791015625,
+            0.0205230712890625,
+            0.0010509490966796875,
+            -0.01136016845703125,
+            -0.0125885009765625,
+            0.039398193359375,
+            -0.0088043212890625,
+            -0.04656982421875,
+            0.015960693359375,
+            -0.003917694091796875
+          ]
+        }
+      ]
+    },
+    "legal": {
+      "model": "text-embedding-3-small",
+      "dimension": 1536,
+      "chunks": [
+        {
+          "id": "c1",
+          "displayText": "# CUAD Contract Dataset Excerpts Source: real contracts from CUAD v1, a public contract understanding dataset released b...",
+          "embeddingFirst64": [
+            -0.0269927978515625,
+            -0.026519775390625,
+            0.01140594482421875,
+            0.024993896484375,
+            -0.01355743408203125,
+            0.031585693359375,
+            -0.036590576171875,
+            -0.01255035400390625,
+            0.015411376953125,
+            0.0134735107421875,
+            0.050628662109375,
+            -0.10479736328125,
+            0.041778564453125,
+            -0.03631591796875,
+            0.0267181396484375,
+            0.0309600830078125,
+            0.0254364013671875,
+            0.0166778564453125,
+            -0.0433349609375,
+            0.03033447265625,
+            0.02532958984375,
+            0.0309600830078125,
+            0.02911376953125,
+            0.021759033203125,
+            -0.016326904296875,
+            -0.046356201171875,
+            -0.03131103515625,
+            -0.018157958984375,
+            0.01224517822265625,
+            -0.0013532638549804688,
+            0.041412353515625,
+            -0.0279541015625,
+            -0.00719451904296875,
+            0.005184173583984375,
+            -0.0117034912109375,
+            0.046875,
+            0.007137298583984375,
+            0.029449462890625,
+            -0.01416778564453125,
+            -0.03875732421875,
+            -0.0369873046875,
+            -0.0914306640625,
+            0.01148223876953125,
+            0.025177001953125,
+            -0.004261016845703125,
+            5.0127506256103516e-05,
+            -0.037200927734375,
+            0.020172119140625,
+            0.004322052001953125,
+            0.033721923828125,
+            -0.0361328125,
+            0.031707763671875,
+            0.071533203125,
+            -0.003246307373046875,
+            -0.01448822021484375,
+            -0.0160980224609375,
+            -0.010986328125,
+            0.0655517578125,
+            0.005023956298828125,
+            -0.055084228515625,
+            -0.069091796875,
+            -0.006282806396484375,
+            -0.00930023193359375,
+            -0.0024871826171875
+          ]
+        },
+        {
+          "id": "c2",
+          "displayText": "EXHIBIT 10.6 DISTRIBUTOR AGREEMENT THIS DISTRIBUTOR AGREEMENT (the \"Agreement\") is made by and between Electric City Cor...",
+          "embeddingFirst64": [
+            -0.0298614501953125,
+            -0.04876708984375,
+            -0.005664825439453125,
+            0.0181427001953125,
+            -0.01271820068359375,
+            0.04803466796875,
+            -0.03253173828125,
+            -0.005313873291015625,
+            -0.0301513671875,
+            0.01012420654296875,
+            0.035400390625,
+            -0.0748291015625,
+            0.045654296875,
+            -0.045440673828125,
+            0.0308685302734375,
+            0.01525115966796875,
+            0.037353515625,
+            0.01556396484375,
+            -0.0256500244140625,
+            0.00799560546875,
+            0.005954742431640625,
+            0.0390625,
+            0.0253448486328125,
+            0.024810791015625,
+            -0.014312744140625,
+            -0.0138702392578125,
+            -0.0255126953125,
+            0.0343017578125,
+            0.0032405853271484375,
+            -0.0438232421875,
+            -0.040313720703125,
+            -0.032073974609375,
+            0.0253448486328125,
+            -0.028961181640625,
+            0.00080108642578125,
+            0.041534423828125,
+            0.03082275390625,
+            0.05694580078125,
+            -0.0188446044921875,
+            -0.01558685302734375,
+            -0.031890869140625,
+            -0.0587158203125,
+            0.0263671875,
+            0.04168701171875,
+            0.008575439453125,
+            -0.00218963623046875,
+            -0.04779052734375,
+            0.00133514404296875,
+            0.036590576171875,
+            -0.003040313720703125,
+            -0.002376556396484375,
+            0.035247802734375,
+            0.0672607421875,
+            -0.0212860107421875,
+            -0.028289794921875,
+            -0.01279449462890625,
+            0.03179931640625,
+            0.042694091796875,
+            -0.00041961669921875,
+            -0.025146484375,
+            -0.0352783203125,
+            0.025299072265625,
+            0.0088348388671875,
+            0.010406494140625
+          ]
+        },
+        {
+          "id": "c3",
+          "displayText": "RECITALS A. The Company's Business. The Company is presently engaged in the business of selling an energy efficiency dev...",
+          "embeddingFirst64": [
+            0.0650634765625,
+            0.015289306640625,
+            0.0399169921875,
+            0.010345458984375,
+            -0.00078582763671875,
+            0.07257080078125,
+            0.0017442703247070312,
+            0.0262298583984375,
+            0.04638671875,
+            -0.011260986328125,
+            0.036651611328125,
+            -0.0787353515625,
+            -0.011322021484375,
+            0.0007758140563964844,
+            0.0194549560546875,
+            0.04217529296875,
+            0.008453369140625,
+            -0.036468505859375,
+            0.00738525390625,
+            -0.005512237548828125,
+            0.05078125,
+            0.057586669921875,
+            0.018341064453125,
+            0.03802490234375,
+            0.004718780517578125,
+            -0.01348876953125,
+            -0.04559326171875,
+            0.0251617431640625,
+            0.041748046875,
+            -0.0240631103515625,
+            0.01412200927734375,
+            -0.0399169921875,
+            0.014556884765625,
+            0.01251220703125,
+            -0.0033416748046875,
+            0.045501708984375,
+            -0.0022182464599609375,
+            0.0038089752197265625,
+            0.0186004638671875,
+            -0.05743408203125,
+            -0.0589599609375,
+            -0.01885986328125,
+            -0.051055908203125,
+            0.015289306640625,
+            0.012603759765625,
+            0.041748046875,
+            -0.08001708984375,
+            0.022247314453125,
+            0.03265380859375,
+            0.00417327880859375,
+            -0.03680419921875,
+            0.01198577880859375,
+            0.049713134765625,
+            -0.035064697265625,
+            -0.0299530029296875,
+            0.001422882080078125,
+            0.0010004043579101562,
+            0.01180267333984375,
+            -0.035614013671875,
+            -0.0141754150390625,
+            0.001007080078125,
+            0.00620269775390625,
+            0.05218505859375,
+            0.010162353515625
+          ]
+        }
+      ]
+    },
+    "arxiv": {
+      "model": "text-embedding-3-small",
+      "dimension": 1536,
+      "chunks": [
+        {
+          "id": "c1",
+          "displayText": "# arXiv Retrieval/RAG Paper Abstracts Source: arXiv API search results for retrieval, RAG, and retrieval augmented gener...",
+          "embeddingFirst64": [
+            0.027496337890625,
+            -0.00650787353515625,
+            0.0015268325805664062,
+            0.0081329345703125,
+            0.03448486328125,
+            -0.0325927734375,
+            -0.0128936767578125,
+            0.0224761962890625,
+            -0.004955291748046875,
+            -0.05224609375,
+            -0.002841949462890625,
+            -0.060638427734375,
+            0.01959228515625,
+            0.012786865234375,
+            -0.00467681884765625,
+            -0.0220184326171875,
+            0.048248291015625,
+            -0.03192138671875,
+            -0.01158905029296875,
+            0.016357421875,
+            -0.008575439453125,
+            0.0166473388671875,
+            0.0170440673828125,
+            -0.03900146484375,
+            -0.03448486328125,
+            -0.026458740234375,
+            0.06011962890625,
+            0.0186920166015625,
+            0.031768798828125,
+            -0.0167388916015625,
+            -0.026611328125,
+            -0.02862548828125,
+            0.00777435302734375,
+            -0.02862548828125,
+            -0.0182342529296875,
+            0.061431884765625,
+            -0.0224151611328125,
+            -0.027557373046875,
+            0.01264190673828125,
+            0.00849151611328125,
+            0.044189453125,
+            -0.01702880859375,
+            -0.01389312744140625,
+            0.05316162109375,
+            0.037078857421875,
+            0.0097808837890625,
+            0.030975341796875,
+            -0.005237579345703125,
+            0.0292510986328125,
+            -0.0012331008911132812,
+            -0.032562255859375,
+            -0.022552490234375,
+            -0.03533935546875,
+            -0.0007386207580566406,
+            -0.044158935546875,
+            0.01024627685546875,
+            -0.03411865234375,
+            -0.0014352798461914062,
+            0.0338134765625,
+            0.028900146484375,
+            -0.037994384765625,
+            -0.02362060546875,
+            -0.03143310546875,
+            -0.005466461181640625
+          ]
+        },
+        {
+          "id": "c2",
+          "displayText": "arXiv URL: http://arxiv.org/abs/2605.10879v1 Published: 2026-05-11T17:27:33Z Updated: 2026-05-11T17:27:33Z Authors: Moha...",
+          "embeddingFirst64": [
+            0.0102081298828125,
+            -0.0099334716796875,
+            0.005001068115234375,
+            -0.0006670951843261719,
+            0.014404296875,
+            -0.0010089874267578125,
+            0.0124359130859375,
+            -0.00365447998046875,
+            -0.03497314453125,
+            0.01035308837890625,
+            -0.028045654296875,
+            -0.01418304443359375,
+            -0.018402099609375,
+            0.020111083984375,
+            0.016143798828125,
+            0.037017822265625,
+            0.061187744140625,
+            -0.01457977294921875,
+            0.046234130859375,
+            0.034271240234375,
+            0.022430419921875,
+            -0.00821685791015625,
+            0.0276641845703125,
+            -0.0240631103515625,
+            0.0085906982421875,
+            0.01496124267578125,
+            0.0214691162109375,
+            0.0023250579833984375,
+            0.0289154052734375,
+            -0.05120849609375,
+            -0.01629638671875,
+            -0.036651611328125,
+            -0.023284912109375,
+            -0.05908203125,
+            -0.0458984375,
+            0.08734130859375,
+            0.006969451904296875,
+            -0.00033092498779296875,
+            -0.019195556640625,
+            0.024658203125,
+            0.061370849609375,
+            -0.0284881591796875,
+            -0.041961669921875,
+            0.049346923828125,
+            0.01314544677734375,
+            0.0279083251953125,
+            0.023529052734375,
+            -0.00036144256591796875,
+            0.05853271484375,
+            0.0367431640625,
+            -0.001979827880859375,
+            -0.0240325927734375,
+            -0.00321197509765625,
+            -0.03668212890625,
+            -0.0594482421875,
+            -0.03875732421875,
+            0.0178985595703125,
+            0.016632080078125,
+            0.004302978515625,
+            -0.01641845703125,
+            -0.032867431640625,
+            -0.052337646484375,
+            0.01097869873046875,
+            0.0012559890747070312
+          ]
+        },
+        {
+          "id": "c3",
+          "displayText": "We reformulate the definition of privacy in the private information retrieval (PIR) problem to accommodate flexible priv...",
+          "embeddingFirst64": [
+            0.014984130859375,
+            0.00919342041015625,
+            0.023040771484375,
+            0.004657745361328125,
+            0.03240966796875,
+            -0.0009136199951171875,
+            0.008819580078125,
+            0.00991058349609375,
+            -0.0164642333984375,
+            -0.00568389892578125,
+            0.0167083740234375,
+            -0.040252685546875,
+            0.01528167724609375,
+            -0.0217742919921875,
+            0.01554107666015625,
+            -0.021728515625,
+            0.07818603515625,
+            -0.0155792236328125,
+            -0.052093505859375,
+            0.04779052734375,
+            0.037689208984375,
+            -0.0058746337890625,
+            -0.0169830322265625,
+            -0.0203857421875,
+            -0.041656494140625,
+            -0.01230621337890625,
+            0.0572509765625,
+            0.0361328125,
+            0.035125732421875,
+            -0.00774383544921875,
+            -0.0105133056640625,
+            -0.01213836669921875,
+            -0.0276031494140625,
+            -0.01308441162109375,
+            0.030609130859375,
+            0.032012939453125,
+            -0.028350830078125,
+            -0.0038623809814453125,
+            0.0207672119140625,
+            0.047882080078125,
+            4.470348358154297e-06,
+            0.0019931793212890625,
+            -0.0435791015625,
+            0.01236724853515625,
+            0.00994110107421875,
+            0.023040771484375,
+            0.023956298828125,
+            -0.00018024444580078125,
+            0.021575927734375,
+            -0.007274627685546875,
+            -0.041717529296875,
+            -0.017852783203125,
+            -0.010162353515625,
+            -0.00728607177734375,
+            -0.0144500732421875,
+            0.011474609375,
+            0.00428009033203125,
+            0.01099395751953125,
+            0.0158233642578125,
+            0.032440185546875,
+            -0.0012254714965820312,
+            -0.00894927978515625,
+            -0.01538848876953125,
+            -0.0060272216796875
+          ]
+        }
+      ]
+    }
+  },
+  "step6": {
+    "docs": [
+      {
+        "id": "q1",
+        "query": "How does Milvus hybrid search combine dense and sparse vectors?",
+        "variants": [
+          {
+            "label": "All",
+            "filter": null,
+            "hits": [
+              {
+                "score": 0.6176839470863342,
+                "text": "- **Sparse Vector for Full Text Search and Hybrid Search** In addition to semantic search through dense vector, Milvus also natively supports [full text search](full-text-search.md) with BM25 as well ",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 69
+              },
+              {
+                "score": 0.6101195812225342,
+                "text": "## Milvus highlights - **Functionality**: Milvus goes beyond basic vector similarity search by supporting advanced functionalities like [sparse vector](https://milvus.io/docs/sparse_vector.md), [bulk-",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 3
+              },
+              {
+                "score": 0.5998658537864685,
+                "text": ". Milvus is an open-source vector database designed specifically for similarity search on massive datasets of high-dimensional vectors.\\nWith its focus on efficient vector similarity search, Milvus em",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 2658
+              }
+            ],
+            "answer": "Milvus hybrid search stores dense and sparse vectors in the same collection, runs multiple search requests such as semantic dense-vector search and sparse full-text/BM25 or learned sparse search, then uses reranking functions to combine and rerank the results.",
+            "citations": [
+              "enterprise_docs.step2-source.md · chunk 69",
+              "enterprise_docs.step2-source.md · chunk 3",
+              "enterprise_docs.step2-source.md · chunk 2658"
+            ]
+          },
+          {
+            "label": "Search",
+            "filter": "product_area == \"search\"",
+            "hits": [
+              {
+                "score": 0.8755660653114319,
+                "text": "[Haystack](https://haystack.deepset.ai/) now supports this Milvus feature, making it easy to add full-text search to RAG applications. You can combine full-text search with dense vector semantic searc",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 3437
+              },
+              {
+                "score": 0.5896720290184021,
+                "text": "## Complete example: hybrid search (dense + sparse) ```python from pymilvus import MilvusClient, AnnSearchRequest, WeightedRanker client = MilvusClient( uri=\"YOUR_MILVUS_URI\", token=\"YOUR_MILVUS_TOKEN",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 1623
+              },
+              {
+                "score": 0.5827429890632629,
+                "text": "## Complete example: hybrid search combining dense + BM25 ```python from pymilvus import MilvusClient, AnnSearchRequest, RRFRanker client = MilvusClient( uri=\"YOUR_MILVUS_URI\", token=\"YOUR_MILVUS_TOKE",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 1627
+              }
+            ],
+            "answer": "Milvus hybrid search combines dense and sparse vectors by:\n\n- Creating one `AnnSearchRequest` per vector field, e.g. one for `dense_vector` and one for sparse/BM25 search.\n- Running both searches, such as dense semantic search with `COSINE` similarity and sparse/full-text keyword search.\n- Merging the results with a ranker such as `WeightedRanker` or `RRFRanker`.\n\nThis lets Milvus combine semantic matching from dense vectors with keyword/BM25 precision from sparse search.",
+            "citations": [
+              "enterprise_docs.step2-source.md · chunk 3437",
+              "enterprise_docs.step2-source.md · chunk 1623",
+              "enterprise_docs.step2-source.md · chunk 1627"
+            ]
+          },
+          {
+            "label": "Collection",
+            "filter": "product_area == \"collection\"",
+            "hits": [
+              {
+                "score": 0.5565112829208374,
+                "text": "In Milvus, we need a collection to store vectors and their associated metadata. You can think of it as a table in traditional SQL databases. When creating a collection, you can define schema and index",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 2027
+              },
+              {
+                "score": 0.5342099666595459,
+                "text": "For normalized vectors, Euclidean distance (L2) is mathematically equivalent to inner product (IP). If these similarity metrics return different results, check to see if your vectors are normalized ##",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 1857
+              },
+              {
+                "score": 0.5328287482261658,
+                "text": "Next, we create a Milvus database connection and insert the embeddings to the Milvus database. ```python milvus_client = MilvusClient(uri=\"milvus_voyage_multi_demo.db\") COLLECTION_NAME = \"demo_collect",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 4136
+              }
+            ],
+            "answer": "The retrieved context does not explain how Milvus hybrid search combines dense and sparse vectors.",
+            "citations": [
+              "enterprise_docs.step2-source.md · chunk 2027",
+              "enterprise_docs.step2-source.md · chunk 1857",
+              "enterprise_docs.step2-source.md · chunk 4136"
+            ]
+          },
+          {
+            "label": "Indexing",
+            "filter": "product_area == \"indexing\"",
+            "hits": [
+              {
+                "score": 0.8514295816421509,
+                "text": "### Vector Index Types Milvus Lite only supports [FLAT](https://milvus.io/docs/index.md?tab=floating#FLAT) index type. It uses FLAT type regardless of the specified index type in collection. ### Searc",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 2005
+              },
+              {
+                "score": 0.824442446231842,
+                "text": "### Create the indexing Pipeline In the hybrid search, we use the BM25 function to perform full-text search, and specify the dense vector field `vector`, to perform semantic search.",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 3456
+              },
+              {
+                "score": 0.5644933581352234,
+                "text": "The IVF_FLAT index divides vector space into list clusters. At the default list value of 16,384, Milvus compares the distances between the target vector and the centroids of all 16,384 clusters to ret",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 1853
+              }
+            ],
+            "answer": "Milvus hybrid search combines:\n\n- **Sparse vectors** via **BM25 full-text search**\n- **Dense vectors** via a dense vector field, e.g. `vector`, for **semantic search**\n\nSo it performs both keyword-based retrieval and semantic vector search in one hybrid search workflow.",
+            "citations": [
+              "enterprise_docs.step2-source.md · chunk 2005",
+              "enterprise_docs.step2-source.md · chunk 3456",
+              "enterprise_docs.step2-source.md · chunk 1853"
+            ]
+          },
+          {
+            "label": "Page >= 3",
+            "filter": "page >= 3",
+            "hits": [
+              {
+                "score": 0.6176839470863342,
+                "text": "- **Sparse Vector for Full Text Search and Hybrid Search** In addition to semantic search through dense vector, Milvus also natively supports [full text search](full-text-search.md) with BM25 as well ",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 69
+              },
+              {
+                "score": 0.5998658537864685,
+                "text": ". Milvus is an open-source vector database designed specifically for similarity search on massive datasets of high-dimensional vectors.\\nWith its focus on efficient vector similarity search, Milvus em",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 2658
+              },
+              {
+                "score": 0.5992128849029541,
+                "text": "Answer: Milvus searches for similar documents primarily through Approximate Nearest Neighbor (ANN) search, which finds the top K vectors closest to a given query vector. It also supports various other",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 2882
+              }
+            ],
+            "answer": "Milvus hybrid search combines dense and sparse vectors by storing both in the same collection, running multiple search requests—such as semantic dense vector search and sparse/full-text BM25 or learned sparse embedding search—and then reranking the combined results with user-defined functions.",
+            "citations": [
+              "enterprise_docs.step2-source.md · chunk 69",
+              "enterprise_docs.step2-source.md · chunk 2658",
+              "enterprise_docs.step2-source.md · chunk 2882"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "How does filtered search work in Milvus?",
+        "variants": [
+          {
+            "label": "All",
+            "filter": null,
+            "hits": [
+              {
+                "score": 0.8887515664100647,
+                "text": "Question: How does Milvus search for similar documents?",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 2881
+              },
+              {
+                "score": 0.591667115688324,
+                "text": "**Advanced Search Algorithms**: Milvus supports a wide range of in-memory and on-disk indexing/search algorithms, including IVF, HNSW, DiskANN, and more, all of which have been deeply optimized. Compa",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 49
+              },
+              {
+                "score": 0.591507613658905,
+                "text": "## Milvus highlights - **Functionality**: Milvus goes beyond basic vector similarity search by supporting advanced functionalities like [sparse vector](https://milvus.io/docs/sparse_vector.md), [bulk-",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 3
+              }
+            ],
+            "answer": "The provided context is insufficient to explain how filtered search works in Milvus. It only states that Milvus supports filtered search, without describing its mechanism.",
+            "citations": [
+              "enterprise_docs.step2-source.md · chunk 2881",
+              "enterprise_docs.step2-source.md · chunk 49",
+              "enterprise_docs.step2-source.md · chunk 3"
+            ]
+          },
+          {
+            "label": "Search",
+            "filter": "product_area == \"search\"",
+            "hits": [
+              {
+                "score": 0.5876989960670471,
+                "text": "## Types of Searches Supported by Milvus Milvus supports various types of search functions to meet the demands of different use cases:",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 54
+              },
+              {
+                "score": 0.5838501453399658,
+                "text": "## Vector Search with Metadata Filtering You can also conduct vector search while considering the values of the metadata (called \"scalar\" fields in Milvus, as scalar refers to non-vector data). This i",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 2044
+              },
+              {
+                "score": 0.5791352987289429,
+                "text": "# Full-text search with Milvus and Haystack",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 3433
+              }
+            ],
+            "answer": "Filtered search in Milvus combines vector search with metadata filtering. You provide a filter expression on scalar fields, which are non-vector metadata fields, so Milvus searches vectors while only considering items that match the specified metadata criteria, such as a `subject` field.",
+            "citations": [
+              "enterprise_docs.step2-source.md · chunk 54",
+              "enterprise_docs.step2-source.md · chunk 2044",
+              "enterprise_docs.step2-source.md · chunk 3433"
+            ]
+          },
+          {
+            "label": "Collection",
+            "filter": "product_area == \"collection\"",
+            "hits": [
+              {
+                "score": 0.5290453433990479,
+                "text": "In Milvus, we need a collection to store vectors and their associated metadata. You can think of it as a table in traditional SQL databases. When creating a collection, you can define schema and index",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 2027
+              },
+              {
+                "score": 0.5267764329910278,
+                "text": "## Schema Design In Milvus, the data model is expressed through a collection schema. Designing the right fields within a collection schema is key to enabling effective retrieval. Each field defines a ",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 2298
+              },
+              {
+                "score": 0.5238512754440308,
+                "text": "Milvus Lite is great for getting started with a local python program. If you have large scale data or would like to use Milvus in production, you can learn about deploying Milvus on [Docker](https://m",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 2053
+              }
+            ],
+            "answer": "The context is insufficient to explain how filtered search works in Milvus.\n\nIt only states that Milvus stores vectors with associated metadata in collections, using vector fields and scalar fields in a schema, which are important for retrieval.",
+            "citations": [
+              "enterprise_docs.step2-source.md · chunk 2027",
+              "enterprise_docs.step2-source.md · chunk 2298",
+              "enterprise_docs.step2-source.md · chunk 2053"
+            ]
+          },
+          {
+            "label": "Indexing",
+            "filter": "product_area == \"indexing\"",
+            "hits": [
+              {
+                "score": 0.8269495368003845,
+                "text": "### Vector Index Types Milvus Lite only supports [FLAT](https://milvus.io/docs/index.md?tab=floating#FLAT) index type. It uses FLAT type regardless of the specified index type in collection. ### Searc",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 2005
+              },
+              {
+                "score": 0.5331026315689087,
+                "text": "The IVF_FLAT index divides vector space into list clusters. At the default list value of 16,384, Milvus compares the distances between the target vector and the centroids of all 16,384 clusters to ret",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 1853
+              },
+              {
+                "score": 0.5223774909973145,
+                "text": "```python # Step 5: Delete the index milvus_index.delete() ``` ## Use the Milvus backend By default, calling [`compute_similarity()`](https://docs.voxel51.com/api/fiftyone.brain.html#fiftyone.brain.co",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 4095
+              }
+            ],
+            "answer": "The retrieved context does not explain how filtered search works in Milvus. It only mentions general search/index features such as FLAT, IVF_FLAT, sparse vectors, multi-vector, and hybrid search.",
+            "citations": [
+              "enterprise_docs.step2-source.md · chunk 2005",
+              "enterprise_docs.step2-source.md · chunk 1853",
+              "enterprise_docs.step2-source.md · chunk 4095"
+            ]
+          },
+          {
+            "label": "Page >= 3",
+            "filter": "page >= 3",
+            "hits": [
+              {
+                "score": 0.8887515664100647,
+                "text": "Question: How does Milvus search for similar documents?",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 2881
+              },
+              {
+                "score": 0.591667115688324,
+                "text": "**Advanced Search Algorithms**: Milvus supports a wide range of in-memory and on-disk indexing/search algorithms, including IVF, HNSW, DiskANN, and more, all of which have been deeply optimized. Compa",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 49
+              },
+              {
+                "score": 0.5876989960670471,
+                "text": "## Types of Searches Supported by Milvus Milvus supports various types of search functions to meet the demands of different use cases:",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 54
+              }
+            ],
+            "answer": "The provided context is insufficient to explain how filtered search works in Milvus. It only says Milvus supports various search types and optimized indexing/search algorithms like IVF, HNSW, and DiskANN.",
+            "citations": [
+              "enterprise_docs.step2-source.md · chunk 2881",
+              "enterprise_docs.step2-source.md · chunk 49",
+              "enterprise_docs.step2-source.md · chunk 54"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "query": "What is full text search in Milvus?",
+        "variants": [
+          {
+            "label": "All",
+            "filter": null,
+            "hits": [
+              {
+                "score": 0.6195818185806274,
+                "text": "[Milvus 2.5](https://milvus.io/blog/introduce-milvus-2-5-full-text-search-powerful-metadata-filtering-and-more.md) introduces native full-text search capabilities using BM25. This approach converts te",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 3436
+              },
+              {
+                "score": 0.6178462505340576,
+                "text": "- Full-text search is currently available in Milvus Standalone, Milvus Distributed, and Zilliz Cloud, though not yet supported in Milvus Lite (which has this feature planned for future implementation)",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 3439
+              },
+              {
+                "score": 0.6175920367240906,
+                "text": "# Full-text search with Milvus and Haystack",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 3433
+              }
+            ],
+            "answer": "Full-text search in Milvus is a native search capability (introduced in Milvus 2.5) that uses BM25. It converts raw text into sparse vectors representing BM25 scores, and Milvus automatically generates and stores these sparse vectors without requiring manual sparse embedding generation. It is available in Milvus Standalone, Milvus Distributed, and Zilliz Cloud, but not yet in Milvus Lite.",
+            "citations": [
+              "enterprise_docs.step2-source.md · chunk 3436",
+              "enterprise_docs.step2-source.md · chunk 3439",
+              "enterprise_docs.step2-source.md · chunk 3433"
+            ]
+          },
+          {
+            "label": "Search",
+            "filter": "product_area == \"search\"",
+            "hits": [
+              {
+                "score": 0.6195818185806274,
+                "text": "[Milvus 2.5](https://milvus.io/blog/introduce-milvus-2-5-full-text-search-powerful-metadata-filtering-and-more.md) introduces native full-text search capabilities using BM25. This approach converts te",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 3436
+              },
+              {
+                "score": 0.6178462505340576,
+                "text": "- Full-text search is currently available in Milvus Standalone, Milvus Distributed, and Zilliz Cloud, though not yet supported in Milvus Lite (which has this feature planned for future implementation)",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 3439
+              },
+              {
+                "score": 0.6175920367240906,
+                "text": "# Full-text search with Milvus and Haystack",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 3433
+              }
+            ],
+            "answer": "Full text search in Milvus is a native capability (introduced in Milvus 2.5) that uses BM25 to convert raw text into sparse vectors representing BM25 scores. Milvus automatically generates and stores these sparse vectors from input text, so you do not need to manually create sparse embeddings. It is available in Milvus Standalone, Milvus Distributed, and Zilliz Cloud, but not yet in Milvus Lite.",
+            "citations": [
+              "enterprise_docs.step2-source.md · chunk 3436",
+              "enterprise_docs.step2-source.md · chunk 3439",
+              "enterprise_docs.step2-source.md · chunk 3433"
+            ]
+          },
+          {
+            "label": "Collection",
+            "filter": "product_area == \"collection\"",
+            "hits": [
+              {
+                "score": 0.8061681985855103,
+                "text": "## Schema Design In Milvus, the data model is expressed through a collection schema. Designing the right fields within a collection schema is key to enabling effective retrieval. Each field defines a ",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 2298
+              },
+              {
+                "score": 0.5414643287658691,
+                "text": "In Milvus, we need a collection to store vectors and their associated metadata. You can think of it as a table in traditional SQL databases. When creating a collection, you can define schema and index",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 2027
+              },
+              {
+                "score": 0.5349582433700562,
+                "text": "Milvus Lite is great for getting started with a local python program. If you have large scale data or would like to use Milvus in production, you can learn about deploying Milvus on [Docker](https://m",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 2053
+              }
+            ],
+            "answer": "The context is insufficient to explain what full text search in Milvus is.",
+            "citations": [
+              "enterprise_docs.step2-source.md · chunk 2298",
+              "enterprise_docs.step2-source.md · chunk 2027",
+              "enterprise_docs.step2-source.md · chunk 2053"
+            ]
+          },
+          {
+            "label": "Indexing",
+            "filter": "product_area == \"indexing\"",
+            "hits": [
+              {
+                "score": 0.8135616183280945,
+                "text": "### Vector Index Types Milvus Lite only supports [FLAT](https://milvus.io/docs/index.md?tab=floating#FLAT) index type. It uses FLAT type regardless of the specified index type in collection. ### Searc",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 2005
+              },
+              {
+                "score": 0.5342896580696106,
+                "text": "For the parameters of `MilvusVectorStore`: - Setting the `uri` as a local file, e.g.`./milvus.db`, is the most convenient method, as it automatically utilizes [Milvus Lite](https://milvus.io/docs/milv",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 3831
+              },
+              {
+                "score": 0.5250713229179382,
+                "text": "The IVF_FLAT index divides vector space into list clusters. At the default list value of 16,384, Milvus compares the distances between the target vector and the centroids of all 16,384 clusters to ret",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 1853
+              }
+            ],
+            "answer": "The context does not define “full text search in Milvus.” It only mentions Milvus Lite search support for Sparse Vector, Multi-vector, and Hybrid Search, plus vector index behavior.",
+            "citations": [
+              "enterprise_docs.step2-source.md · chunk 2005",
+              "enterprise_docs.step2-source.md · chunk 3831",
+              "enterprise_docs.step2-source.md · chunk 1853"
+            ]
+          },
+          {
+            "label": "Page >= 3",
+            "filter": "page >= 3",
+            "hits": [
+              {
+                "score": 0.6195818185806274,
+                "text": "[Milvus 2.5](https://milvus.io/blog/introduce-milvus-2-5-full-text-search-powerful-metadata-filtering-and-more.md) introduces native full-text search capabilities using BM25. This approach converts te",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 3436
+              },
+              {
+                "score": 0.6178462505340576,
+                "text": "- Full-text search is currently available in Milvus Standalone, Milvus Distributed, and Zilliz Cloud, though not yet supported in Milvus Lite (which has this feature planned for future implementation)",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 3439
+              },
+              {
+                "score": 0.6175920367240906,
+                "text": "# Full-text search with Milvus and Haystack",
+                "source": "enterprise_docs.step2-source.md",
+                "chunkId": 3433
+              }
+            ],
+            "answer": "Full text search in Milvus is a native capability (introduced in Milvus 2.5) that uses BM25 to convert raw text into sparse vectors representing BM25 scores. Milvus automatically generates and stores these sparse vectors, so you do not need to manually create sparse embeddings. It is available in Milvus Standalone, Milvus Distributed, and Zilliz Cloud, but not yet in Milvus Lite.",
+            "citations": [
+              "enterprise_docs.step2-source.md · chunk 3436",
+              "enterprise_docs.step2-source.md · chunk 3439",
+              "enterprise_docs.step2-source.md · chunk 3433"
+            ]
+          }
+        ]
+      }
+    ],
+    "legal": [
+      {
+        "id": "q1",
+        "query": "What exclusive rights does the distributor receive?",
+        "variants": [
+          {
+            "label": "All",
+            "filter": null,
+            "hits": [
+              {
+                "score": 0.8454610705375671,
+                "text": "1.5 The Distributor's Obligation. The Distributor, at its own expense, shall promote the distribution, sales, and use of Products in the Market. 1.6 Distributor's Terms and Minimum Expectations. In or",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 15
+              },
+              {
+                "score": 0.5678636431694031,
+                "text": "D. The Company's Appointment. The Company appoints the Distributor as an exclusive distributor of Products in the Market, subject to the terms and conditions of this Agreement. 1. ESTABLISHMENT OF DIS",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 5
+              },
+              {
+                "score": 0.5571582317352295,
+                "text": "1.1 Grant and Acceptance. Company hereby appoints Distributor as Company's exclusive distributor within the Market and grants to Distributor the exclusive right to sell and distribute Products within ",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 6
+              }
+            ],
+            "answer": "The Distributor is appointed as the exclusive distributor of the Products in the Market and receives exclusive rights to sell and distribute the Products there. The context also refers to exclusive rights to sell, lease, distribute, and service the Products in the Market, subject to meeting minimum purchase expectations.",
+            "citations": [
+              "legal_contracts.step2-source.md · chunk 15",
+              "legal_contracts.step2-source.md · chunk 5",
+              "legal_contracts.step2-source.md · chunk 6"
+            ]
+          },
+          {
+            "label": "Appointment",
+            "filter": "clause_type == \"appointment\"",
+            "hits": [
+              {
+                "score": 0.8454610705375671,
+                "text": "1.5 The Distributor's Obligation. The Distributor, at its own expense, shall promote the distribution, sales, and use of Products in the Market. 1.6 Distributor's Terms and Minimum Expectations. In or",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 15
+              },
+              {
+                "score": 0.5678636431694031,
+                "text": "D. The Company's Appointment. The Company appoints the Distributor as an exclusive distributor of Products in the Market, subject to the terms and conditions of this Agreement. 1. ESTABLISHMENT OF DIS",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 5
+              },
+              {
+                "score": 0.5571582317352295,
+                "text": "1.1 Grant and Acceptance. Company hereby appoints Distributor as Company's exclusive distributor within the Market and grants to Distributor the exclusive right to sell and distribute Products within ",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 6
+              }
+            ],
+            "answer": "The distributor receives exclusive rights within the Market to:\n\n- Act as the Company’s exclusive distributor of the Products;\n- Sell and distribute the Products;\n- Maintain exclusive rights to sell, lease, distribute, and service the Products, subject to meeting the Agreement’s terms and minimum expectations.",
+            "citations": [
+              "legal_contracts.step2-source.md · chunk 15",
+              "legal_contracts.step2-source.md · chunk 5",
+              "legal_contracts.step2-source.md · chunk 6"
+            ]
+          },
+          {
+            "label": "Obligation",
+            "filter": "clause_type == \"obligation\"",
+            "hits": [
+              {
+                "score": 0.8241333961486816,
+                "text": "7.2 Google acknowledges that Distributor and/or its licensors own all right, title and interest, including all Intellectual Property Rights, in and to the Distributor Apps and all [ * ] to [ * ]. Exce",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 210
+              },
+              {
+                "score": 0.5420989990234375,
+                "text": ". Except for the Improved Products for which the Distributor receives the Annual Notice, the Company shall sell Improved Products to Distributor only with the consent of the Distributor. Any Improved ",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 51
+              },
+              {
+                "score": 0.5357173681259155,
+                "text": "(d) Distribution Rights and other Rights. That neither the Products, the exercise of EKR's Distribution Rights and other rights granted under this Agreement or the manufacture of the Products as conte",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 1314
+              }
+            ],
+            "answer": "The context is insufficient to identify any exclusive rights the distributor receives. It only mentions “Distribution Rights and other rights” and certain IP ownership, but does not specify what rights are exclusive.",
+            "citations": [
+              "legal_contracts.step2-source.md · chunk 210",
+              "legal_contracts.step2-source.md · chunk 51",
+              "legal_contracts.step2-source.md · chunk 1314"
+            ]
+          },
+          {
+            "label": "Term",
+            "filter": "clause_type == \"term\"",
+            "hits": [
+              {
+                "score": 0.542063295841217,
+                "text": "3.4 Launch. Distributor shall begin distribution of Bundles in accordance with this Agreement (\"Launch\") within [ * ] days following the Effective Date (the date of such Launch, the \"Launch Date\"). Be",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 161
+              },
+              {
+                "score": 0.5412603616714478,
+                "text": "5.2 Representations and Warranties of Distributor. (A) Distributor shall be entirely responsible for learning, understanding and training about the Products, the costs of advertising and promoting the",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 85
+              },
+              {
+                "score": 0.5344246625900269,
+                "text": ". Upon termination of this Agreement Distributor shall have no further right to the Names and said License to use the Names shall terminate. Distributor shall have no right to sublicense the Names or ",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 10
+              }
+            ],
+            "answer": "The context is insufficient. The “Exclusivity” section is redacted, so the distributor’s exclusive rights cannot be determined.",
+            "citations": [
+              "legal_contracts.step2-source.md · chunk 161",
+              "legal_contracts.step2-source.md · chunk 85",
+              "legal_contracts.step2-source.md · chunk 10"
+            ]
+          },
+          {
+            "label": "Distributor",
+            "filter": "party == \"distributor\"",
+            "hits": [
+              {
+                "score": 0.819708526134491,
+                "text": "2. Grant of Rights 2.1 Retention of EKR. Subject to the terms of this Agreement, PPI hereby appoints EKR and EKR agrees to be retained as the exclusive distributor, and Authorized Distributor of Recor",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 1135
+              },
+              {
+                "score": 0.8193436861038208,
+                "text": ". If Distributor does not exercise its option as herein provided, Company may distribute the other Products or devices within the Market itself or through other distributors.",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 118
+              },
+              {
+                "score": 0.5412603616714478,
+                "text": "5.2 Representations and Warranties of Distributor. (A) Distributor shall be entirely responsible for learning, understanding and training about the Products, the costs of advertising and promoting the",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 85
+              }
+            ],
+            "answer": "The distributor (EKR) is appointed as the exclusive distributor and Authorized Distributor of Record for the Products in the Field and Territory during the Term, with rights to market, distribute, warehouse, and sell the Products. EKR may also appoint sub-distributors in each country of the Territory.",
+            "citations": [
+              "legal_contracts.step2-source.md · chunk 1135",
+              "legal_contracts.step2-source.md · chunk 118",
+              "legal_contracts.step2-source.md · chunk 85"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "What minimum product quantities must the distributor purchase?",
+        "variants": [
+          {
+            "label": "All",
+            "filter": null,
+            "hits": [
+              {
+                "score": 0.862130343914032,
+                "text": "1.5 The Distributor's Obligation. The Distributor, at its own expense, shall promote the distribution, sales, and use of Products in the Market. 1.6 Distributor's Terms and Minimum Expectations. In or",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 15
+              },
+              {
+                "score": 0.5531517267227173,
+                "text": "6.6 Sample Products. Company will, during the Term of this Agreement (and any renewal term), provide Distributor, at Distributor's cost pursuant to the terms of this Agreement, with five (5) sample un",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 114
+              },
+              {
+                "score": 0.5526071190834045,
+                "text": "2.1 Orders. The Distributor shall order Products from the Company on a purchase order form mutually acceptable to the Company and Distributor and which is consistent with Exhibit B hereto, and which i",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 28
+              }
+            ],
+            "answer": "The context does not provide the actual minimum product quantities. It only states that the Distributor must use commercially reasonable efforts to purchase certain minimum quantities from the Company, and that sample units count toward those minimum expectations.",
+            "citations": [
+              "legal_contracts.step2-source.md · chunk 15",
+              "legal_contracts.step2-source.md · chunk 114",
+              "legal_contracts.step2-source.md · chunk 28"
+            ]
+          },
+          {
+            "label": "Appointment",
+            "filter": "clause_type == \"appointment\"",
+            "hits": [
+              {
+                "score": 0.862130343914032,
+                "text": "1.5 The Distributor's Obligation. The Distributor, at its own expense, shall promote the distribution, sales, and use of Products in the Market. 1.6 Distributor's Terms and Minimum Expectations. In or",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 15
+              },
+              {
+                "score": 0.8358873128890991,
+                "text": ". Thus, by way of example and not limitation, if there was an expectation of 50 in year one and 200 for year two and 60 units are sold in year one and 195 units are sold in year two, the expectation f",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 22
+              },
+              {
+                "score": 0.7879508137702942,
+                "text": ". Distributor also acknowledges that if its customers have sites, locations or operations outside the Market, in the market of another exclusive distributor of the Products, those customers will be re",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 8
+              }
+            ],
+            "answer": "The context is insufficient. It says the distributor must purchase minimum quantities of Products to maintain exclusivity, but the actual quantity schedule is not included in the retrieved context.",
+            "citations": [
+              "legal_contracts.step2-source.md · chunk 15",
+              "legal_contracts.step2-source.md · chunk 22",
+              "legal_contracts.step2-source.md · chunk 8"
+            ]
+          },
+          {
+            "label": "Obligation",
+            "filter": "clause_type == \"obligation\"",
+            "hits": [
+              {
+                "score": 0.5325307250022888,
+                "text": "Products and/or market demand for the Products, provided further than any increase in price based upon market demand shall not be so great as to deprive Distributor of its normal and customary profit ",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 40
+              },
+              {
+                "score": 0.5321281552314758,
+                "text": "2.3 Delivery. Other than \"drop ship\" deliveries, all deliveries made pursuant to this Agreement shall be FOB the Company's facilities located within the continental United States by a carrier authoriz",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 37
+              },
+              {
+                "score": 0.5296517014503479,
+                "text": ". Except for the Improved Products for which the Distributor receives the Annual Notice, the Company shall sell Improved Products to Distributor only with the consent of the Distributor. Any Improved ",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 51
+              }
+            ],
+            "answer": "The provided context is insufficient to determine any minimum product quantities the distributor must purchase.",
+            "citations": [
+              "legal_contracts.step2-source.md · chunk 40",
+              "legal_contracts.step2-source.md · chunk 37",
+              "legal_contracts.step2-source.md · chunk 51"
+            ]
+          },
+          {
+            "label": "Term",
+            "filter": "clause_type == \"term\"",
+            "hits": [
+              {
+                "score": 0.8335514664649963,
+                "text": "2.1 Orders. The Distributor shall order Products from the Company on a purchase order form mutually acceptable to the Company and Distributor and which is consistent with Exhibit B hereto, and which i",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 28
+              },
+              {
+                "score": 0.5451987981796265,
+                "text": "1.4 Company's Obligation. Company shall sell and deliver as provided in Section 2.3 of this Agreement to Distributor on the price terms set forth in this Agreement or as amended from time to time such",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 14
+              },
+              {
+                "score": 0.5400927662849426,
+                "text": "2.5. Resale Prices. The Distributor may resell Products at such price, as the Distributor, in its sole discretion, shall determine. While the Company has the right to suggest a range of manufacturer's",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 43
+              }
+            ],
+            "answer": "The context does not specify any minimum product quantities the Distributor must purchase. It only states that the Company will sell quantities the Distributor orders from time to time.",
+            "citations": [
+              "legal_contracts.step2-source.md · chunk 28",
+              "legal_contracts.step2-source.md · chunk 14",
+              "legal_contracts.step2-source.md · chunk 43"
+            ]
+          },
+          {
+            "label": "Distributor",
+            "filter": "party == \"distributor\"",
+            "hits": [
+              {
+                "score": 0.8358873128890991,
+                "text": ". Thus, by way of example and not limitation, if there was an expectation of 50 in year one and 200 for year two and 60 units are sold in year one and 195 units are sold in year two, the expectation f",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 22
+              },
+              {
+                "score": 0.5526071190834045,
+                "text": "2.1 Orders. The Distributor shall order Products from the Company on a purchase order form mutually acceptable to the Company and Distributor and which is consistent with Exhibit B hereto, and which i",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 28
+              },
+              {
+                "score": 0.5400927662849426,
+                "text": "2.5. Resale Prices. The Distributor may resell Products at such price, as the Distributor, in its sole discretion, shall determine. While the Company has the right to suggest a range of manufacturer's",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 43
+              }
+            ],
+            "answer": "The context is insufficient to state the actual minimum product quantities. It only gives an example: 50 units in year one and 200 units in year two, but says this is “by way of example and not limitation,” not the binding requirement.",
+            "citations": [
+              "legal_contracts.step2-source.md · chunk 22",
+              "legal_contracts.step2-source.md · chunk 28",
+              "legal_contracts.step2-source.md · chunk 43"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "query": "How long is the distributor agreement term?",
+        "variants": [
+          {
+            "label": "All",
+            "filter": null,
+            "hits": [
+              {
+                "score": 0.6005505919456482,
+                "text": "1.3 Term. The term of this Agreement shall be ten (10) years (the \"Term\") which shall commence on the date upon which the Company delivers to Distributor the last Sample, as defined hereinafter. If Di",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 12
+              },
+              {
+                "score": 0.5836972594261169,
+                "text": "4. DURATION AND TERMINATION 4.1 Duration. Unless earlier terminated otherwise provided therein, this Agreement, subject to the commencement date established in Section 1.3, shall be effective immediat",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 67
+              },
+              {
+                "score": 0.5603747367858887,
+                "text": "(B) Distributor further agrees that it will not interfere with or otherwise disrupt the business relations between the Company or nay of its affiliates and any of their current or prospective customer",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 99
+              }
+            ],
+            "answer": "The distributor agreement term is ten (10) years, starting when the Company delivers the last Sample to the Distributor. It may be renewed annually for one-year terms for up to an additional ten (10) years if Distributor complies with the agreement.",
+            "citations": [
+              "legal_contracts.step2-source.md · chunk 12",
+              "legal_contracts.step2-source.md · chunk 67",
+              "legal_contracts.step2-source.md · chunk 99"
+            ]
+          },
+          {
+            "label": "Appointment",
+            "filter": "clause_type == \"appointment\"",
+            "hits": [
+              {
+                "score": 0.816848635673523,
+                "text": "D. The Company's Appointment. The Company appoints the Distributor as an exclusive distributor of Products in the Market, subject to the terms and conditions of this Agreement. 1. ESTABLISHMENT OF DIS",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 5
+              },
+              {
+                "score": 0.8058404326438904,
+                "text": "1.1 Grant and Acceptance. Company hereby appoints Distributor as Company's exclusive distributor within the Market and grants to Distributor the exclusive right to sell and distribute Products within ",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 6
+              },
+              {
+                "score": 0.5488954186439514,
+                "text": "1.5 The Distributor's Obligation. The Distributor, at its own expense, shall promote the distribution, sales, and use of Products in the Market. 1.6 Distributor's Terms and Minimum Expectations. In or",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 15
+              }
+            ],
+            "answer": "The context is insufficient to determine the distributor agreement term.",
+            "citations": [
+              "legal_contracts.step2-source.md · chunk 5",
+              "legal_contracts.step2-source.md · chunk 6",
+              "legal_contracts.step2-source.md · chunk 15"
+            ]
+          },
+          {
+            "label": "Obligation",
+            "filter": "clause_type == \"obligation\"",
+            "hits": [
+              {
+                "score": 0.5448877811431885,
+                "text": "Page -7- 3.5 Service of Products in Territory. Within thirty (30) days after the execution of this Agreement, the Company and the Distributor shall mutually agree upon a reasonable schedule of charges",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 59
+              },
+              {
+                "score": 0.543756902217865,
+                "text": ". If Company does not give Annual Notice pursuant to Section 3.1 hereof, Distributor may, within 90 days of modification, improvement or alteration, return the Products to the Company. The Company sha",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 45
+              },
+              {
+                "score": 0.5393049120903015,
+                "text": ". Except for the Improved Products for which the Distributor receives the Annual Notice, the Company shall sell Improved Products to Distributor only with the consent of the Distributor. Any Improved ",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 51
+              }
+            ],
+            "answer": "The context is insufficient to determine the distributor agreement term.",
+            "citations": [
+              "legal_contracts.step2-source.md · chunk 59",
+              "legal_contracts.step2-source.md · chunk 45",
+              "legal_contracts.step2-source.md · chunk 51"
+            ]
+          },
+          {
+            "label": "Term",
+            "filter": "clause_type == \"term\"",
+            "hits": [
+              {
+                "score": 0.6005505919456482,
+                "text": "1.3 Term. The term of this Agreement shall be ten (10) years (the \"Term\") which shall commence on the date upon which the Company delivers to Distributor the last Sample, as defined hereinafter. If Di",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 12
+              },
+              {
+                "score": 0.5836972594261169,
+                "text": "4. DURATION AND TERMINATION 4.1 Duration. Unless earlier terminated otherwise provided therein, this Agreement, subject to the commencement date established in Section 1.3, shall be effective immediat",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 67
+              },
+              {
+                "score": 0.5603747367858887,
+                "text": "(B) Distributor further agrees that it will not interfere with or otherwise disrupt the business relations between the Company or nay of its affiliates and any of their current or prospective customer",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 99
+              }
+            ],
+            "answer": "The distributor agreement term is **ten (10) years**, commencing when the Company delivers the last Sample to the Distributor. If the Distributor complies with the agreement, it may renew annually for **one-year terms for up to another ten (10) years**.",
+            "citations": [
+              "legal_contracts.step2-source.md · chunk 12",
+              "legal_contracts.step2-source.md · chunk 67",
+              "legal_contracts.step2-source.md · chunk 99"
+            ]
+          },
+          {
+            "label": "Distributor",
+            "filter": "party == \"distributor\"",
+            "hits": [
+              {
+                "score": 0.5836972594261169,
+                "text": "4. DURATION AND TERMINATION 4.1 Duration. Unless earlier terminated otherwise provided therein, this Agreement, subject to the commencement date established in Section 1.3, shall be effective immediat",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 67
+              },
+              {
+                "score": 0.5459070801734924,
+                "text": "3.8 [ * ]. During the Term and for a period of [ * ] following the expiration or termination of this Agreement, Distributor shall not, and shall not engage any third party to: (a) restrict, modify, or",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 166
+              },
+              {
+                "score": 0.5446086525917053,
+                "text": "5.2 Representations and Warranties of Distributor. (A) Distributor shall be entirely responsible for learning, understanding and training about the Products, the costs of advertising and promoting the",
+                "source": "legal_contracts.step2-source.md",
+                "chunkId": 85
+              }
+            ],
+            "answer": "The context is insufficient to determine the distributor agreement term length. It only states the agreement is effective immediately unless earlier terminated.",
+            "citations": [
+              "legal_contracts.step2-source.md · chunk 67",
+              "legal_contracts.step2-source.md · chunk 166",
+              "legal_contracts.step2-source.md · chunk 85"
+            ]
+          }
+        ]
+      }
+    ],
+    "arxiv": [
+      {
+        "id": "q1",
+        "query": "How does RAG affect grounded satire generation?",
+        "variants": [
+          {
+            "label": "All",
+            "filter": null,
+            "hits": [
+              {
+                "score": 0.8414164185523987,
+                "text": "Humor generation remains challenging task for Large Language Models (LLMs), due to their subjective nature. We focus on satire, a form of humor strongly shaped by context. In this work, we present a n",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 17
+              },
+              {
+                "score": 0.5969724059104919,
+                "text": "## Paper 5: Grounded Satirical Generation with RAG arXiv URL: http://arxiv.org/abs/2605.10853v1 Published: 2026-05-11T17:00:51Z Updated: 2026-05-11T17:00:51Z Authors: Oona Itkonen, Yuxin Su, Linyao Du",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 16
+              },
+              {
+                "score": 0.5383948087692261,
+                "text": "Retrieval-augmented generation (RAG) improves factual grounding by conditioning large language models on retrieved evidence, but it also opens a data-layer attack surface: poisoned corpus entries can ",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 2238
+              }
+            ],
+            "answer": "RAG helps grounded satire generation by conditioning the LLM on retrieved current news, giving the satire factual and contextual grounding. In the cited work, it is used to generate satirical dictionary definitions in the Finnish context. However, RAG can also introduce risks because retrieved corpus entries may steer outputs if they contain poisoned or misleading content.",
+            "citations": [
+              "arxiv_papers.step2-source.md · chunk 17",
+              "arxiv_papers.step2-source.md · chunk 16",
+              "arxiv_papers.step2-source.md · chunk 2238"
+            ]
+          },
+          {
+            "label": "cs.CL",
+            "filter": "category == \"cs.CL\"",
+            "hits": [
+              {
+                "score": 0.5383948087692261,
+                "text": "Retrieval-augmented generation (RAG) improves factual grounding by conditioning large language models on retrieved evidence, but it also opens a data-layer attack surface: poisoned corpus entries can ",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 2238
+              },
+              {
+                "score": 0.5326056480407715,
+                "text": "Retrieval-Augmented Generation (RAG) enhances Large Language Models (LLMs) by grounding responses in external knowledge during inference. However, conventiona RAG systems under-perform on structured t",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 2319
+              },
+              {
+                "score": 0.531278669834137,
+                "text": "Retrieval-augmented generation (RAG) is vulnerable to prompt injection attacks, in which an adversary inserts malicious documents containing carefully crafted injected prompts into the knowledge datab",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 2634
+              }
+            ],
+            "answer": "The context does not specifically discuss grounded satire generation. It only says RAG can improve factual grounding by conditioning outputs on retrieved evidence, while also introducing risks such as poisoned corpus entries and prompt-injection attacks that can steer or compromise generated outputs.",
+            "citations": [
+              "arxiv_papers.step2-source.md · chunk 2238",
+              "arxiv_papers.step2-source.md · chunk 2319",
+              "arxiv_papers.step2-source.md · chunk 2634"
+            ]
+          },
+          {
+            "label": "cs.AI",
+            "filter": "category == \"cs.AI\"",
+            "hits": [
+              {
+                "score": 0.5969724059104919,
+                "text": "## Paper 5: Grounded Satirical Generation with RAG arXiv URL: http://arxiv.org/abs/2605.10853v1 Published: 2026-05-11T17:00:51Z Updated: 2026-05-11T17:00:51Z Authors: Oona Itkonen, Yuxin Su, Linyao Du",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 16
+              },
+              {
+                "score": 0.5364638566970825,
+                "text": ". Validation experiments under controlled settings show that ragR captures similar metric behavior to the reference Python RAGAS workflow across multiple use cases. By integrating RAG construction and",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 3766
+              },
+              {
+                "score": 0.5344489812850952,
+                "text": "Retrieval-Augmented Generation (RAG) systems are vulnerable to knowledge base poisoning, yet existing attacks have been evaluated almost exclusively against vanilla retrieve-then-generate pipelines. A",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 1393
+              }
+            ],
+            "answer": "The context is insufficient. It only mentions a paper titled “Grounded Satirical Generation with RAG” and provides no findings on how RAG affects grounded satire generation.",
+            "citations": [
+              "arxiv_papers.step2-source.md · chunk 16",
+              "arxiv_papers.step2-source.md · chunk 3766",
+              "arxiv_papers.step2-source.md · chunk 1393"
+            ]
+          },
+          {
+            "label": "cs.IR",
+            "filter": "category == \"cs.IR\"",
+            "hits": [
+              {
+                "score": 0.8414164185523987,
+                "text": "Humor generation remains challenging task for Large Language Models (LLMs), due to their subjective nature. We focus on satire, a form of humor strongly shaped by context. In this work, we present a n",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 17
+              },
+              {
+                "score": 0.5367140173912048,
+                "text": ". We evaluate four RAG architectures (vanilla RAG, agentic RAG, MADAM-RAG, and Recursive Language Models) under controlled single-document (N=1) poisoning on 921 Natural Questions QA pairs, comparing ",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 1394
+              },
+              {
+                "score": 0.5366727113723755,
+                "text": "Retrieval-Augmented Generation (RAG) enhances LLMs, but performance is highly sensitive to complex architecture designs and hyper-parameter configurations, which currently rely on inefficient manual t",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 2234
+              }
+            ],
+            "answer": "RAG is used to ground satire generation in current news, helping an LLM produce context-shaped satirical dictionary definitions in the Finnish context. The context does not provide results on how much it improves quality or humor.",
+            "citations": [
+              "arxiv_papers.step2-source.md · chunk 17",
+              "arxiv_papers.step2-source.md · chunk 1394",
+              "arxiv_papers.step2-source.md · chunk 2234"
+            ]
+          },
+          {
+            "label": "2026",
+            "filter": "year == 2026",
+            "hits": [
+              {
+                "score": 0.8414164185523987,
+                "text": "Humor generation remains challenging task for Large Language Models (LLMs), due to their subjective nature. We focus on satire, a form of humor strongly shaped by context. In this work, we present a n",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 17
+              },
+              {
+                "score": 0.5969724059104919,
+                "text": "## Paper 5: Grounded Satirical Generation with RAG arXiv URL: http://arxiv.org/abs/2605.10853v1 Published: 2026-05-11T17:00:51Z Updated: 2026-05-11T17:00:51Z Authors: Oona Itkonen, Yuxin Su, Linyao Du",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 16
+              },
+              {
+                "score": 0.5383948087692261,
+                "text": "Retrieval-augmented generation (RAG) improves factual grounding by conditioning large language models on retrieved evidence, but it also opens a data-layer attack surface: poisoned corpus entries can ",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 2238
+              }
+            ],
+            "answer": "RAG helps grounded satire generation by conditioning the model on retrieved current-news evidence, improving factual grounding and contextual relevance for satirical dictionary definitions in the Finnish context. However, it can also introduce risks because poisoned retrieved content may steer outputs.",
+            "citations": [
+              "arxiv_papers.step2-source.md · chunk 17",
+              "arxiv_papers.step2-source.md · chunk 16",
+              "arxiv_papers.step2-source.md · chunk 2238"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "query": "How do hard distractors affect long-context reasoning?",
+        "variants": [
+          {
+            "label": "All",
+            "filter": null,
+            "hits": [
+              {
+                "score": 0.8520874381065369,
+                "text": ". Our theoretical and empirical analyses grounded in attention mechanics show that hard distractors capture disproportionate attention even at small proportions, with diminishing marginal impact as th",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 27
+              },
+              {
+                "score": 0.8487626314163208,
+                "text": "As large language models are increasingly deployed in retrieval-augmented generation and agentic systems that accumulate extensive context, understanding how distracting information affects long-conte",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 25
+              },
+              {
+                "score": 0.8355284333229065,
+                "text": ". In this work, we systematically vary the hard-distractor proportion in fixed-length contexts, revealing a striking nonlinear pattern: as the proportion of hard distractors increases, performance dro",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 26
+              }
+            ],
+            "answer": "Hard distractors sharply degrade long-context reasoning even when present in small proportions. They capture disproportionate attention, causing a nonlinear “First Drop of Ink” effect: performance drops steeply early, then declines only marginally as more hard distractors are added. Substantial recovery requires reducing the hard-distractor proportion to near zero, emphasizing the need for high-precision retrieval.",
+            "citations": [
+              "arxiv_papers.step2-source.md · chunk 27",
+              "arxiv_papers.step2-source.md · chunk 25",
+              "arxiv_papers.step2-source.md · chunk 26"
+            ]
+          },
+          {
+            "label": "cs.CL",
+            "filter": "category == \"cs.CL\"",
+            "hits": [
+              {
+                "score": 0.8520874381065369,
+                "text": ". Our theoretical and empirical analyses grounded in attention mechanics show that hard distractors capture disproportionate attention even at small proportions, with diminishing marginal impact as th",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 27
+              },
+              {
+                "score": 0.8072200417518616,
+                "text": ". Test 2, a follow-up designed to probe whether long-context capability degrades when retrieval requires intermediate reasoning, measures three-hop chain traversal across three context tiers (256K, 51",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 2151
+              },
+              {
+                "score": 0.5280284881591797,
+                "text": "## Paper 29: MemReread: Enhancing Agentic Long-Context Reasoning via Memory-Guided Rereading arXiv URL: http://arxiv.org/abs/2605.10268v1 Published: 2026-05-11T09:30:59Z Updated: 2026-05-11T09:30:59Z ",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 129
+              }
+            ],
+            "answer": "Hard distractors disproportionately capture attention even when they make up a small share of the context, degrading long-context reasoning. Their marginal impact diminishes as their proportion increases. Filtering helps mostly by shortening context, not merely removing distractors; substantial recovery requires reducing hard distractors to near zero, emphasizing upstream retrieval precision.",
+            "citations": [
+              "arxiv_papers.step2-source.md · chunk 27",
+              "arxiv_papers.step2-source.md · chunk 2151",
+              "arxiv_papers.step2-source.md · chunk 129"
+            ]
+          },
+          {
+            "label": "cs.AI",
+            "filter": "category == \"cs.AI\"",
+            "hits": [
+              {
+                "score": 0.8487626314163208,
+                "text": "As large language models are increasingly deployed in retrieval-augmented generation and agentic systems that accumulate extensive context, understanding how distracting information affects long-conte",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 25
+              },
+              {
+                "score": 0.8059584498405457,
+                "text": ". Extensive experiments demonstrate that MemReread consistently outperforms baseline frameworks on long-context reasoning tasks, while maintaining linear time complexity with respect to context length",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 133
+              },
+              {
+                "score": 0.5338155031204224,
+                "text": "To tackle long-context reasoning tasks without the quadratic complexity of standard attention mechanisms, approaches based on agent memory have emerged, which typically maintain a dynamically updated ",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 130
+              }
+            ],
+            "answer": "Hard distractors—semantically relevant but misleading documents—degrade long-context reasoning performance. The context notes that the exact quantitative relationship between distractor proportion and performance remains unstudied.",
+            "citations": [
+              "arxiv_papers.step2-source.md · chunk 25",
+              "arxiv_papers.step2-source.md · chunk 133",
+              "arxiv_papers.step2-source.md · chunk 130"
+            ]
+          },
+          {
+            "label": "cs.IR",
+            "filter": "category == \"cs.IR\"",
+            "hits": [
+              {
+                "score": 0.8355284333229065,
+                "text": ". In this work, we systematically vary the hard-distractor proportion in fixed-length contexts, revealing a striking nonlinear pattern: as the proportion of hard distractors increases, performance dro",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 26
+              },
+              {
+                "score": 0.8015546798706055,
+                "text": "Recent advances in large language models (LLMs) have expanded the context window to beyond 128K tokens, enabling long-document understanding and multi-source reasoning. A key challenge, however, lies ",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 140
+              },
+              {
+                "score": 0.5168174505233765,
+                "text": "Reasoning LLMs often spend substantial tokens on long intermediate reasoning traces (e.g., chain-of-thought) when solving new problems. We propose to summarize and store reusable reasoning skills dist",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 4166
+              }
+            ],
+            "answer": "Hard distractors cause a nonlinear degradation in long-context reasoning: even a small fraction of hard distractors leads to a sharp performance drop, while adding more hard distractors afterward causes only marginal additional decline. This is termed the “First Drop of Ink” effect.",
+            "citations": [
+              "arxiv_papers.step2-source.md · chunk 26",
+              "arxiv_papers.step2-source.md · chunk 140",
+              "arxiv_papers.step2-source.md · chunk 4166"
+            ]
+          },
+          {
+            "label": "2026",
+            "filter": "year == 2026",
+            "hits": [
+              {
+                "score": 0.8520874381065369,
+                "text": ". Our theoretical and empirical analyses grounded in attention mechanics show that hard distractors capture disproportionate attention even at small proportions, with diminishing marginal impact as th",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 27
+              },
+              {
+                "score": 0.8487626314163208,
+                "text": "As large language models are increasingly deployed in retrieval-augmented generation and agentic systems that accumulate extensive context, understanding how distracting information affects long-conte",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 25
+              },
+              {
+                "score": 0.8355284333229065,
+                "text": ". In this work, we systematically vary the hard-distractor proportion in fixed-length contexts, revealing a striking nonlinear pattern: as the proportion of hard distractors increases, performance dro",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 26
+              }
+            ],
+            "answer": "Hard distractors cause a nonlinear degradation in long-context reasoning: even a small proportion captures disproportionate attention and sharply reduces performance. Adding more hard distractors causes only marginal additional decline. Substantial recovery requires reducing the hard-distractor proportion to near zero, emphasizing the need for high-precision retrieval.",
+            "citations": [
+              "arxiv_papers.step2-source.md · chunk 27",
+              "arxiv_papers.step2-source.md · chunk 25",
+              "arxiv_papers.step2-source.md · chunk 26"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "query": "How does PathISE use retrieval-augmented generation for KGQA?",
+        "variants": [
+          {
+            "label": "All",
+            "filter": null,
+            "hits": [
+              {
+                "score": 0.8738254904747009,
+                "text": "Knowledge Graph Question Answering (KGQA) aims to answer user questions by reasoning over Knowledge Graphs (KGs). Recent KGQA methods mainly follow the retrieval-augmented generation paradigm to groun",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 34
+              },
+              {
+                "score": 0.865336537361145,
+                "text": ". ExtensiveISE experiments on three KGQA benchmarks show that PathISE achieves competitive or state-of-the-art KGQA performance, and provides reusable supervision signals that can enhance existing KGQ",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 36
+              },
+              {
+                "score": 0.8633386492729187,
+                "text": "The integration of Large Language Models (LLMs) with Retrieval-Augmented Generation (RAG) has significantly advanced Knowledge Graph Question Answering (KGQA). However, existing LLM-driven KGQA system",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 3204
+              }
+            ],
+            "answer": "PathISE follows the KGQA retrieval-augmented generation paradigm by grounding LLMs with structured knowledge retrieved from knowledge graphs—specifically question-relevant evidence such as paths or subgraphs. It aims to provide reusable supervision signals for evidence retrieval and improves KGQA performance without relying on costly LLM-refined supervision. The provided context does not give more detailed mechanics.",
+            "citations": [
+              "arxiv_papers.step2-source.md · chunk 34",
+              "arxiv_papers.step2-source.md · chunk 36",
+              "arxiv_papers.step2-source.md · chunk 3204"
+            ]
+          },
+          {
+            "label": "cs.CL",
+            "filter": "category == \"cs.CL\"",
+            "hits": [
+              {
+                "score": 0.865336537361145,
+                "text": ". ExtensiveISE experiments on three KGQA benchmarks show that PathISE achieves competitive or state-of-the-art KGQA performance, and provides reusable supervision signals that can enhance existing KGQ",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 36
+              },
+              {
+                "score": 0.8633386492729187,
+                "text": "The integration of Large Language Models (LLMs) with Retrieval-Augmented Generation (RAG) has significantly advanced Knowledge Graph Question Answering (KGQA). However, existing LLM-driven KGQA system",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 3204
+              },
+              {
+                "score": 0.5551139712333679,
+                "text": "This paper presents a principled and scalable framework for systematically generating complex Question Answering (QA) data. In the core of this framework is a graphlet-anchored generation process, whe",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 3225
+              }
+            ],
+            "answer": "The retrieved context does not explain how PathISE uses retrieval-augmented generation for KGQA. It only states that PathISE achieves competitive/state-of-the-art KGQA performance and provides reusable supervision signals without costly LLM-refined supervision.",
+            "citations": [
+              "arxiv_papers.step2-source.md · chunk 36",
+              "arxiv_papers.step2-source.md · chunk 3204",
+              "arxiv_papers.step2-source.md · chunk 3225"
+            ]
+          },
+          {
+            "label": "cs.AI",
+            "filter": "category == \"cs.AI\"",
+            "hits": [
+              {
+                "score": 0.8738254904747009,
+                "text": "Knowledge Graph Question Answering (KGQA) aims to answer user questions by reasoning over Knowledge Graphs (KGs). Recent KGQA methods mainly follow the retrieval-augmented generation paradigm to groun",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 34
+              },
+              {
+                "score": 0.5650053024291992,
+                "text": "## Paper 698: XGRAG: A Graph-Native Framework for Explaining KG-based Retrieval-Augmented Generation arXiv URL: http://arxiv.org/abs/2604.24623v1 Published: 2026-04-27T15:52:20Z Updated: 2026-04-27T15",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 3484
+              },
+              {
+                "score": 0.5630555152893066,
+                "text": "Iterative Retrieval-Augmented Generation (iRAG) has emerged as a powerful paradigm for answering complex multi-hop questions by progressively retrieving and reasoning over external documents",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 2419
+              }
+            ],
+            "answer": "The context is insufficient to explain specifically how PathISE uses retrieval-augmented generation for KGQA.\n\nIt only states that recent KGQA methods use RAG to ground LLMs with structured KG evidence, typically by retrieving question-relevant paths or subgraphs, but it does not describe PathISE’s method.",
+            "citations": [
+              "arxiv_papers.step2-source.md · chunk 34",
+              "arxiv_papers.step2-source.md · chunk 3484",
+              "arxiv_papers.step2-source.md · chunk 2419"
+            ]
+          },
+          {
+            "label": "cs.IR",
+            "filter": "category == \"cs.IR\"",
+            "hits": [
+              {
+                "score": 0.5584644079208374,
+                "text": "Single-step retrieval-augmented generation (RAG) provides an efficient way to incorporate external information for simple question answering tasks but struggles with complex questions. Agentic RAG ext",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 1196
+              },
+              {
+                "score": 0.5578721761703491,
+                "text": "Graph-based Retrieval-Augmented Generation (GraphRAG) extends traditional RAG by using knowledge graphs (KGs) to give large language models (LLMs) a structured, semantically coherent context, yielding",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 3485
+              },
+              {
+                "score": 0.5546092987060547,
+                "text": "Incorporating specific knowledge into large language models via retrieval-augmented generation (RAG) is a widespread technique that fuels many of today's industry AI applications. A fundamental proble",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 2075
+              }
+            ],
+            "answer": "The retrieved context does not describe PathISE or how it uses retrieval-augmented generation for KGQA, so the information is insufficient.",
+            "citations": [
+              "arxiv_papers.step2-source.md · chunk 1196",
+              "arxiv_papers.step2-source.md · chunk 3485",
+              "arxiv_papers.step2-source.md · chunk 2075"
+            ]
+          },
+          {
+            "label": "2026",
+            "filter": "year == 2026",
+            "hits": [
+              {
+                "score": 0.8738254904747009,
+                "text": "Knowledge Graph Question Answering (KGQA) aims to answer user questions by reasoning over Knowledge Graphs (KGs). Recent KGQA methods mainly follow the retrieval-augmented generation paradigm to groun",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 34
+              },
+              {
+                "score": 0.865336537361145,
+                "text": ". ExtensiveISE experiments on three KGQA benchmarks show that PathISE achieves competitive or state-of-the-art KGQA performance, and provides reusable supervision signals that can enhance existing KGQ",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 36
+              },
+              {
+                "score": 0.8633386492729187,
+                "text": "The integration of Large Language Models (LLMs) with Retrieval-Augmented Generation (RAG) has significantly advanced Knowledge Graph Question Answering (KGQA). However, existing LLM-driven KGQA system",
+                "source": "arxiv_papers.step2-source.md",
+                "chunkId": 3204
+              }
+            ],
+            "answer": "PathISE follows the retrieval-augmented generation paradigm for KGQA by grounding LLMs with structured knowledge retrieved from knowledge graphs. It focuses on producing/reusing question-relevant supervision signals, such as paths or subgraphs, to improve KGQA performance without relying on costly LLM-refined supervision.\n\nThe provided context does not give more detail on its exact retrieval or generation mechanism.",
+            "citations": [
+              "arxiv_papers.step2-source.md · chunk 34",
+              "arxiv_papers.step2-source.md · chunk 36",
+              "arxiv_papers.step2-source.md · chunk 3204"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "step5": {
+    "docs": {
+      "small": {
+        "recordCount": 9105,
+        "sourceFile": "enterprise_docs.step6-insert-records-small.json",
+        "records": [
+          {
+            "id": 0,
+            "text": "# Milvus Documentation Dataset\n\nSource: public Milvus documentation pages from t...",
+            "source": "enterprise_docs.step2-source.md",
+            "chunk_id": 0,
+            "visibility": "public",
+            "page": 1,
+            "section": "Milvus Documentation Dataset",
+            "product_area": "overview",
+            "dense": "[-0.03314209,0.02333069,0.04843140,...]",
+            "sparse": "BM25(text)"
+          },
+          {
+            "id": 1,
+            "text": "Use case: technical documentation search, hybrid retrieval, metadata filtering, ...",
+            "source": "enterprise_docs.step2-source.md",
+            "chunk_id": 1,
+            "visibility": "public",
+            "page": 1,
+            "section": "Document 1: Comparing Milvus with Alternatives",
+            "product_area": "overview",
+            "dense": "[-0.00997162,0.03430176,0.04754639,...]",
+            "sparse": "BM25(text)"
+          },
+          {
+            "id": 2,
+            "text": "Source path: `site/en/about/comparison.md`\nSource URL: https://github.com/milvus...",
+            "source": "enterprise_docs.step2-source.md",
+            "chunk_id": 2,
+            "visibility": "public",
+            "page": 1,
+            "section": "Comparing Milvus with Alternatives",
+            "product_area": "overview",
+            "dense": "[-0.03906250,0.00256157,0.04745483,...]",
+            "sparse": "BM25(text)"
+          }
+        ]
+      },
+      "balanced": {
+        "recordCount": 4365,
+        "sourceFile": "enterprise_docs.step6-insert-records-balanced.json",
+        "records": [
+          {
+            "id": 0,
+            "text": "# Milvus Documentation Dataset\n\nSource: public Milvus documentation pages from t...",
+            "source": "enterprise_docs.step2-source.md",
+            "chunk_id": 0,
+            "visibility": "public",
+            "page": 1,
+            "section": "Milvus Documentation Dataset",
+            "product_area": "overview",
+            "dense": "[-0.02876282,0.02626038,0.05368042,...]",
+            "sparse": "BM25(text)"
+          },
+          {
+            "id": 1,
+            "text": "# Comparing Milvus with Alternatives",
+            "source": "enterprise_docs.step2-source.md",
+            "chunk_id": 1,
+            "visibility": "public",
+            "page": 1,
+            "section": "Comparing Milvus with Alternatives",
+            "product_area": "overview",
+            "dense": "[-0.05209351,0.01962280,0.04556274,...]",
+            "sparse": "BM25(text)"
+          },
+          {
+            "id": 2,
+            "text": "When exploring various vector database options, this comprehensive guide will he...",
+            "source": "enterprise_docs.step2-source.md",
+            "chunk_id": 2,
+            "visibility": "public",
+            "page": 1,
+            "section": "Comparing Milvus with Alternatives",
+            "product_area": "overview",
+            "dense": "[-0.02047729,0.05075073,0.03189087,...]",
+            "sparse": "BM25(text)"
+          }
+        ]
+      },
+      "large": {
+        "recordCount": 2014,
+        "sourceFile": "enterprise_docs.step6-insert-records-large.json",
+        "records": [
+          {
+            "id": 0,
+            "text": "# Milvus Documentation Dataset\n\nSource: public Milvus documentation pages from t...",
+            "source": "enterprise_docs.step2-source.md",
+            "chunk_id": 0,
+            "visibility": "public",
+            "page": 1,
+            "section": "Milvus Documentation Dataset",
+            "product_area": "overview",
+            "dense": "[-0.02940369,0.02981567,0.05120850,...]",
+            "sparse": "BM25(text)"
+          },
+          {
+            "id": 1,
+            "text": "# Comparing Milvus with Alternatives\n\nWhen exploring various vector database opt...",
+            "source": "enterprise_docs.step2-source.md",
+            "chunk_id": 1,
+            "visibility": "public",
+            "page": 1,
+            "section": "Comparing Milvus with Alternatives",
+            "product_area": "overview",
+            "dense": "[-0.03805542,0.05441284,0.03839111,...]",
+            "sparse": "BM25(text)"
+          },
+          {
+            "id": 2,
+            "text": "- **Flexibility**: Milvus accommodates various deployment modes and multiple SDK...",
+            "source": "enterprise_docs.step2-source.md",
+            "chunk_id": 2,
+            "visibility": "public",
+            "page": 1,
+            "section": "Overall comparison",
+            "product_area": "overview",
+            "dense": "[-0.01567078,0.00843811,0.06451416,...]",
+            "sparse": "BM25(text)"
+          }
+        ]
+      }
+    },
+    "legal": {
+      "small": {
+        "recordCount": 9336,
+        "sourceFile": "legal_contracts.step6-insert-records-small.json",
+        "records": [
+          {
+            "id": 0,
+            "text": "# CUAD Contract Dataset Excerpts\n\nSource: real contracts from CUAD v1, a public ...",
+            "source": "legal_contracts.step2-source.md",
+            "chunk_id": 0,
+            "visibility": "public",
+            "page": 1,
+            "clause_type": "general",
+            "party": "company",
+            "effective_date": "2026-01-01",
+            "dense": "[-0.02880859,-0.02816772,0.02555847,...]",
+            "sparse": "BM25(text)"
+          },
+          {
+            "id": 1,
+            "text": "Use case: legal contract search, clause retrieval, confidentiality, termination,...",
+            "source": "legal_contracts.step2-source.md",
+            "chunk_id": 1,
+            "visibility": "public",
+            "page": 1,
+            "clause_type": "term",
+            "party": "distributor",
+            "effective_date": "2026-01-01",
+            "dense": "[0.00498581,0.00559616,0.01517487,...]",
+            "sparse": "BM25(text)"
+          },
+          {
+            "id": 2,
+            "text": "EXHIBIT 10.6\n\n DISTRIBUTOR AGREEMENT\n\n THIS DISTRIBUTOR AGREEMENT (the \"Agreemen...",
+            "source": "legal_contracts.step2-source.md",
+            "chunk_id": 2,
+            "visibility": "public",
+            "page": 1,
+            "clause_type": "general",
+            "party": "both",
+            "effective_date": "2026-01-01",
+            "dense": "[-0.03042603,-0.04983521,0.00170040,...]",
+            "sparse": "BM25(text)"
+          }
+        ]
+      },
+      "balanced": {
+        "recordCount": 4644,
+        "sourceFile": "legal_contracts.step6-insert-records-balanced.json",
+        "records": [
+          {
+            "id": 0,
+            "text": "# CUAD Contract Dataset Excerpts\n\nSource: real contracts from CUAD v1, a public ...",
+            "source": "legal_contracts.step2-source.md",
+            "chunk_id": 0,
+            "visibility": "public",
+            "page": 1,
+            "clause_type": "term",
+            "party": "company",
+            "effective_date": "2026-01-01",
+            "dense": "[-0.02699280,-0.02651978,0.01140594,...]",
+            "sparse": "BM25(text)"
+          },
+          {
+            "id": 1,
+            "text": "EXHIBIT 10.6\n\n DISTRIBUTOR AGREEMENT\n\n THIS DISTRIBUTOR AGREEMENT (the \"Agreemen...",
+            "source": "legal_contracts.step2-source.md",
+            "chunk_id": 1,
+            "visibility": "public",
+            "page": 1,
+            "clause_type": "general",
+            "party": "distributor",
+            "effective_date": "2026-01-01",
+            "dense": "[-0.02986145,-0.04876709,-0.00566483,...]",
+            "sparse": "BM25(text)"
+          },
+          {
+            "id": 2,
+            "text": "RECITALS\n\n A. The Company's Business. The Company is presently engaged in the bu...",
+            "source": "legal_contracts.step2-source.md",
+            "chunk_id": 2,
+            "visibility": "public",
+            "page": 1,
+            "clause_type": "general",
+            "party": "both",
+            "effective_date": "2026-01-01",
+            "dense": "[0.06506348,0.01528931,0.03991699,...]",
+            "sparse": "BM25(text)"
+          }
+        ]
+      },
+      "large": {
+        "recordCount": 2246,
+        "sourceFile": "legal_contracts.step6-insert-records-large.json",
+        "records": [
+          {
+            "id": 0,
+            "text": "# CUAD Contract Dataset Excerpts\n\nSource: real contracts from CUAD v1, a public ...",
+            "source": "legal_contracts.step2-source.md",
+            "chunk_id": 0,
+            "visibility": "public",
+            "page": 1,
+            "clause_type": "term",
+            "party": "company",
+            "effective_date": "2026-01-01",
+            "dense": "[-0.02485657,-0.03179932,0.00998688,...]",
+            "sparse": "BM25(text)"
+          },
+          {
+            "id": 1,
+            "text": "RECITALS\n\n A. The Company's Business. The Company is presently engaged in the bu...",
+            "source": "legal_contracts.step2-source.md",
+            "chunk_id": 1,
+            "visibility": "public",
+            "page": 1,
+            "clause_type": "term",
+            "party": "distributor",
+            "effective_date": "2026-01-01",
+            "dense": "[0.05584717,0.02322388,0.03616333,...]",
+            "sparse": "BM25(text)"
+          },
+          {
+            "id": 2,
+            "text": "C. The Distributor's Objectives. The Distributor desires to become a distributor...",
+            "source": "legal_contracts.step2-source.md",
+            "chunk_id": 2,
+            "visibility": "public",
+            "page": 1,
+            "clause_type": "appointment",
+            "party": "both",
+            "effective_date": "2026-01-01",
+            "dense": "[-0.01701355,-0.03710938,0.01606750,...]",
+            "sparse": "BM25(text)"
+          }
+        ]
+      }
+    },
+    "arxiv": {
+      "small": {
+        "recordCount": 9485,
+        "sourceFile": "arxiv_papers.step6-insert-records-small.json",
+        "records": [
+          {
+            "id": 0,
+            "text": "# arXiv Retrieval/RAG Paper Abstracts\n\nSource: arXiv API search results for retr...",
+            "source": "arxiv_papers.step2-source.md",
+            "chunk_id": 0,
+            "visibility": "public",
+            "arxiv_id": "2605.10853",
+            "category": "cs.CL",
+            "year": 2026,
+            "section": "arXiv Retrieval/RAG Paper Abstracts",
+            "dense": "[-0.01006317,-0.01776123,0.01534271,...]",
+            "sparse": "BM25(text)"
+          },
+          {
+            "id": 1,
+            "text": "## Paper 1: Private Information Retrieval With Arbitrary Privacy Requirements fo...",
+            "source": "arxiv_papers.step2-source.md",
+            "chunk_id": 1,
+            "visibility": "public",
+            "arxiv_id": "2605.10828",
+            "category": "cs.AI",
+            "year": 2026,
+            "section": "Paper 1: Private Information Retrieval With Arbitrary Privacy Requirements for Graph-Based Storage",
+            "dense": "[0.02580261,0.00239563,0.00440598,...]",
+            "sparse": "BM25(text)"
+          },
+          {
+            "id": 2,
+            "text": "arXiv URL: http://arxiv.org/abs/2605.10879v1\nPublished: 2026-05-11T17:27:33Z\nUpd...",
+            "source": "arxiv_papers.step2-source.md",
+            "chunk_id": 2,
+            "visibility": "public",
+            "arxiv_id": "2605.10791",
+            "category": "cs.IR",
+            "year": 2026,
+            "section": "Abstract",
+            "dense": "[0.01020813,-0.00993347,0.00500107,...]",
+            "sparse": "BM25(text)"
+          }
+        ]
+      },
+      "balanced": {
+        "recordCount": 4359,
+        "sourceFile": "arxiv_papers.step6-insert-records-balanced.json",
+        "records": [
+          {
+            "id": 0,
+            "text": "# arXiv Retrieval/RAG Paper Abstracts\n\nSource: arXiv API search results for retr...",
+            "source": "arxiv_papers.step2-source.md",
+            "chunk_id": 0,
+            "visibility": "public",
+            "arxiv_id": "2605.10853",
+            "category": "cs.CL",
+            "year": 2026,
+            "section": "arXiv Retrieval/RAG Paper Abstracts",
+            "dense": "[0.02749634,-0.00650787,0.00152683,...]",
+            "sparse": "BM25(text)"
+          },
+          {
+            "id": 1,
+            "text": "arXiv URL: http://arxiv.org/abs/2605.10879v1\nPublished: 2026-05-11T17:27:33Z\nUpd...",
+            "source": "arxiv_papers.step2-source.md",
+            "chunk_id": 1,
+            "visibility": "public",
+            "arxiv_id": "2605.10828",
+            "category": "cs.AI",
+            "year": 2026,
+            "section": "Abstract",
+            "dense": "[0.01020813,-0.00993347,0.00500107,...]",
+            "sparse": "BM25(text)"
+          },
+          {
+            "id": 2,
+            "text": "We reformulate the definition of privacy in the private information retrieval (P...",
+            "source": "arxiv_papers.step2-source.md",
+            "chunk_id": 2,
+            "visibility": "public",
+            "arxiv_id": "2605.10791",
+            "category": "cs.IR",
+            "year": 2026,
+            "section": "Abstract",
+            "dense": "[0.01498413,0.00919342,0.02304077,...]",
+            "sparse": "BM25(text)"
+          }
+        ]
+      },
+      "large": {
+        "recordCount": 2637,
+        "sourceFile": "arxiv_papers.step6-insert-records-large.json",
+        "records": [
+          {
+            "id": 0,
+            "text": "# arXiv Retrieval/RAG Paper Abstracts\n\nSource: arXiv API search results for retr...",
+            "source": "arxiv_papers.step2-source.md",
+            "chunk_id": 0,
+            "visibility": "public",
+            "arxiv_id": "2605.10853",
+            "category": "cs.CL",
+            "year": 2026,
+            "section": "arXiv Retrieval/RAG Paper Abstracts",
+            "dense": "[0.02362061,-0.00848389,-0.00928497,...]",
+            "sparse": "BM25(text)"
+          },
+          {
+            "id": 1,
+            "text": "We reformulate the definition of privacy in the private information retrieval (P...",
+            "source": "arxiv_papers.step2-source.md",
+            "chunk_id": 1,
+            "visibility": "public",
+            "arxiv_id": "2605.10828",
+            "category": "cs.AI",
+            "year": 2026,
+            "section": "arXiv Retrieval/RAG Paper Abstracts",
+            "dense": "[0.01969910,0.00382423,0.04428101,...]",
+            "sparse": "BM25(text)"
+          },
+          {
+            "id": 2,
+            "text": ". Of particular interest are the privacy sets that comprise the indices of messa...",
+            "source": "arxiv_papers.step2-source.md",
+            "chunk_id": 2,
+            "visibility": "public",
+            "arxiv_id": "2605.10791",
+            "category": "cs.IR",
+            "year": 2026,
+            "section": "arXiv Retrieval/RAG Paper Abstracts",
+            "dense": "[0.02192688,0.00007939,0.05676270,...]",
+            "sparse": "BM25(text)"
+          }
+        ]
+      }
+    }
+  }
+}

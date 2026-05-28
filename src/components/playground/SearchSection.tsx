@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react";
+import { ArrowRightIcon } from "@/components/icons/ArrowRightIcon";
+import { useState } from "react";
 import { StepProgress } from "./StepProgress";
 import { CodeBlock } from "./CodeBlock";
-import { ArrowRightIcon, ArrowLeftIcon } from "@/components/icons/ArrowRightIcon";
 import { Tag } from "@/components/ui/Tag";
+import { Button } from "@/components/ui/Button";
 import type { DatasetId } from "@/pages/playground";
 import { StepNavButtons } from "./StepNavButtons";
 import { DATASET_FILE_MAP, DATASET_LABELS } from "@/pages/playground";
+import { getRetrievalData } from "@/data/playground";
 
 interface SearchSectionProps {
   datasetId: DatasetId;
+  insertCompleted: boolean;
 }
 
 interface Hit {
@@ -44,27 +47,13 @@ function SimBar({ score }: { score: number }) {
   );
 }
 
-export function SearchSection({ datasetId }: SearchSectionProps) {
-  const [questions, setQuestions] = useState<Question[]>([]);
+export function SearchSection({ datasetId, insertCompleted }: SearchSectionProps) {
   const [selectedQ, setSelectedQ] = useState(0);
   const [selectedVariant, setSelectedVariant] = useState(0);
 
   const datasetFile = DATASET_FILE_MAP[datasetId];
   const datasetLabel = DATASET_LABELS[datasetId];
-
-  useEffect(() => {
-    let stale = false;
-    fetch(`/api/datasets/retrieval?dataset=${datasetFile}`)
-      .then((res) => res.json())
-      .then((d) => {
-        if (!stale) {
-          setQuestions(d.questions);
-          setSelectedQ(0);
-          setSelectedVariant(0);
-        }
-      });
-    return () => { stale = true; };
-  }, [datasetFile]);
+  const questions = getRetrievalData(datasetId) as Question[];
 
   const question = questions[selectedQ];
   const variant = question?.variants[selectedVariant];
@@ -181,17 +170,14 @@ answer = oai.chat.completions.create(model="gpt-4o", ...)`;
                 <div className="px-3.5 py-3">
                   <div className="flex flex-wrap gap-2">
                     {question.variants.map((v, i) => (
-                      <button
+                      <Button
                         key={i}
+                        variant={selectedVariant === i ? "primary" : "ghost"}
+                        size="small"
                         onClick={() => setSelectedVariant(i)}
-                        className={`cursor-pointer rounded-md border px-3 py-1.5 text-[12px] font-medium transition ${
-                          selectedVariant === i
-                            ? "border-[#2cb7ff] bg-[#1493dc] text-white"
-                            : "border-[rgba(22,26,35,0.06)] bg-white text-[#4d5870] hover:border-[#75d0ff] hover:text-[#0a5f9e]"
-                        }`}
                       >
                         {v.label}
-                      </button>
+                      </Button>
                     ))}
                   </div>
                   <div className="mt-2 font-mono text-[10.5px] text-[#8592a8]">
@@ -201,8 +187,14 @@ answer = oai.chat.completions.create(model="gpt-4o", ...)`;
               </div>
             )}
 
-            {/* Retrieval results */}
-            {variant && (
+            {/* Retrieval results — only show after insert */}
+            {!insertCompleted && (
+              <div className="rounded-lg border border-dashed border-[rgba(22,26,35,0.06)] bg-[rgba(246,247,249,0.3)] px-4 py-8 text-center text-[12.5px] text-[#8592a8]">
+                Complete Step 5 (Insert) to see retrieval results
+              </div>
+            )}
+
+            {insertCompleted && variant && (
               <div className="space-y-2">
                 <div className="mb-2.5 flex items-center gap-1.5">
                   <span className="h-1.5 w-1.5 rounded-full bg-[#1493dc]" />
@@ -224,8 +216,8 @@ answer = oai.chat.completions.create(model="gpt-4o", ...)`;
               </div>
             )}
 
-            {/* Generated answer */}
-            {variant?.answer && (
+            {/* Generated answer — only show after insert */}
+            {insertCompleted && variant?.answer && (
               <div className="mt-5 border-t border-[rgba(22,26,35,0.06)] pt-5">
                 <div className="mb-3 flex items-center gap-2">
                   <svg viewBox="0 0 20 20" className="h-4 w-4 text-blue-1">

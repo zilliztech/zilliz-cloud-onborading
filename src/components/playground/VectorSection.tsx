@@ -1,29 +1,19 @@
-import { useEffect, useState } from "react";
+import { ArrowRightIcon } from "@/components/icons/ArrowRightIcon";
+import { useState } from "react";
 import { StepProgress } from "./StepProgress";
 import { CodeBlock } from "./CodeBlock";
-import { ArrowRightIcon, ArrowLeftIcon } from "@/components/icons/ArrowRightIcon";
 import type { DatasetId } from "@/pages/playground";
 import { StepNavButtons } from "./StepNavButtons";
 import { DATASET_FILE_MAP } from "@/pages/playground";
+import { getEmbeddingPreview } from "@/data/playground";
+
+import { Button } from "@/components/ui/Button";
 
 interface VectorSectionProps {
   datasetId: DatasetId;
+  onConfirm: () => void;
+  confirmed: boolean;
   onNext: () => void;
-}
-
-interface EmbeddingChunk {
-  id: string;
-  displayText: string;
-  model: string;
-  dimension: number;
-  embeddingFirst64: number[];
-  metadata: Record<string, unknown>;
-}
-
-interface EmbeddingData {
-  model: string;
-  dimension: number;
-  chunks: EmbeddingChunk[];
 }
 
 function valueToColor(v: number): string {
@@ -36,28 +26,14 @@ function valueToColor(v: number): string {
   return `rgb(${r},${g},${b})`;
 }
 
-export function VectorSection({ datasetId, onNext }: VectorSectionProps) {
-  const [data, setData] = useState<EmbeddingData | null>(null);
+export function VectorSection({ datasetId, onConfirm, confirmed, onNext }: VectorSectionProps) {
   const [selectedChunk, setSelectedChunk] = useState(0);
-  const [computed, setComputed] = useState(false);
+  const [computing, setComputing] = useState(false);
+  const computed = confirmed;
 
   const datasetFile = DATASET_FILE_MAP[datasetId];
-
-  useEffect(() => {
-    let stale = false;
-    fetch(`/api/datasets/embeddings?dataset=${datasetFile}`)
-      .then((res) => res.json())
-      .then((d) => {
-        if (!stale) {
-          setData(d);
-          setSelectedChunk(0);
-          setComputed(false);
-        }
-      });
-    return () => { stale = true; };
-  }, [datasetFile]);
-
-  const chunk = data?.chunks[selectedChunk];
+  const data = getEmbeddingPreview(datasetId);
+  const chunk = data.chunks[selectedChunk];
 
   const codeSnippet = `from openai import OpenAI
 import os
@@ -68,7 +44,7 @@ vectors = []
 for start in range(0, len(texts), 100):
     batch = texts[start:start + 100]
     resp = client.embeddings.create(
-        model="${data?.model ?? "text-embedding-3-small"}",
+        model="${data.model ?? "text-embedding-3-small"}",
         input=batch,
     )
     vectors.extend([d.embedding for d in resp.data])
@@ -121,7 +97,7 @@ for record, vector in zip(records, vectors):
               </div>
               <div className="flex items-center gap-1.5 font-mono text-[11px] text-[#64718a]">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#10b981]" />
-                {data?.dimension ?? 1536} dims
+                {data.dimension ?? 1536} dims
               </div>
             </div>
 
@@ -135,12 +111,12 @@ for record, vector in zip(records, vectors):
                   </div>
                 </div>
                 <div className="grid gap-2">
-                  {data?.chunks.map((c, i) => {
+                  {data.chunks.map((c, i) => {
                     const isActive = i === selectedChunk;
                     return (
                       <button
                         key={c.id}
-                        onClick={() => { setSelectedChunk(i); setComputed(false); }}
+                        onClick={() => setSelectedChunk(i)}
                         className={`group cursor-pointer rounded-[12px] p-[1.5px] text-left transition-all ${
                           isActive
                             ? "bg-gradient-to-l from-[#FF058A] via-[#B92BBA] to-[#531AEE]"
@@ -169,22 +145,28 @@ for record, vector in zip(records, vectors):
                     {computed ? "Embedding generated" : "Waiting to generate vector for chunk text"}
                   </div>
                 </div>
-                <button
-                  onClick={() => setComputed(true)}
+                <Button
+                  variant={computed ? "success" : "primary"}
+                  size="small"
+                  loading={computing}
                   disabled={computed}
-                  className={`shrink-0 cursor-pointer rounded-lg px-4 py-2 text-[12px] font-semibold text-white transition-all ${
-                    computed ? "bg-[#10b981]" : "bg-blue-1 hover:bg-blue-dark-1"
-                  }`}
+                  onClick={() => {
+                    setComputing(true);
+                    setTimeout(() => {
+                      setComputing(false);
+                      onConfirm();
+                    }, 800);
+                  }}
                 >
                   {computed ? "✓ Computed" : "Compute embedding"}
-                </button>
+                </Button>
               </div>
 
               {/* Heatmap visualization */}
               <div className="pt-2">
                 <div className="mb-2 flex items-center justify-between">
                   <span className="text-[12px] font-medium text-[#3d4659]">Embedding (first 64 dims)</span>
-                  <span className="font-mono text-[10.5px] text-[#8592a8]">{data?.model ?? "text-embedding-3-small"}</span>
+                  <span className="font-mono text-[10.5px] text-[#8592a8]">{data.model ?? "text-embedding-3-small"}</span>
                 </div>
 
                 {!computed && (
@@ -243,7 +225,7 @@ for record, vector in zip(records, vectors):
             <p className="mt-3 text-[14.5px] leading-[1.75] text-[#4d5870]">
               An embedding maps a piece of text to a{" "}
               <span className="rounded border border-[rgba(22,26,35,0.1)] bg-[#fbfcfe] px-1.5 py-0.5 font-mono text-[11px] text-[#3d4659]">
-                {data?.dimension ?? 1536}
+                {data.dimension ?? 1536}
               </span>
               -dimensional vector.{" "}
               <span className="font-medium text-[#161a23]">

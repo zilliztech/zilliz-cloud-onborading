@@ -135,7 +135,7 @@ export function ExportSection({ datasetId, preset }: ExportSectionProps) {
 
           {/* Download code */}
           <a
-            href="#"
+            href="https://assets.zilliz.com/my_first_rag_a6185e441b.zip"
             download
             className="mt-3 flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl border border-[rgba(22,26,35,0.12)] bg-white px-4 py-3 text-[14px] font-semibold text-[#3d4659] shadow-[0_1px_2px_rgba(13,43,72,0.04)] transition hover:border-[#1493dc] hover:text-blue-1"
           >

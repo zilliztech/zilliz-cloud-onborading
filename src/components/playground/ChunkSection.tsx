@@ -1,15 +1,18 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { StepProgress } from "./StepProgress";
 import { CodeBlock } from "./CodeBlock";
-import { ArrowRightIcon, ArrowLeftIcon } from "@/components/icons/ArrowRightIcon";
 import { StepNavButtons } from "./StepNavButtons";
+import { Button } from "@/components/ui/Button";
 import type { DatasetId, ChunkPreset } from "@/pages/playground";
 import { DATASET_FILE_MAP, DATASET_LABELS } from "@/pages/playground";
+import { getChunkPreview } from "@/data/playground";
 
 interface ChunkSectionProps {
   datasetId: DatasetId;
   selectedPreset: ChunkPreset;
   onSelectPreset: (preset: ChunkPreset) => void;
+  onConfirm: () => void;
+  confirmed: boolean;
   onNext: () => void;
 }
 
@@ -48,37 +51,21 @@ const CHUNK_COLORS = [
   "bg-[#ede9fe] text-[#5b21b6] shadow-[inset_0_0_0_1px_#ddd6fe]",
 ];
 
-interface ChunkData {
-  chunkSize: number;
-  chunkOverlap: number;
-  chunkCount: number;
-  sourceFile: string;
-  chunks: { text: string; source: string; chunkId: number }[];
-}
-
 export function ChunkSection({
   datasetId,
   selectedPreset,
   onSelectPreset,
+  onConfirm,
+  confirmed,
   onNext,
 }: ChunkSectionProps) {
-  const [chunkData, setChunkData] = useState<ChunkData | null>(null);
-
+  const [confirming, setConfirming] = useState(false);
   const datasetFile = DATASET_FILE_MAP[datasetId];
   const datasetLabel = DATASET_LABELS[datasetId];
 
-  useEffect(() => {
-    let stale = false;
-    fetch(`/api/datasets/chunks?dataset=${datasetFile}&preset=${selectedPreset}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (!stale) setChunkData(data);
-      });
-    return () => { stale = true; };
-  }, [datasetFile, selectedPreset]);
-
   const preset = PRESETS.find((p) => p.id === selectedPreset)!;
-  const displayChunks = chunkData?.chunks.slice(0, preset.displayChunks) ?? [];
+  const chunkData = getChunkPreview(datasetId, selectedPreset);
+  const displayChunks = chunkData.chunks;
 
   return (
     <section id="step-chunk" className="animate-[rise_500ms_cubic-bezier(.2,.7,.2,1)_both]">
@@ -219,15 +206,26 @@ export function ChunkSection({
                 <div>
                   <div className="text-[12.5px] font-medium text-[#2c3343]">Confirm chunking</div>
                   <div className="mt-0.5 font-mono text-[11px] text-[#8592a8]">
-                    Chunk size {preset.chunkSize} · Overlap {preset.overlap}
+                    {confirmed
+                      ? `✓ Chunked entire document → ${chunkData.chunkCount.toLocaleString()} chunks`
+                      : `Chunk size ${preset.chunkSize} · Overlap ${preset.overlap}`}
                   </div>
                 </div>
-                <button
-                  onClick={onNext}
-                  className="shrink-0 cursor-pointer rounded-lg bg-blue-1 px-4 py-2 text-[12px] font-semibold text-white transition-all hover:bg-blue-dark-1"
+                <Button
+                  variant={confirmed ? "success" : "primary"}
+                  size="small"
+                  loading={confirming}
+                  disabled={confirmed}
+                  onClick={() => {
+                    setConfirming(true);
+                    setTimeout(() => {
+                      setConfirming(false);
+                      onConfirm();
+                    }, 800);
+                  }}
                 >
-                  Confirm & continue
-                </button>
+                  {confirmed ? "✓ Confirmed" : "Confirm & continue"}
+                </Button>
               </div>
             </div>
           </div>

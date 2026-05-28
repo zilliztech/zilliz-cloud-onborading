@@ -1,63 +1,118 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { StepProgress } from "./StepProgress";
 import { CodeBlock } from "./CodeBlock";
-import { ArrowRightIcon, ArrowLeftIcon } from "@/components/icons/ArrowRightIcon";
+import { ArrowRightIcon } from "@/components/icons/ArrowRightIcon";
 import { Tag } from "@/components/ui/Tag";
 import type { DatasetId, ChunkPreset } from "@/pages/playground";
 import { StepNavButtons } from "./StepNavButtons";
 import { DATASET_FILE_MAP, DATASET_LABELS } from "@/pages/playground";
+import { getInsertPreview } from "@/data/playground";
+
+import { Button } from "@/components/ui/Button";
 
 interface IngestSectionProps {
   datasetId: DatasetId;
   preset: ChunkPreset;
+  apiKey: string;
+  clusterEndpoint: string;
+  collectionName: string;
+  canInsert: boolean;
+  onInsertComplete: () => void;
   onNext: () => void;
 }
 
-interface RecordsData {
-  recordCount: number;
-  sourceFile: string;
-  records: Record<string, unknown>[];
+interface QueryRecord {
+  id: number;
+  text: string;
+  source: string;
+  chunk_id: number;
+  visibility: string;
+  [key: string]: unknown;
 }
 
-export function IngestSection({ datasetId, preset, onNext }: IngestSectionProps) {
-  const [data, setData] = useState<RecordsData | null>(null);
+export function IngestSection({
+  datasetId,
+  preset,
+  apiKey,
+  clusterEndpoint,
+  collectionName,
+  canInsert,
+  onInsertComplete,
+  onNext,
+}: IngestSectionProps) {
   const [inserting, setInserting] = useState(false);
   const [inserted, setInserted] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [error, setError] = useState<string | null>(null);
+  const [queryResults, setQueryResults] = useState<QueryRecord[] | null>(null);
 
   const datasetFile = DATASET_FILE_MAP[datasetId];
   const datasetLabel = DATASET_LABELS[datasetId];
+  const data = getInsertPreview(datasetId, preset);
 
-  useEffect(() => {
-    let stale = false;
-    setInserted(false);
-    setProgress(0);
-    fetch(`/api/datasets/records?dataset=${datasetFile}&preset=${preset}`)
-      .then((res) => res.json())
-      .then((d) => {
-        if (!stale) setData(d);
-      });
-    return () => { stale = true; };
-  }, [datasetFile, preset]);
-
-  const handleInsert = () => {
+  const handleInsert = async () => {
     setInserting(true);
     setProgress(0);
-    // Simulate insert progress
-    let p = 0;
-    const timer = setInterval(() => {
-      p += Math.random() * 15 + 5;
-      if (p >= 100) {
-        p = 100;
-        clearInterval(timer);
-        setInserting(false);
-        setInserted(true);
+    setError(null);
+
+    // Simulate progress while inserting
+    const progressTimer = setInterval(() => {
+      setProgress((prev) => Math.min(prev + Math.random() * 8 + 2, 90));
+    }, 500);
+
+    try {
+      const res = await fetch("/api/datasets/insert", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          endpoint: clusterEndpoint,
+          collectionName,
+          dataset: datasetFile,
+          preset,
+        }),
+      });
+
+      clearInterval(progressTimer);
+      const result = await res.json();
+
+      if (!res.ok || (result.message && !result.data)) {
+        throw new Error(result.message || "Insert failed");
       }
-      setProgress(Math.min(Math.round(p), 100));
-    }, 300);
+
+      setProgress(100);
+      setInserted(true);
+      setInserting(false);
+      onInsertComplete();
+
+      // Query first 5 records to show
+      const queryRes = await fetch("/api/datasets/query", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${apiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          endpoint: clusterEndpoint,
+          collectionName,
+          limit: 5,
+        }),
+      });
+
+      const queryData = await queryRes.json();
+      if (queryData.data) {
+        setQueryResults(queryData.data);
+      }
+    } catch (err) {
+      clearInterval(progressTimer);
+      setInserting(false);
+      setError(err instanceof Error ? err.message : "Insert failed");
+    }
   };
 
-  const columns = data?.records[0] ? Object.keys(data.records[0]) : [];
+  const previewColumns = data.records[0] ? Object.keys(data.records[0]) : [];
 
   const codeSnippet = `from pymilvus import MilvusClient, DataType, Function, FunctionType
 
@@ -133,7 +188,7 @@ client.insert("${datasetFile}", data=records)`;
                 <span className="text-[13px] font-medium">Ready to insert into Zilliz</span>
               </div>
               <span className="font-mono text-[11px] text-[#8592a8]">
-                <span className="text-[#3d4659]">{data?.recordCount.toLocaleString() ?? "—"}</span> records
+                <span className="text-[#3d4659]">{data.recordCount.toLocaleString()}</span> records
               </span>
             </div>
 
@@ -142,80 +197,111 @@ client.insert("${datasetFile}", data=records)`;
               <div className="mb-2.5 flex items-center justify-between gap-3">
                 <div>
                   <div className="text-[11px] text-[#64718a]">Collection</div>
-                  <div className="mt-0.5 font-mono text-[12.5px] text-[#161a23]">{datasetLabel}</div>
+                  <div className="mt-0.5 font-mono text-[12.5px] text-[#161a23]">{collectionName}</div>
                 </div>
-                <button
+                <Button
+                  variant={inserted ? "success" : error ? "danger" : "primary"}
+                  size="small"
+                  loading={inserting}
+                  disabled={!canInsert || inserting || inserted}
                   onClick={handleInsert}
-                  disabled={inserting || inserted}
-                  className={`shrink-0 cursor-pointer rounded-lg px-4 py-2 text-[12px] font-semibold text-white transition-all ${
-                    inserted
-                      ? "bg-[#10b981]"
-                      : inserting
-                        ? "bg-[#8592a8]"
-                        : "bg-blue-1 hover:bg-blue-dark-1"
-                  }`}
                 >
-                  {inserted ? "✓ Inserted" : inserting ? "Inserting..." : "Insert"}
-                </button>
+                  {inserted ? "✓ Inserted" : error ? "Failed" : !canInsert ? "Complete steps 2-4 first" : "Insert"}
+                </Button>
               </div>
               <div className="rounded-lg border border-[rgba(22,26,35,0.06)] bg-white px-3 py-2">
                 <div className="font-mono text-[10.5px] text-[#8592a8]">Source</div>
-                <div className="mt-0.5 truncate font-mono text-[11.5px] text-[#3d4659]">{data?.sourceFile ?? "—"}</div>
+                <div className="mt-0.5 truncate font-mono text-[11.5px] text-[#3d4659]">{data.sourceFile}</div>
               </div>
               <div className="mt-2 font-mono text-[11px] text-[#8592a8]">
-                Preview first 3 rows. Insert writes all records to the collection.
+                {inserted ? "All records inserted successfully." : "Preview first 3 rows. Click Insert to write all records."}
               </div>
             </div>
 
-            {/* Data table */}
+            {/* Data table — show preview or query results */}
             <div className="overflow-x-auto overflow-y-auto" style={{ maxHeight: 332 }}>
-              <table className="w-full min-w-[900px] text-left">
-                <thead className="border-b border-[rgba(22,26,35,0.06)] bg-white">
-                  <tr className="font-mono text-[11px] text-[#64718a]">
-                    {columns.map((col) => (
-                      <th key={col} className="whitespace-nowrap px-3 py-3 font-medium">{col}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[rgba(22,26,35,0.06)] text-[12px] text-[#3d4659]">
-                  {data?.records.map((row, i) => (
-                    <tr key={i} className="transition hover:bg-[rgba(239,249,255,0.3)]">
-                      {columns.map((col) => (
-                        <td key={col} className="max-w-[260px] truncate whitespace-nowrap px-3 py-3 font-mono text-[11.5px]">
-                          {col === "visibility" ? (
-                            <Tag label={String(row[col])} variant="success" size="xs" />
-                          ) : col === "sparse" ? (
-                            <span className="text-blue-1">{String(row[col])}</span>
-                          ) : (
-                            String(row[col] ?? "")
-                          )}
-                        </td>
+              {!queryResults ? (
+                <table className="w-full min-w-[900px] text-left">
+                  <thead className="border-b border-[rgba(22,26,35,0.06)] bg-white">
+                    <tr className="font-mono text-[11px] text-[#64718a]">
+                      {previewColumns.map((col) => (
+                        <th key={col} className="whitespace-nowrap px-3 py-3 font-medium">{col}</th>
                       ))}
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="divide-y divide-[rgba(22,26,35,0.06)] text-[12px] text-[#3d4659]">
+                    {data.records.map((row, i) => (
+                      <tr key={i} className="transition hover:bg-[rgba(239,249,255,0.3)]">
+                        {previewColumns.map((col) => (
+                          <td key={col} className="max-w-[260px] truncate whitespace-nowrap px-3 py-3 font-mono text-[11.5px]">
+                            {col === "visibility" ? (
+                              <Tag label={String(row[col])} variant="success" size="xs" />
+                            ) : col === "sparse" ? (
+                              <span className="text-blue-1">{String(row[col])}</span>
+                            ) : (
+                              String(row[col] ?? "")
+                            )}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
+                <div>
+                  <div className="border-b border-[rgba(22,26,35,0.06)] bg-blue-5 px-5 py-2">
+                    <span className="font-mono text-[11px] text-blue-1">✓ Showing first {queryResults.length} records from collection</span>
+                  </div>
+                  <table className="w-full min-w-[1000px] text-left">
+                    <thead className="sticky top-0 z-10 border-b border-[rgba(22,26,35,0.06)] bg-white">
+                      <tr className="font-mono text-[11px] text-[#64718a]">
+                        <th className="px-3 py-3 font-medium">id</th>
+                        <th className="min-w-[250px] px-3 py-3 font-medium">text</th>
+                        <th className="px-3 py-3 font-medium">source</th>
+                        <th className="px-3 py-3 font-medium">chunk_id</th>
+                        <th className="px-3 py-3 font-medium">visibility</th>
+                        <th className="min-w-[200px] px-3 py-3 font-medium">dense</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-[rgba(22,26,35,0.06)] text-[12px] text-[#3d4659]">
+                      {queryResults.map((row) => (
+                        <tr key={row.id} className="transition hover:bg-[rgba(239,249,255,0.3)]">
+                          <td className="whitespace-nowrap px-3 py-3 font-mono text-[11.5px]">{row.id}</td>
+                          <td className="max-w-[300px] truncate px-3 py-3 text-[11.5px]">{typeof row.text === "string" ? (row.text.length > 80 ? row.text.slice(0, 80) + "..." : row.text) : ""}</td>
+                          <td className="whitespace-nowrap px-3 py-3 font-mono text-[11.5px]">{row.source}</td>
+                          <td className="whitespace-nowrap px-3 py-3 font-mono text-[11.5px]">{row.chunk_id}</td>
+                          <td className="px-3 py-3"><Tag label={row.visibility} variant="success" size="xs" /></td>
+                          <td className="max-w-[200px] truncate px-3 py-3 font-mono text-[10px] text-[#8592a8]">[{String(row.dense ?? "").slice(0, 40)}...]</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </div>
 
             {/* Progress + stats footer */}
             <div className="border-t border-[rgba(22,26,35,0.06)] bg-[rgba(246,247,249,0.4)] px-5 py-4">
               <div className="mb-2 flex items-baseline justify-between">
                 <span className="flex items-center gap-2 text-[12.5px] font-medium text-[#3d4659]">
-                  <span className={`h-2 w-2 rounded-full ${inserted ? "bg-[#10b981]" : "bg-[#1493dc]"}`} />
-                  {inserted ? "Insert complete" : inserting ? "Inserting records..." : "Waiting to execute insert()"}
+                  <span className={`h-2 w-2 rounded-full ${inserted ? "bg-[#10b981]" : error ? "bg-[#ef4444]" : "bg-[#1493dc]"}`} />
+                  {inserted ? "Insert complete" : inserting ? "Inserting records..." : error ? "Insert failed" : "Waiting to execute insert()"}
                 </span>
-                <span className="font-mono text-[13px] font-semibold text-blue-1">{progress}%</span>
+                <span className="font-mono text-[13px] font-semibold text-blue-1">{Math.round(progress)}%</span>
               </div>
               <div className="h-2 overflow-hidden rounded-full bg-[#eceff3]">
                 <div
-                  className={`h-full rounded-full transition-all duration-500 ${inserted ? "bg-[#10b981]" : "bg-[#1493dc]"}`}
+                  className={`h-full rounded-full transition-all duration-500 ${inserted ? "bg-[#10b981]" : error ? "bg-[#ef4444]" : "bg-[#1493dc]"}`}
                   style={{ width: `${progress}%` }}
                 />
               </div>
+              {error && (
+                <div className="mt-2 font-mono text-[11px] text-[#ef4444]">{error}</div>
+              )}
               <div className="mt-3 grid grid-cols-3 gap-3 font-mono text-[11px]">
                 <div>
                   <span className="text-[#8592a8]">Rows</span>
-                  <div className="mt-0.5 text-[13px] font-semibold text-[#161a23]">{data?.recordCount.toLocaleString() ?? "—"}</div>
+                  <div className="mt-0.5 text-[13px] font-semibold text-[#161a23]">{data.recordCount.toLocaleString()}</div>
                 </div>
                 <div>
                   <span className="text-[#8592a8]">Index</span>

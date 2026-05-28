@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useState, useCallback } from "react";
 import { StepNav } from "@/components/playground/StepNav";
 import { TryFirstSection } from "@/components/playground/TryFirstSection";
 import { DataSection } from "@/components/playground/DataSection";
@@ -16,7 +15,6 @@ const STORAGE_KEY = "zilliz-onboarding-state";
 export type DatasetId = "docs" | "legal" | "arxiv";
 export type ChunkPreset = "small" | "balanced" | "large";
 
-// Map UI dataset id to file name prefix
 export const DATASET_FILE_MAP: Record<DatasetId, string> = {
   docs: "enterprise_docs",
   legal: "legal_contracts",
@@ -39,36 +37,59 @@ function loadOnboardingState(): OnboardingState | null {
   }
 }
 
-export default function Playground() {
-  const router = useRouter();
-  const [onboarding, setOnboarding] = useState<OnboardingState | null>(null);
+const FALLBACK_STATE: OnboardingState = {
+  activeStep: 2,
+  apiKey: "",
+  projectName: null,
+  projectId: null,
+  clusterName: null,
+  clusterId: null,
+  clusterEndpoint: "",
+  clusterUsername: null,
+  clusterPassword: null,
+  collectionName: "demo_collection",
+  collectionCreated: true,
+  provisioningPhase: "done",
+  error: null,
+  startTrigger: 0,
+};
+
+function PlaygroundContent() {
+  const [onboarding] = useState<OnboardingState>(
+    () => loadOnboardingState() || FALLBACK_STATE
+  );
+
   const [activeStep, setActiveStep] = useState(0);
   const [selectedDataset, setSelectedDataset] = useState<DatasetId>("docs");
   const [selectedPreset, setSelectedPreset] = useState<ChunkPreset>("balanced");
 
-  useEffect(() => {
-    const state = loadOnboardingState();
-    setOnboarding(
-      state || {
-        activeStep: 2,
-        apiKey: "",
-        projectName: null,
-        projectId: null,
-        clusterName: null,
-        clusterId: null,
-        clusterEndpoint: "",
-        clusterUsername: null,
-        clusterPassword: null,
-        collectionName: "demo_collection",
-        collectionCreated: true,
-        provisioningPhase: "done",
-        error: null,
-        startTrigger: 0,
-      }
-    );
-  }, [router]);
+  // Step completion states — gate step 5 behind 2/3/4
+  const [chunkConfirmed, setChunkConfirmed] = useState(false);
+  const [tagsConfirmed, setTagsConfirmed] = useState(false);
+  const [embeddingConfirmed, setEmbeddingConfirmed] = useState(false);
+  const [insertCompleted, setInsertCompleted] = useState(false);
 
-  if (!onboarding) return null;
+  const canInsert = chunkConfirmed && tagsConfirmed && embeddingConfirmed;
+
+  const handleSelectDataset = useCallback((id: DatasetId) => {
+    setSelectedDataset(id);
+    setChunkConfirmed(false);
+    setTagsConfirmed(false);
+    setEmbeddingConfirmed(false);
+    setInsertCompleted(false);
+  }, []);
+
+  const handleSelectPreset = useCallback((preset: ChunkPreset) => {
+    setSelectedPreset(preset);
+    setChunkConfirmed(false);
+    setTagsConfirmed(false);
+    setEmbeddingConfirmed(false);
+    setInsertCompleted(false);
+  }, []);
+
+  const endpoint = onboarding.clusterEndpoint?.startsWith("https://")
+    ? onboarding.clusterEndpoint
+    : `https://${onboarding.clusterEndpoint}`;
 
   return (
     <div className="pt-8 pb-20">
@@ -88,35 +109,65 @@ export default function Playground() {
 
       {/* All sections visible */}
       <div className="space-y-10">
-        <TryFirstSection onStart={() => {}} />
+        <TryFirstSection onStart={() => {
+          document.getElementById("step-data")?.scrollIntoView({ behavior: "smooth" });
+        }} />
         <DataSection
           selectedDataset={selectedDataset}
-          onSelectDataset={setSelectedDataset}
-          onNext={() => {}}
+          onSelectDataset={handleSelectDataset}
+          onNext={() => {
+            document.getElementById("step-chunk")?.scrollIntoView({ behavior: "smooth" });
+          }}
         />
         <ChunkSection
           datasetId={selectedDataset}
           selectedPreset={selectedPreset}
-          onSelectPreset={setSelectedPreset}
-          onNext={() => {}}
+          onSelectPreset={handleSelectPreset}
+          onConfirm={() => setChunkConfirmed(true)}
+          confirmed={chunkConfirmed}
+          onNext={() => {
+            document.getElementById("step-tags")?.scrollIntoView({ behavior: "smooth" });
+          }}
         />
         <TagsSection
           datasetId={selectedDataset}
           preset={selectedPreset}
-          onNext={() => {}}
+          onConfirm={() => setTagsConfirmed(true)}
+          confirmed={tagsConfirmed}
+          onNext={() => {
+            document.getElementById("step-vector")?.scrollIntoView({ behavior: "smooth" });
+          }}
         />
         <VectorSection
           datasetId={selectedDataset}
-          onNext={() => {}}
+          onConfirm={() => setEmbeddingConfirmed(true)}
+          confirmed={embeddingConfirmed}
+          onNext={() => {
+            document.getElementById("step-ingest")?.scrollIntoView({ behavior: "smooth" });
+          }}
         />
         <IngestSection
           datasetId={selectedDataset}
           preset={selectedPreset}
-          onNext={() => {}}
+          apiKey={onboarding.apiKey}
+          clusterEndpoint={endpoint}
+          collectionName={onboarding.collectionName!}
+          canInsert={canInsert}
+          onInsertComplete={() => setInsertCompleted(true)}
+          onNext={() => {
+            document.getElementById("step-search")?.scrollIntoView({ behavior: "smooth" });
+          }}
         />
-        <SearchSection datasetId={selectedDataset} />
+        <SearchSection datasetId={selectedDataset} insertCompleted={insertCompleted} />
         <ExportSection datasetId={selectedDataset} preset={selectedPreset} />
       </div>
     </div>
   );
+}
+
+// Wrapper to disable SSR — playground reads sessionStorage at init
+import dynamic from "next/dynamic";
+const PlaygroundPage = dynamic(() => Promise.resolve(PlaygroundContent), { ssr: false });
+export default function Playground() {
+  return <PlaygroundPage />;
 }

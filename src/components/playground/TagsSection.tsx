@@ -1,51 +1,38 @@
-import { useEffect, useState } from "react";
+import { ArrowRightIcon } from "@/components/icons/ArrowRightIcon";
+import { useState } from "react";
 import { StepProgress } from "./StepProgress";
 import { CodeBlock } from "./CodeBlock";
-import { ArrowRightIcon, ArrowLeftIcon } from "@/components/icons/ArrowRightIcon";
 import { Tag } from "@/components/ui/Tag";
 import { Alert } from "@/components/ui/Alert";
 import { StepNavButtons } from "./StepNavButtons";
 import type { DatasetId, ChunkPreset } from "@/pages/playground";
 import { DATASET_FILE_MAP, DATASET_LABELS } from "@/pages/playground";
+import { getMetadataPreview } from "@/data/playground";
+
+import { Button } from "@/components/ui/Button";
 
 interface TagsSectionProps {
   datasetId: DatasetId;
   preset: ChunkPreset;
+  onConfirm: () => void;
+  confirmed: boolean;
   onNext: () => void;
 }
 
-interface ChunkMeta {
-  text: string;
-  meta: Record<string, unknown>;
-}
-
-interface MetadataResponse {
-  metadataFields: string[];
-  chunkCount: number;
-  chunks: ChunkMeta[];
-}
-
-export function TagsSection({ datasetId, preset, onNext }: TagsSectionProps) {
-  const [data, setData] = useState<MetadataResponse | null>(null);
-  const [tagged, setTagged] = useState(false);
-  const [loading, setLoading] = useState(false);
+export function TagsSection({ datasetId, preset, onConfirm, confirmed, onNext }: TagsSectionProps) {
+  const [tagging, setTagging] = useState(false);
+  const tagged = confirmed;
 
   const datasetFile = DATASET_FILE_MAP[datasetId];
   const datasetLabel = DATASET_LABELS[datasetId];
-
-  useEffect(() => {
-    setTagged(false);
-    let stale = false;
-    fetch(`/api/datasets/metadata?dataset=${datasetFile}&preset=${preset}`)
-      .then((res) => res.json())
-      .then((d) => {
-        if (!stale) setData(d);
-      });
-    return () => { stale = true; };
-  }, [datasetFile, preset]);
+  const data = getMetadataPreview(datasetId, preset);
 
   const handleTag = () => {
-    setTagged(true);
+    setTagging(true);
+    setTimeout(() => {
+      setTagging(false);
+      onConfirm();
+    }, 800);
   };
 
   const codeSnippet = datasetId === "legal"
@@ -139,15 +126,14 @@ for i, chunk in enumerate(chunks):
               </div>
               <div className="flex items-center gap-1.5 font-mono text-[11px] text-[#64718a]">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#10b981]" />
-                <span>{data?.chunkCount ?? "—"} chunks</span>
+                <span>{data.chunkCount ?? "—"} chunks</span>
               </div>
             </div>
 
             {/* Field tags */}
             <div className="flex flex-wrap items-center gap-2 border-b border-[rgba(22,26,35,0.06)] bg-[rgba(246,247,249,0.4)] px-5 py-3">
               <span className="font-mono text-[11px] text-[#64718a]">Fields:</span>
-              {loading && <span className="font-mono text-[11px] text-[#8592a8]">Loading...</span>}
-              {data?.metadataFields.map((field) => (
+              {data.metadataFields.map((field) => (
                 <Tag key={field} label={field} variant="info" size="small" />
               ))}
             </div>
@@ -160,22 +146,20 @@ for i, chunk in enumerate(chunks):
                   {tagged ? "Tags applied to all chunks" : "Waiting to add fields to all chunks"}
                 </div>
               </div>
-              <button
-                onClick={handleTag}
+              <Button
+                variant={tagged ? "success" : "primary"}
+                size="small"
+                loading={tagging}
                 disabled={tagged}
-                className={`shrink-0 cursor-pointer rounded-lg px-4 py-2 text-[12px] font-semibold text-white transition-all ${
-                  tagged
-                    ? "bg-[#10b981]"
-                    : "bg-blue-1 hover:bg-blue-dark-1"
-                }`}
+                onClick={handleTag}
               >
                 {tagged ? "✓ Tagged" : "Start tagging"}
-              </button>
+              </Button>
             </div>
 
             {/* Chunks list */}
             <div className="max-h-[420px] divide-y divide-[rgba(22,26,35,0.06)] overflow-y-auto">
-              {data?.chunks.map((chunk, i) => (
+              {data.chunks.map((chunk, i) => (
                 <div key={i} className="px-4 py-3 transition hover:bg-[rgba(246,247,249,0.3)]">
                   <div className="mb-2 flex items-center gap-2">
                     <span className="rounded bg-[#eceff3] px-1.5 py-0.5 font-mono text-[10px] text-[#4d5870]">
