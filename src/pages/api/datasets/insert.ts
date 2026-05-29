@@ -1,9 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import fs from "fs";
-import path from "path";
 import { ZillizClient } from "@/http/client";
 
 const BATCH_SIZE = 100;
+const S3_BASE_URL = "https://assets.zilliz.com/datasets_3mb";
 
 export default async function handler(
   req: NextApiRequest,
@@ -33,11 +32,14 @@ export default async function handler(
   }
 
   const filename = `${dataset}.step6-insert-records-${preset}.json`;
-  const filePath = path.join(process.cwd(), "datasets_3mb", filename);
+  const url = `${S3_BASE_URL}/${filename}`;
 
   try {
-    const raw = fs.readFileSync(filePath, "utf-8");
-    const data = JSON.parse(raw);
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch dataset: ${response.status}`);
+    }
+    const data = await response.json();
     const records: Record<string, unknown>[] = data.records;
 
     const client = new ZillizClient(endpoint, apiKey);

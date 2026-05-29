@@ -2,46 +2,112 @@ import { useState } from "react";
 import { StepProgress } from "./StepProgress";
 import { ArrowRightIcon, DocsIcon, IMIcon, MSNIcon } from "@/components/icons/ArrowRightIcon";
 
+const HUBSPOT_PORTAL_ID = "24054828";
+const HUBSPOT_FORM_GUID = "7146e30c-d553-48f0-a85f-fd9448543662";
+
 interface ExportSectionProps {
   datasetId: string;
   preset: string;
+  email: string;
 }
 
 const RATINGS = [
-  { emoji: "😍", label: "Amazing" },
-  { emoji: "🙂", label: "Good" },
-  { emoji: "😐", label: "Meh" },
-  { emoji: "😞", label: "Not useful" },
+  { emoji: "😍", label: "Excellent", value: "Excellent" },
+  { emoji: "🙂", label: "Good", value: "Good" },
+  { emoji: "😐", label: "Average", value: "Average" },
+  { emoji: "😞", label: "Not useful", value: "Not useful" },
 ];
 
-const USE_CASES = [
-  "Customer Support KB",
-  "Tech Doc QA",
-  "Legal / Contract Review",
-  "Internal Search",
-  "E-commerce Recs",
-  "Code Search",
-  "Agent Memory",
+const USE_CASES: { label: string; value: string }[] = [
+  { label: "Support Knowledge Base", value: "Support knowledge base" },
+  { label: "Technical Documentation Q&A", value: "Technical documentation Q&A" },
+  { label: "Legal / Contract Review", value: "Legal / contract review" },
+  { label: "Agent Memory", value: "Agent Memory" },
+  { label: "Internal Search", value: "Internal search" },
+  { label: "Other", value: "Other" },
 ];
 
-const NEXT_FEATURES = [
-  "Multi-modal (text-to-image / image-to-image)",
-  "Agent + Tool Calling",
-  "Production optimization (recall tuning)",
-  "Monitoring + Evaluation",
+const NEXT_FEATURES: { label: string; value: string }[] = [
+  { label: "Multimodal Search", value: "Multimodal Search" },
+  { label: "Agent Tool Use", value: "Agent Tool Use" },
+  { label: "Production Optimization", value: "Production Optimization" },
+  { label: "Monitoring & Evaluation", value: "Monitoring & Evaluation" },
 ];
 
-export function ExportSection({ datasetId, preset }: ExportSectionProps) {
+export function ExportSection({ datasetId, preset, email }: ExportSectionProps) {
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
   const [selectedUseCases, setSelectedUseCases] = useState<Set<string>>(new Set());
+  const [selectedFeatures, setSelectedFeatures] = useState<Set<string>>(new Set());
+  const [additionalFeedback, setAdditionalFeedback] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [showEmailModal, setShowEmailModal] = useState(false);
+  const [manualEmail, setManualEmail] = useState("");
 
-  const toggleUseCase = (uc: string) => {
+  const toggleUseCase = (value: string) => {
     setSelectedUseCases((prev) => {
       const next = new Set(prev);
-      if (next.has(uc)) next.delete(uc);
-      else next.add(uc);
+      if (next.has(value)) next.delete(value);
+      else next.add(value);
       return next;
     });
+  };
+
+  const toggleFeature = (value: string) => {
+    setSelectedFeatures((prev) => {
+      const next = new Set(prev);
+      if (next.has(value)) next.delete(value);
+      else next.add(value);
+      return next;
+    });
+  };
+
+  const submitToHubSpot = async (emailToSubmit: string) => {
+    setSubmitting(true);
+    try {
+      const fields = [
+        { name: "email", value: emailToSubmit },
+        { name: "demo_rating", value: selectedRating !== null ? RATINGS[selectedRating].value : "" },
+        { name: "demo_use_case", value: Array.from(selectedUseCases).join(";") },
+        { name: "demo_interested_next_topics", value: Array.from(selectedFeatures).join(";") },
+        { name: "additional_feedback", value: additionalFeedback },
+      ];
+
+      await fetch(
+        `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_PORTAL_ID}/${HUBSPOT_FORM_GUID}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            fields,
+            context: {
+              pageUri: window.location.href,
+              pageName: "Zilliz Cloud Onboarding Playground",
+            },
+          }),
+        }
+      );
+      setSubmitted(true);
+    } catch {
+      // silently fail — feedback is non-critical
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleSubmitFeedback = () => {
+    if (submitting || submitted) return;
+    if (!email) {
+      setShowEmailModal(true);
+      return;
+    }
+    submitToHubSpot(email);
+  };
+
+  const handleEmailModalSubmit = () => {
+    if (!manualEmail.trim()) return;
+    setShowEmailModal(false);
+    submitToHubSpot(manualEmail.trim());
   };
 
   return (
@@ -102,15 +168,15 @@ export function ExportSection({ datasetId, preset }: ExportSectionProps) {
             <div className="flex flex-wrap gap-2">
               {USE_CASES.map((uc) => (
                 <button
-                  key={uc}
-                  onClick={() => toggleUseCase(uc)}
+                  key={uc.value}
+                  onClick={() => toggleUseCase(uc.value)}
                   className={`cursor-pointer rounded-lg border-2 px-3 py-1.5 text-[12.5px] font-medium transition ${
-                    selectedUseCases.has(uc)
+                    selectedUseCases.has(uc.value)
                       ? "border-[#2cb7ff] bg-[#eff9ff] text-[#0a5f9e]"
                       : "border-[rgba(22,26,35,0.06)] bg-white text-[#4d5870] hover:border-[#2cb7ff]"
                   }`}
                 >
-                  {uc}
+                  {uc.label}
                 </button>
               ))}
             </div>
@@ -121,16 +187,43 @@ export function ExportSection({ datasetId, preset }: ExportSectionProps) {
             <div className="mb-2.5 text-[13px] font-medium text-[#161a23]">What do you want to see next?</div>
             <div className="grid grid-cols-2 gap-2">
               {NEXT_FEATURES.map((f) => (
-                <label key={f} className="flex cursor-pointer items-center gap-2 rounded-lg border border-[rgba(22,26,35,0.06)] bg-white px-3 py-2.5 transition hover:border-[#2cb7ff]">
-                  <input type="checkbox" className="accent-[#1493dc]" />
-                  <span className="text-[12.5px] text-[#2c3343]">{f}</span>
+                <label key={f.value} className="flex cursor-pointer items-center gap-2 rounded-lg border border-[rgba(22,26,35,0.06)] bg-white px-3 py-2.5 transition hover:border-[#2cb7ff]">
+                  <input
+                    type="checkbox"
+                    className="accent-[#1493dc]"
+                    checked={selectedFeatures.has(f.value)}
+                    onChange={() => toggleFeature(f.value)}
+                  />
+                  <span className="text-[12.5px] text-[#2c3343]">{f.label}</span>
                 </label>
               ))}
             </div>
           </div>
 
-          <button className="mt-5 w-full cursor-pointer rounded-xl bg-blue-1 px-4 py-3 text-[14px] font-semibold text-white transition-all hover:bg-blue-dark-1">
-            Submit feedback
+          {/* Additional feedback */}
+          <div className="mt-6 border-t border-[rgba(22,26,35,0.06)] pt-5">
+            <div className="mb-2.5 text-[13px] font-medium text-[#161a23]">Additional feedback</div>
+            <textarea
+              value={additionalFeedback}
+              onChange={(e) => setAdditionalFeedback(e.target.value)}
+              placeholder="Anything else you'd like to share..."
+              className="w-full resize-none rounded-lg border border-[rgba(22,26,35,0.12)] px-3 py-2.5 text-[13px] text-[#161a23] placeholder-[#8592a8] outline-none transition focus:border-[#2cb7ff] focus:ring-1 focus:ring-[#2cb7ff]"
+              rows={3}
+            />
+          </div>
+
+          <button
+            onClick={handleSubmitFeedback}
+            disabled={submitting || submitted}
+            className={`mt-5 w-full cursor-pointer rounded-xl px-4 py-3 text-[14px] font-semibold text-white transition-all ${
+              submitted
+                ? "bg-[#10b981]"
+                : submitting
+                  ? "bg-blue-1 opacity-60"
+                  : "bg-blue-1 hover:bg-blue-dark-1"
+            }`}
+          >
+            {submitted ? "Thanks for your feedback!" : submitting ? "Submitting..." : "Submit feedback"}
           </button>
 
           {/* Download code */}
@@ -178,6 +271,42 @@ export function ExportSection({ datasetId, preset }: ExportSectionProps) {
           </div>
         </div>
       </div>
+
+      {/* Email modal */}
+      {showEmailModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="w-full max-w-sm rounded-xl bg-white p-6 shadow-xl">
+            <h3 className="text-[16px] font-semibold text-[#0a0d14]">Enter your email</h3>
+            <p className="mt-1 text-[13px] text-[#64718a]">
+              We need your email to submit feedback. If you prefer not to share it, you can skip.
+            </p>
+            <input
+              type="email"
+              value={manualEmail}
+              onChange={(e) => setManualEmail(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleEmailModalSubmit()}
+              placeholder="you@example.com"
+              className="mt-4 w-full rounded-lg border border-[rgba(22,26,35,0.12)] px-3 py-2.5 text-[13px] text-[#161a23] placeholder-[#8592a8] outline-none transition focus:border-[#2cb7ff] focus:ring-1 focus:ring-[#2cb7ff]"
+              autoFocus
+            />
+            <div className="mt-4 flex gap-2">
+              <button
+                onClick={() => setShowEmailModal(false)}
+                className="flex-1 cursor-pointer rounded-lg border border-[rgba(22,26,35,0.12)] px-4 py-2 text-[13px] font-medium text-[#3d4659] transition hover:bg-[#f5f6f8]"
+              >
+                Skip
+              </button>
+              <button
+                onClick={handleEmailModalSubmit}
+                disabled={!manualEmail.trim()}
+                className="flex-1 cursor-pointer rounded-lg bg-blue-1 px-4 py-2 text-[13px] font-medium text-white transition hover:bg-blue-dark-1 disabled:opacity-40"
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

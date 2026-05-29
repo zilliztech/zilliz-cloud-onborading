@@ -1,4 +1,5 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { useRouter } from "next/router";
 import { StepNav } from "@/components/playground/StepNav";
 import { TryFirstSection } from "@/components/playground/TryFirstSection";
 import { DataSection } from "@/components/playground/DataSection";
@@ -9,6 +10,8 @@ import { IngestSection } from "@/components/playground/IngestSection";
 import { SearchSection } from "@/components/playground/SearchSection";
 import { ExportSection } from "@/components/playground/ExportSection";
 import type { OnboardingState } from "@/hooks/useProvisioning";
+
+const EMAIL_STORAGE_KEY = "zilliz-onboarding-email";
 
 const STORAGE_KEY = "zilliz-onboarding-state";
 
@@ -37,27 +40,28 @@ function loadOnboardingState(): OnboardingState | null {
   }
 }
 
-const FALLBACK_STATE: OnboardingState = {
-  activeStep: 2,
-  apiKey: "",
-  projectName: null,
-  projectId: null,
-  clusterName: null,
-  clusterId: null,
-  clusterEndpoint: "",
-  clusterUsername: null,
-  clusterPassword: null,
-  collectionName: "demo_collection",
-  collectionCreated: true,
-  provisioningPhase: "done",
-  error: null,
-  startTrigger: 0,
-};
-
 function PlaygroundContent() {
-  const [onboarding] = useState<OnboardingState>(
-    () => loadOnboardingState() || FALLBACK_STATE
-  );
+  const router = useRouter();
+  const [onboarding] = useState<OnboardingState | null>(loadOnboardingState);
+
+  // Guard: redirect to onboarding if not provisioned
+  useEffect(() => {
+    if (
+      !onboarding ||
+      onboarding.activeStep !== 2 ||
+      onboarding.provisioningPhase !== "done"
+    ) {
+      router.replace("/");
+    }
+  }, [onboarding, router]);
+
+  if (
+    !onboarding ||
+    onboarding.activeStep !== 2 ||
+    onboarding.provisioningPhase !== "done"
+  ) {
+    return null;
+  }
 
   const [activeStep, setActiveStep] = useState(0);
   const [selectedDataset, setSelectedDataset] = useState<DatasetId>("docs");
@@ -70,6 +74,20 @@ function PlaygroundContent() {
   const [insertCompleted, setInsertCompleted] = useState(false);
 
   const canInsert = chunkConfirmed && tagsConfirmed && embeddingConfirmed;
+
+  // Capture email from URL query and persist to sessionStorage
+  const [userEmail, setUserEmail] = useState("");
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const emailFromQuery = params.get("email");
+    if (emailFromQuery) {
+      sessionStorage.setItem(EMAIL_STORAGE_KEY, emailFromQuery);
+      setUserEmail(emailFromQuery);
+    } else {
+      const stored = sessionStorage.getItem(EMAIL_STORAGE_KEY);
+      if (stored) setUserEmail(stored);
+    }
+  }, []);
 
   const handleSelectDataset = useCallback((id: DatasetId) => {
     setSelectedDataset(id);
@@ -159,7 +177,7 @@ function PlaygroundContent() {
           }}
         />
         <SearchSection datasetId={selectedDataset} insertCompleted={insertCompleted} />
-        <ExportSection datasetId={selectedDataset} preset={selectedPreset} />
+        <ExportSection datasetId={selectedDataset} preset={selectedPreset} email={userEmail} />
       </div>
     </div>
   );
