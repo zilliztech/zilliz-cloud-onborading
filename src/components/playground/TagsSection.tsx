@@ -126,10 +126,10 @@ for i, chunk in enumerate(chunks):
       {/* Content grid */}
       <div className="mt-6 grid grid-cols-12 gap-6">
         {/* LEFT: Metadata fields + chunks */}
-        <div className="col-span-12 flex h-full flex-col lg:col-span-6">
-          <div className="shrink-0 overflow-hidden rounded-xl border border-[rgba(22,26,35,0.06)] bg-white shadow-[0_1px_2px_rgba(13,43,72,0.04),0_4px_12px_rgba(20,147,220,0.08)]">
+        <div className="col-span-12 flex h-full flex-col gap-4 lg:col-span-6">
+          <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-xl border border-[rgba(22,26,35,0.06)] bg-white shadow-[0_1px_2px_rgba(13,43,72,0.04),0_4px_12px_rgba(20,147,220,0.08)]">
             {/* Header */}
-            <div className="flex items-center justify-between border-b border-[rgba(22,26,35,0.06)] px-5 py-3.5">
+            <div className="flex shrink-0 items-center justify-between border-b border-[rgba(22,26,35,0.06)] px-5 py-3.5">
               <div className="flex items-center gap-2">
                 <svg viewBox="0 0 20 20" className="h-4 w-4 text-blue-1">
                   <rect x="3" y="3" width="14" height="14" rx="2" stroke="currentColor" strokeWidth="1.6" fill="none" />
@@ -144,7 +144,7 @@ for i, chunk in enumerate(chunks):
             </div>
 
             {/* Field tags */}
-            <div className="flex flex-wrap items-center gap-2 border-b border-[rgba(22,26,35,0.06)] bg-[rgba(246,247,249,0.4)] px-5 py-3">
+            <div className="flex shrink-0 flex-wrap items-center gap-2 border-b border-[rgba(22,26,35,0.06)] bg-[rgba(246,247,249,0.4)] px-5 py-3">
               <span className="font-mono text-[11px] text-[#64718a]">Fields:</span>
               {data.metadataFields.map((field) => (
                 <Tag key={field} label={field} variant="info" size="small" />
@@ -152,7 +152,7 @@ for i, chunk in enumerate(chunks):
             </div>
 
             {/* Action button */}
-            <div className="flex items-center justify-between gap-3 border-b border-[rgba(22,26,35,0.06)] bg-white px-5 py-3">
+            <div className="flex shrink-0 items-center justify-between gap-3 border-b border-[rgba(22,26,35,0.06)] bg-white px-5 py-3">
               <div>
                 <div className="text-[12.5px] font-medium text-[#2c3343]">Generate metadata</div>
                 <div className="mt-0.5 font-mono text-[11px] text-[#8592a8]">
@@ -171,7 +171,7 @@ for i, chunk in enumerate(chunks):
             </div>
 
             {/* Chunks list */}
-            <div className="max-h-[420px] divide-y divide-[rgba(22,26,35,0.06)] overflow-y-auto">
+            <div className="min-h-0 flex-1 divide-y divide-[rgba(22,26,35,0.06)] overflow-y-auto">
               {data.chunks.map((chunk, i) => (
                 <div key={i} className="px-4 py-3 transition hover:bg-[rgba(246,247,249,0.3)]">
                   <div className="mb-2 flex items-center gap-2">
@@ -198,9 +198,6 @@ for i, chunk in enumerate(chunks):
               ))}
             </div>
           </div>
-
-          {/* Spacer pushes the tip to the bottom so it aligns with the code block */}
-          <div className="min-h-[16px] flex-1" />
 
           {/* Tip box */}
           <div className="shrink-0">
