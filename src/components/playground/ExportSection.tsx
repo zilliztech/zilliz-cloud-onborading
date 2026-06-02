@@ -226,22 +226,16 @@ export function ExportSection({ email }: ExportSectionProps) {
             <div className="mb-2.5 text-[13px] font-medium text-[#161a23]">What do you want to see next?</div>
             <div className="grid grid-cols-2 gap-2">
               {NEXT_FEATURES.map((f) => (
-                <div
+                <label
                   key={f.value}
-                  className={`group rounded-[10px] p-[1.5px] transition-all ${
-                    selectedFeatures.has(f.value)
-                      ? "bg-gradient-to-l from-[#FF058A] via-[#B92BBA] to-[#531AEE]"
-                      : "bg-stroke-1 hover:bg-[linear-gradient(270deg,#FF058A,#B92BBA,#531AEE)]"
-                  }`}
+                  className="flex cursor-pointer items-center gap-2 rounded-lg border border-[rgba(22,26,35,0.06)] bg-white px-3 py-2.5 transition hover:border-[#2cb7ff]"
                 >
-                  <label className="flex cursor-pointer items-center gap-2 rounded-[8.5px] bg-white px-3 py-2.5">
-                    <ZCheck
-                      checked={selectedFeatures.has(f.value)}
-                      onChange={() => toggleFeature(f.value)}
-                    />
-                    <span className="text-[12.5px] text-[#2c3343]">{f.label}</span>
-                  </label>
-                </div>
+                  <ZCheck
+                    checked={selectedFeatures.has(f.value)}
+                    onChange={() => toggleFeature(f.value)}
+                  />
+                  <span className="text-[12.5px] text-[#2c3343]">{f.label}</span>
+                </label>
               ))}
             </div>
           </div>
@@ -302,7 +296,7 @@ export function ExportSection({ email }: ExportSectionProps) {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-baseline gap-2 py-1.5 text-[13.5px] text-blue-1 transition hover:text-blue-dark-1"
+                className="group inline-flex items-center gap-2 py-1.5 text-[13.5px] text-blue-1 transition hover:text-blue-dark-1"
               >
                 <span className="font-medium underline-offset-2 group-hover:underline">
                   {link.title}
