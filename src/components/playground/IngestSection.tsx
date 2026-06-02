@@ -294,17 +294,22 @@ client.insert("${datasetFile}", data=records)`;
             <div className="border-t border-[rgba(22,26,35,0.06)] bg-[rgba(246,247,249,0.4)] px-5 py-4">
               <div className="mb-2 flex items-baseline justify-between">
                 <span className="flex items-center gap-2 text-[12.5px] font-medium text-[#3d4659]">
-                  <span className={`h-2 w-2 rounded-full ${inserted ? "bg-[#10b981]" : error ? "bg-[#ef4444]" : "bg-[#1493dc]"}`} />
+                  <span className={`h-2 w-2 rounded-full ${inserted ? "bg-[#10b981]" : error ? "bg-[#ef4444]" : "bg-[#3f46ff]"}`} />
                   {inserted ? "Insert complete" : inserting ? "Inserting records..." : error ? "Insert failed" : "Waiting to execute insert()"}
                 </span>
-                <span className="font-mono text-[13px] font-semibold text-blue-1">{Math.round(progress)}%</span>
+                <span className="font-mono text-[13px] font-semibold text-[#181eca]">{Math.round(progress)}%</span>
               </div>
-              <div className="h-2 overflow-hidden rounded-full bg-[#eceff3]">
+              <div className="h-2 overflow-hidden rounded-full bg-[#dbe0ff]">
                 <div
-                  className={`h-full rounded-full transition-all duration-500 ${inserted ? "bg-[#10b981]" : error ? "bg-[#ef4444]" : "bg-[#1493dc]"}`}
+                  className={`h-full rounded-full transition-all duration-500 ${inserted ? "bg-[#10b981]" : error ? "bg-[#ef4444]" : "bg-[#3f46ff]"}`}
                   style={{ width: `${progress}%` }}
                 />
               </div>
+              {inserting && (
+                <div className="mt-2 text-[11px] text-[#8592a8]">
+                  This dataset is fairly large, so the insert may take a little while…
+                </div>
+              )}
               {error && (
                 <div className="mt-2 font-mono text-[11px] text-[#ef4444]">{error}</div>
               )}
