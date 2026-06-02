@@ -6,7 +6,7 @@ import { Tag } from "@/components/ui/Tag";
 import { Alert } from "@/components/ui/Alert";
 import { StepNavButtons } from "./StepNavButtons";
 import type { DatasetId, ChunkPreset } from "@/pages/playground";
-import { DATASET_FILE_MAP, DATASET_LABELS } from "@/pages/playground";
+import { DATASET_FILE_MAP } from "@/pages/playground";
 import { getMetadataPreview } from "@/data/playground";
 import { usePlaygroundData } from "@/hooks/usePlaygroundData";
 
@@ -25,7 +25,6 @@ export function TagsSection({ datasetId, preset, onConfirm, confirmed, onNext }:
   const tagged = confirmed;
 
   const datasetFile = DATASET_FILE_MAP[datasetId];
-  const datasetLabel = DATASET_LABELS[datasetId];
   const { data, loading } = usePlaygroundData(
     () => getMetadataPreview(datasetId, preset),
     [datasetId, preset],
@@ -236,9 +235,9 @@ for i, chunk in enumerate(chunks):
               </a>
             </div>
             <p className="mt-2 text-[13.5px] leading-[1.65] text-[#4d5870]">
-              Once each chunk carries structured fields, retrieval can first filter by permission,
-              source, section, or business fields, then run vector recall. The code below generates
-              the records for the <strong>{datasetLabel}</strong> dataset.
+              Metadata makes retrieval controllable. Filter by source, section, date,
+              or permission before vector search, so results come only from allowed
+              and relevant chunks.
             </p>
           </div>
 

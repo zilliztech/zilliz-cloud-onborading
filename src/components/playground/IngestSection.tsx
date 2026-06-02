@@ -342,10 +342,11 @@ client.insert("${datasetFile}", data=records)`;
                 Collection — the &quot;table&quot; of a vector database
               </h2>
               <p className="mt-3 text-[14.5px] leading-[1.75] text-[#4d5870]">
-                A collection maps to one RAG app&apos;s datastore. When creating a collection, you define the{" "}
-                <span className="font-medium text-[#161a23]">schema</span> (fields + vector dimensions) and{" "}
-                <span className="font-medium text-[#161a23]">index</span>. Zilliz Cloud uses AUTOINDEX to
-                automatically pick the optimal index — no need to understand HNSW / IVF internals.
+                A collection is like a table for vectors. It stores embeddings together with{" "}
+                metadata fields. You define the <span className="font-medium text-[#161a23]">schema</span>,
+                including IDs, fields, vector columns, and dimensions. Zilliz Cloud{" "}
+                <span className="font-medium text-[#161a23]">AUTOINDEX</span> can choose the index
+                automatically, so you do not need to tune HNSW or IVF by hand.
               </p>
             </div>
 

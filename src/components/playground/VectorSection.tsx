@@ -238,15 +238,11 @@ for record, vector in zip(records, vectors):
               What is an embedding?
             </h2>
             <p className="mt-3 text-[14.5px] leading-[1.75] text-[#4d5870]">
-              An embedding maps a piece of text to a{" "}
-              <span className="rounded border border-[rgba(22,26,35,0.1)] bg-[#fbfcfe] px-1.5 py-0.5 font-mono text-[11px] text-[#3d4659]">
-                {data.dimension ?? 1536}
-              </span>
-              -dimensional vector.{" "}
+              An embedding maps a piece of text to a high-dimensional vector.{" "}
               <span className="font-medium text-[#161a23]">
-                Texts with similar meaning produce similar vectors
+                Texts with similar meaning produce nearby vectors
               </span>
-              — so we can use math (cosine distance) to find &quot;similar content.&quot;
+              , so we can use similarity math to find related content.
             </p>
           </div>
 

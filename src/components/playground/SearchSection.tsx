@@ -15,27 +15,6 @@ interface SearchSectionProps {
   insertCompleted: boolean;
 }
 
-interface Hit {
-  score: number;
-  text: string;
-  source: string;
-  chunkId: number;
-}
-
-interface Variant {
-  label: string;
-  filter: string | null;
-  hits: Hit[];
-  answer: string;
-  citations: string[];
-}
-
-interface Question {
-  id: string;
-  query: string;
-  variants: Variant[];
-}
-
 function SimBar({ score }: { score: number }) {
   const pct = Math.round(score * 100);
   return (
@@ -264,10 +243,13 @@ answer = oai.chat.completions.create(model="gpt-4o", ...)`;
               Why is Hybrid Search more accurate than Dense only?
             </h2>
             <p className="mt-3 text-[14.5px] leading-[1.75] text-[#4d5870]">
-              Dense excels at <span className="font-medium text-[#161a23]">&quot;meaning&quot;</span> but is
-              insensitive to terminology, proper nouns, and version numbers. Sparse (BM25) is the opposite.{" "}
-              <span className="font-medium text-[#161a23]">Hybrid uses RRF to merge both retrieval paths</span>,
-              complementing each other&apos;s strengths.
+              Dense retrieval is strong at semantic similarity, but it can miss exact terms,
+              proper nouns, IDs, and version numbers. Sparse retrieval such as BM25 is strong
+              at lexical matching.{" "}
+              <span className="font-medium text-[#161a23]">
+                Hybrid search combines both result rankings, often with RRF
+              </span>
+              , so semantic and keyword signals can complement each other.
             </p>
 
             {/* Dense vs Hybrid comparison */}
