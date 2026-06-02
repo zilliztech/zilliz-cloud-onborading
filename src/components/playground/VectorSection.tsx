@@ -13,6 +13,8 @@ interface VectorSectionProps {
   datasetId: DatasetId;
   onConfirm: () => void;
   confirmed: boolean;
+  /** Whether the previous step (tagging) is done — gates the compute action. */
+  tagsDone: boolean;
   onNext: () => void;
 }
 
@@ -26,7 +28,7 @@ function valueToColor(v: number): string {
   return `rgb(${r},${g},${b})`;
 }
 
-export function VectorSection({ datasetId, onConfirm, confirmed, onNext }: VectorSectionProps) {
+export function VectorSection({ datasetId, onConfirm, confirmed, tagsDone, onNext }: VectorSectionProps) {
   const [selectedChunk, setSelectedChunk] = useState(0);
   const [computing, setComputing] = useState(false);
   const computed = confirmed;
@@ -152,14 +154,18 @@ for record, vector in zip(records, vectors):
                 <div>
                   <div className="text-[12.5px] font-medium text-[#2c3343]">Compute embedding</div>
                   <div className="mt-0.5 font-mono text-[11px] text-[#8592a8]">
-                    {computed ? "Embedding generated" : "Waiting to generate vector for chunk text"}
+                    {computed
+                      ? "Embedding generated"
+                      : !tagsDone
+                        ? "Apply metadata tags first"
+                        : "Waiting to generate vector for chunk text"}
                   </div>
                 </div>
                 <Button
                   variant={computed ? "success" : "primary"}
                   size="small"
                   loading={computing}
-                  disabled={computed}
+                  disabled={computed || !tagsDone}
                   onClick={() => {
                     setComputing(true);
                     setTimeout(() => {
@@ -248,7 +254,7 @@ for record, vector in zip(records, vectors):
         </div>
       </div>
 
-      <StepNavButtons prevLabel="Previous" prevAnchor="#step-tags" nextLabel="Next: Ingest" onNext={onNext} nextDisabled={!confirmed} nextHint="Compute the embedding first" />
+      <StepNavButtons prevLabel="Previous" prevAnchor="#step-tags" nextLabel="Next: Ingest" onNext={onNext} />
     </section>
   );
 }

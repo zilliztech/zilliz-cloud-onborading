@@ -295,7 +295,7 @@ print("chunks:", len(chunks))`}
         </div>
       </div>
 
-      <StepNavButtons prevLabel="Previous" prevAnchor="#step-data" nextLabel="Next: Tags" onNext={onNext} nextDisabled={!confirmed} nextHint="Confirm chunking first" />
+      <StepNavButtons prevLabel="Previous" prevAnchor="#step-data" nextLabel="Next: Tags" onNext={onNext} />
     </section>
   );
 }

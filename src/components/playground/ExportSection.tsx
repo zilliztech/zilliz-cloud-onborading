@@ -32,6 +32,9 @@ const NEXT_FEATURES: { label: string; value: string }[] = [
   { label: "Monitoring & Evaluation", value: "Monitoring & Evaluation" },
 ];
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const isValidEmail = (value: string) => EMAIL_RE.test(value.trim());
+
 export function ExportSection({ email }: ExportSectionProps) {
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
   const [selectedUseCases, setSelectedUseCases] = useState<Set<string>>(new Set());
@@ -95,15 +98,16 @@ export function ExportSection({ email }: ExportSectionProps) {
 
   const handleSubmitFeedback = () => {
     if (submitting || submitted) return;
-    if (!email) {
+    // Fall back to the modal if we have no email or a malformed one.
+    if (!isValidEmail(email)) {
       setShowEmailModal(true);
       return;
     }
-    submitToHubSpot(email);
+    submitToHubSpot(email.trim());
   };
 
   const handleEmailModalSubmit = () => {
-    if (!manualEmail.trim()) return;
+    if (!isValidEmail(manualEmail)) return;
     setShowEmailModal(false);
     submitToHubSpot(manualEmail.trim());
   };
@@ -281,9 +285,18 @@ export function ExportSection({ email }: ExportSectionProps) {
               onChange={(e) => setManualEmail(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleEmailModalSubmit()}
               placeholder="you@example.com"
-              className="mt-4 w-full rounded-lg border border-[rgba(22,26,35,0.12)] px-3 py-2.5 text-[13px] text-[#161a23] placeholder-[#8592a8] outline-none transition focus:border-[#2cb7ff] focus:ring-1 focus:ring-[#2cb7ff]"
+              className={`mt-4 w-full rounded-lg border px-3 py-2.5 text-[13px] text-[#161a23] placeholder-[#8592a8] outline-none transition focus:ring-1 ${
+                manualEmail.trim() && !isValidEmail(manualEmail)
+                  ? "border-[#ef4444] focus:border-[#ef4444] focus:ring-[#ef4444]"
+                  : "border-[rgba(22,26,35,0.12)] focus:border-[#2cb7ff] focus:ring-[#2cb7ff]"
+              }`}
               autoFocus
             />
+            {manualEmail.trim() && !isValidEmail(manualEmail) && (
+              <p className="mt-1.5 text-[12px] text-[#ef4444]">
+                Please enter a valid email address.
+              </p>
+            )}
             <div className="mt-4 flex gap-2">
               <button
                 onClick={() => setShowEmailModal(false)}
@@ -293,8 +306,8 @@ export function ExportSection({ email }: ExportSectionProps) {
               </button>
               <button
                 onClick={handleEmailModalSubmit}
-                disabled={!manualEmail.trim()}
-                className="flex-1 cursor-pointer rounded-lg bg-blue-1 px-4 py-2 text-[13px] font-medium text-white transition hover:bg-blue-dark-1 disabled:opacity-40"
+                disabled={!isValidEmail(manualEmail)}
+                className="flex-1 cursor-pointer rounded-lg bg-blue-1 px-4 py-2 text-[13px] font-medium text-white transition hover:bg-blue-dark-1 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 Submit
               </button>

@@ -159,6 +159,7 @@ function PlaygroundContent() {
           preset={selectedPreset}
           onConfirm={() => setTagsConfirmed(true)}
           confirmed={tagsConfirmed}
+          chunkDone={chunkConfirmed}
           onNext={() => {
             document.getElementById("step-vector")?.scrollIntoView({ behavior: "smooth" });
           }}
@@ -167,6 +168,7 @@ function PlaygroundContent() {
           datasetId={selectedDataset}
           onConfirm={() => setEmbeddingConfirmed(true)}
           confirmed={embeddingConfirmed}
+          tagsDone={tagsConfirmed}
           onNext={() => {
             document.getElementById("step-ingest")?.scrollIntoView({ behavior: "smooth" });
           }}

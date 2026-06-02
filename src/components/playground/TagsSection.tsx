@@ -17,10 +17,12 @@ interface TagsSectionProps {
   preset: ChunkPreset;
   onConfirm: () => void;
   confirmed: boolean;
+  /** Whether the previous step (chunking) is done — gates the tag action. */
+  chunkDone: boolean;
   onNext: () => void;
 }
 
-export function TagsSection({ datasetId, preset, onConfirm, confirmed, onNext }: TagsSectionProps) {
+export function TagsSection({ datasetId, preset, onConfirm, confirmed, chunkDone, onNext }: TagsSectionProps) {
   const [tagging, setTagging] = useState(false);
   const tagged = confirmed;
 
@@ -156,14 +158,18 @@ for i, chunk in enumerate(chunks):
               <div>
                 <div className="text-[12.5px] font-medium text-[#2c3343]">Generate metadata</div>
                 <div className="mt-0.5 font-mono text-[11px] text-[#8592a8]">
-                  {tagged ? "Tags applied to all chunks" : "Waiting to add fields to all chunks"}
+                  {tagged
+                    ? "Tags applied to all chunks"
+                    : !chunkDone
+                      ? "Confirm chunking first"
+                      : "Waiting to add fields to all chunks"}
                 </div>
               </div>
               <Button
                 variant={tagged ? "success" : "primary"}
                 size="small"
                 loading={tagging}
-                disabled={tagged}
+                disabled={tagged || !chunkDone}
                 onClick={handleTag}
               >
                 {tagged ? "✓ Tagged" : "Start tagging"}
@@ -248,7 +254,7 @@ for i, chunk in enumerate(chunks):
         </div>
       </div>
 
-      <StepNavButtons prevLabel="Previous" prevAnchor="#step-chunk" nextLabel="Next: Vector" onNext={onNext} nextDisabled={!confirmed} nextHint="Apply tags first" />
+      <StepNavButtons prevLabel="Previous" prevAnchor="#step-chunk" nextLabel="Next: Vector" onNext={onNext} />
     </section>
   );
 }
