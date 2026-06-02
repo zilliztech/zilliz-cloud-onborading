@@ -246,7 +246,7 @@ for record, vector in zip(records, vectors):
         </div>
       </div>
 
-      <StepNavButtons prevLabel="Previous" prevAnchor="#step-tags" nextLabel="Next: Ingest" onNext={onNext} />
+      <StepNavButtons prevLabel="Previous" prevAnchor="#step-tags" nextLabel="Next: Ingest" onNext={onNext} nextDisabled={!confirmed} nextHint="Compute the embedding first" />
     </section>
   );
 }

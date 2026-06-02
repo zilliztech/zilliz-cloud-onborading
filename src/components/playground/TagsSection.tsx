@@ -118,7 +118,7 @@ for i, chunk in enumerate(chunks):
           Tag each chunk with metadata
         </h1>
         <p className="mt-0.5 text-[14px] text-[#64718a]">
-          Source, page, section, date, permissions — this is the key step to take RAG from demo to production
+          Metadata fields are what take RAG from demo to production.
         </p>
         <StepProgress currentStep={2} />
       </div>
@@ -246,7 +246,7 @@ for i, chunk in enumerate(chunks):
         </div>
       </div>
 
-      <StepNavButtons prevLabel="Previous" prevAnchor="#step-chunk" nextLabel="Next: Vector" onNext={onNext} />
+      <StepNavButtons prevLabel="Previous" prevAnchor="#step-chunk" nextLabel="Next: Vector" onNext={onNext} nextDisabled={!confirmed} nextHint="Apply tags first" />
     </section>
   );
 }

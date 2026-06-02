@@ -358,7 +358,7 @@ client.insert("${datasetFile}", data=records)`;
         </div>
       </div>
 
-      <StepNavButtons prevLabel="Previous" prevAnchor="#step-vector" nextLabel="Next: Search" onNext={onNext} />
+      <StepNavButtons prevLabel="Previous" prevAnchor="#step-vector" nextLabel="Next: Search" onNext={onNext} nextDisabled={!inserted} nextHint="Insert records first" />
     </section>
   );
 }

@@ -1,5 +1,5 @@
 import { ArrowRightIcon } from "@/components/icons/ArrowRightIcon";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { StepProgress } from "./StepProgress";
 import { CodeBlock } from "./CodeBlock";
 import { Tag } from "@/components/ui/Tag";
@@ -37,6 +37,41 @@ export function SearchSection({ datasetId, insertCompleted }: SearchSectionProps
     () => getRetrievalData(datasetId),
     [datasetId],
   );
+
+  // Generated-answer reveal. The answer is precomputed, but we "stream" it on
+  // demand so it reads like the model is running live on the retrieved context.
+  const [genState, setGenState] = useState<"idle" | "streaming" | "done">("idle");
+  const [streamed, setStreamed] = useState("");
+  const answer =
+    questions?.[selectedQ]?.variants[selectedVariant]?.answer ?? "";
+
+  // Reset whenever the question/variant changes or the pipeline is re-run.
+  useEffect(() => {
+    setGenState("idle");
+    setStreamed("");
+  }, [selectedQ, selectedVariant, insertCompleted]);
+
+  // Typewriter reveal once the user clicks Generate.
+  useEffect(() => {
+    if (genState !== "streaming") return;
+    if (!answer) {
+      setGenState("done");
+      return;
+    }
+    let i = 0;
+    const step = Math.max(2, Math.round(answer.length / 140));
+    const id = setInterval(() => {
+      i += step;
+      if (i >= answer.length) {
+        setStreamed(answer);
+        setGenState("done");
+        clearInterval(id);
+      } else {
+        setStreamed(answer.slice(0, i));
+      }
+    }, 16);
+    return () => clearInterval(id);
+  }, [genState, answer]);
 
   if (loading || !questions) {
     return (
@@ -217,16 +252,30 @@ answer = oai.chat.completions.create(model="gpt-4o", ...)`;
                     <path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v8a2 2 0 01-2 2H6l-4 3V5z" stroke="currentColor" strokeWidth="1.5" fill="none" />
                   </svg>
                   <span className="text-[12px] font-medium">Generated answer</span>
-                  <span className="font-mono text-[10.5px] text-[#8592a8]">precomputed</span>
+                  {genState === "streaming" && (
+                    <span className="font-mono text-[10.5px] text-blue-1">generating…</span>
+                  )}
                 </div>
-                <div className="rounded-2xl rounded-bl border border-[rgba(22,26,35,0.08)] bg-white p-4 text-[13px] leading-[1.75] text-[#2c3343] shadow-[0_1px_2px_rgba(13,43,72,0.04),0_4px_14px_rgba(13,43,72,0.05)]">
-                  {variant.answer}
-                  <div className="mt-3 flex flex-wrap items-center gap-1.5">
-                    {variant.citations.map((c, i) => (
-                      <Tag key={i} label={c} variant="info" size="small" />
-                    ))}
+
+                {genState === "idle" ? (
+                  <Button onClick={() => setGenState("streaming")} variant="primary" size="small">
+                    Generate answer
+                  </Button>
+                ) : (
+                  <div className="rounded-2xl rounded-bl border border-[rgba(22,26,35,0.08)] bg-white p-4 text-[13px] leading-[1.75] text-[#2c3343] shadow-[0_1px_2px_rgba(13,43,72,0.04),0_4px_14px_rgba(13,43,72,0.05)]">
+                    {genState === "streaming" ? streamed : variant.answer}
+                    {genState === "streaming" && (
+                      <span className="ml-0.5 inline-block h-[1.1em] w-[2px] translate-y-[2px] animate-pulse bg-blue-1 align-middle" />
+                    )}
+                    {genState === "done" && (
+                      <div className="mt-3 flex flex-wrap items-center gap-1.5">
+                        {variant.citations.map((c, i) => (
+                          <Tag key={i} label={c} variant="info" size="small" />
+                        ))}
+                      </div>
+                    )}
                   </div>
-                </div>
+                )}
               </div>
             )}
           </div>

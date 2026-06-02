@@ -9,9 +9,17 @@ interface CodeBlockProps {
   code: string;
   language?: string;
   filename?: string;
+  /** Max height of the scrollable code area, in px. Keeps long snippets from
+   *  stretching the layout taller than the panel beside them. */
+  maxHeight?: number;
 }
 
-export function CodeBlock({ code, language = "python", filename }: CodeBlockProps) {
+export function CodeBlock({
+  code,
+  language = "python",
+  filename,
+  maxHeight = 420,
+}: CodeBlockProps) {
   const codeRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -38,7 +46,10 @@ export function CodeBlock({ code, language = "python", filename }: CodeBlockProp
           )}
         </div>
       </div>
-      <pre className="overflow-x-auto p-4 text-[13px] leading-[1.75]">
+      <pre
+        className="overflow-auto p-4 text-[13px] leading-[1.75]"
+        style={{ maxHeight }}
+      >
         <code ref={codeRef} className={`language-${language}`}>
           {code}
         </code>
