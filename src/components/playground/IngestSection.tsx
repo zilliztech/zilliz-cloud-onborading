@@ -229,7 +229,7 @@ client.insert("${datasetFile}", data=records)`;
             </div>
 
             {/* Data table — show preview or query results */}
-            <div className="overflow-x-auto overflow-y-auto" style={{ maxHeight: 332 }}>
+            <div className="overflow-x-auto overflow-y-auto" style={{ maxHeight: 220 }}>
               {!queryResults ? (
                 <table className="w-full min-w-[900px] text-left">
                   <thead className="border-b border-[rgba(22,26,35,0.06)] bg-white">
@@ -348,7 +348,7 @@ client.insert("${datasetFile}", data=records)`;
 
             {/* Code block */}
             <div className="min-h-0 flex-1">
-              <CodeBlock filename="insert.py" code={codeSnippet} />
+              <CodeBlock filename="insert.py" code={codeSnippet} maxHeight={320} />
             </div>
           </div>
         </div>

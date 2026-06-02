@@ -229,6 +229,7 @@ answer = oai.chat.completions.create(model="gpt-4o", ...)`;
                   <span className="font-mono text-[11px] uppercase tracking-wider text-blue-1">Hybrid results</span>
                   <span className="ml-auto font-mono text-[10.5px] text-[#059669]">dense + sparse</span>
                 </div>
+                <div className="max-h-[240px] space-y-2 overflow-y-auto">
                 {variant.hits.map((hit, i) => (
                   <div key={i} className="rounded-lg border border-[rgba(22,26,35,0.06)] bg-white p-2.5">
                     <div className="mb-1.5 flex items-center justify-between">
@@ -241,6 +242,7 @@ answer = oai.chat.completions.create(model="gpt-4o", ...)`;
                     </p>
                   </div>
                 ))}
+                </div>
               </div>
             )}
 
@@ -338,7 +340,7 @@ answer = oai.chat.completions.create(model="gpt-4o", ...)`;
 
           {/* Code block */}
           <div className="min-h-0 flex-1">
-            <CodeBlock filename="hybrid_search.py" code={codeSnippet} />
+            <CodeBlock filename="hybrid_search.py" code={codeSnippet} maxHeight={320} />
           </div>
         </div>
       </div>
