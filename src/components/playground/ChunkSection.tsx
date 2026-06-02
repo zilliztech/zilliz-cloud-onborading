@@ -220,11 +220,6 @@ export function ChunkSection({
               <div className="mt-4 flex items-center justify-between gap-3 rounded-lg border border-[rgba(22,26,35,0.06)] bg-white p-3">
                 <div>
                   <div className="text-[12.5px] font-medium text-[#2c3343]">Confirm chunking</div>
-                  <div className="mt-0.5 font-mono text-[11px] text-[#8592a8]">
-                    {confirmed
-                      ? `✓ Chunked entire document → ${chunkData.chunkCount.toLocaleString()} chunks`
-                      : `Chunk size ${preset.chunkSize} · Overlap ${preset.overlap}`}
-                  </div>
                 </div>
                 <Button
                   variant={confirmed ? "success" : "primary"}

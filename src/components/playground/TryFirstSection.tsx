@@ -58,13 +58,15 @@ export function TryFirstSection({ onStart }: TryFirstSectionProps) {
             </h1>
 
             <p className="mt-3 max-w-[440px] text-[14px] leading-relaxed text-[#64718a]">
-              Experience a real RAG pipeline first: Zilliz Cloud retrieves
-              relevant passages, then a model generates answers from them.
+              <span className="mr-2">
+                Experience a real RAG pipeline first: Zilliz Cloud retrieves
+                relevant passages, then a model generates answers from them.
+              </span>
               <a
                 href="https://docs.zilliz.com/docs/single-vector-search"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="ml-2 inline-flex items-center gap-[3px] whitespace-nowrap text-[11.5px] font-medium text-blue-1 no-underline hover:text-blue-dark-1 hover:underline hover:[text-underline-offset:3px]"
+                className="inline-flex items-center gap-[3px] whitespace-nowrap text-[11.5px] font-medium text-blue-1 no-underline hover:text-blue-dark-1 hover:underline hover:[text-underline-offset:3px]"
               >
                 Vector search docs
                 <ArrowRightIcon size={12} />

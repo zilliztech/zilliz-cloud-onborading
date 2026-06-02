@@ -106,7 +106,7 @@ export function DataSection({ selectedDataset, onSelectDataset, onNext }: DataSe
       <div className="mt-6 grid grid-cols-12 gap-6">
         {/* LEFT: Dataset cards */}
         <div className="col-span-12 lg:col-span-5">
-          <div className="flex h-full flex-col overflow-hidden rounded-xl border border-[rgba(22,26,35,0.06)] bg-white shadow-[0_1px_2px_rgba(13,43,72,0.04),0_4px_12px_rgba(20,147,220,0.08)]">
+          <div className="flex flex-col overflow-hidden rounded-xl border border-[rgba(22,26,35,0.06)] bg-white shadow-[0_1px_2px_rgba(13,43,72,0.04),0_4px_12px_rgba(20,147,220,0.08)]">
             <div className="flex items-center justify-between border-b border-[rgba(22,26,35,0.06)] px-5 py-3.5">
               <div className="flex items-center gap-2">
                 <svg viewBox="0 0 20 20" className="h-4 w-4 text-blue-1">
@@ -118,7 +118,7 @@ export function DataSection({ selectedDataset, onSelectDataset, onNext }: DataSe
               <span className="font-mono text-[11px] text-[#8592a8]">3 preset</span>
             </div>
 
-            <div className="flex flex-1 flex-col justify-between gap-3 p-5">
+            <div className="space-y-3 p-5">
               {DATASETS.map((ds) => {
                 const isSelected = ds.id === selectedDataset;
                 return (

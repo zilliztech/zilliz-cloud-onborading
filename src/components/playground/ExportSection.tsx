@@ -6,8 +6,6 @@ const HUBSPOT_PORTAL_ID = "24054828";
 const HUBSPOT_FORM_GUID = "7146e30c-d553-48f0-a85f-fd9448543662";
 
 interface ExportSectionProps {
-  datasetId: string;
-  preset: string;
   email: string;
 }
 
@@ -34,7 +32,7 @@ const NEXT_FEATURES: { label: string; value: string }[] = [
   { label: "Monitoring & Evaluation", value: "Monitoring & Evaluation" },
 ];
 
-export function ExportSection({ datasetId, preset, email }: ExportSectionProps) {
+export function ExportSection({ email }: ExportSectionProps) {
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
   const [selectedUseCases, setSelectedUseCases] = useState<Set<string>>(new Set());
   const [selectedFeatures, setSelectedFeatures] = useState<Set<string>>(new Set());

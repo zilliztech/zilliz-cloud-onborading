@@ -64,7 +64,7 @@ function PlaygroundContent() {
     return null;
   }
 
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep] = useState(0);
   const [selectedDataset, setSelectedDataset] = useState<DatasetId>("docs");
   const [selectedPreset, setSelectedPreset] = useState<ChunkPreset>("balanced");
 
@@ -184,7 +184,7 @@ function PlaygroundContent() {
           }}
         />
         <SearchSection datasetId={selectedDataset} insertCompleted={insertCompleted} />
-        <ExportSection datasetId={selectedDataset} preset={selectedPreset} email={userEmail} />
+        <ExportSection email={userEmail} />
       </div>
     </div>
   );

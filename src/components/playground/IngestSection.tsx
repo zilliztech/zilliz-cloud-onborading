@@ -5,7 +5,7 @@ import { ArrowRightIcon } from "@/components/icons/ArrowRightIcon";
 import { Tag } from "@/components/ui/Tag";
 import type { DatasetId, ChunkPreset } from "@/pages/playground";
 import { StepNavButtons } from "./StepNavButtons";
-import { DATASET_FILE_MAP, DATASET_LABELS } from "@/pages/playground";
+import { DATASET_FILE_MAP } from "@/pages/playground";
 import { getInsertPreview } from "@/data/playground";
 import { usePlaygroundData } from "@/hooks/usePlaygroundData";
 
@@ -48,7 +48,6 @@ export function IngestSection({
   const [queryResults, setQueryResults] = useState<QueryRecord[] | null>(null);
 
   const datasetFile = DATASET_FILE_MAP[datasetId];
-  const datasetLabel = DATASET_LABELS[datasetId];
   const { data, loading } = usePlaygroundData(
     () => getInsertPreview(datasetId, preset),
     [datasetId, preset],
@@ -226,9 +225,6 @@ client.insert("${datasetFile}", data=records)`;
               <div className="rounded-lg border border-[rgba(22,26,35,0.06)] bg-white px-3 py-2">
                 <div className="font-mono text-[10.5px] text-[#8592a8]">Source</div>
                 <div className="mt-0.5 truncate font-mono text-[11.5px] text-[#3d4659]">{data.sourceFile}</div>
-              </div>
-              <div className="mt-2 font-mono text-[11px] text-[#8592a8]">
-                {inserted ? "All records inserted successfully." : "Preview first 3 rows. Click Insert to write all records."}
               </div>
             </div>
 
