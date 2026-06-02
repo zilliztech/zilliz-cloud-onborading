@@ -35,6 +35,35 @@ const NEXT_FEATURES: { label: string; value: string }[] = [
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const isValidEmail = (value: string) => EMAIL_RE.test(value.trim());
 
+// Checkbox matching @zilliz/zui ZCheckbox's default look (filled #3f46ff box +
+// white check). We can't import the real component — zui ships SCSS-syntax CSS
+// that Turbopack's CSS parser rejects — so we replicate its default style.
+function ZCheck({
+  checked,
+  onChange,
+}: {
+  checked: boolean;
+  onChange: () => void;
+}) {
+  return (
+    <span className="relative inline-flex h-4 w-4 shrink-0">
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={onChange}
+        className="peer absolute inset-0 z-10 cursor-pointer opacity-0"
+      />
+      <span className="h-4 w-4 rounded-[4px] border border-[rgba(22,26,35,0.25)] bg-white transition-colors peer-checked:border-[#3f46ff] peer-checked:bg-[#3f46ff]" />
+      <svg
+        viewBox="0 0 10 10"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 opacity-0 transition-opacity peer-checked:opacity-100"
+      >
+        <path d="M1 4L3.66667 7.33333L9 2" stroke="white" strokeWidth="1.4" fill="none" />
+      </svg>
+    </span>
+  );
+}
+
 export function ExportSection({ email }: ExportSectionProps) {
   const [selectedRating, setSelectedRating] = useState<number | null>(null);
   const [selectedUseCases, setSelectedUseCases] = useState<Set<string>>(new Set());
@@ -150,14 +179,16 @@ export function ExportSection({ email }: ExportSectionProps) {
               <button
                 key={i}
                 onClick={() => setSelectedRating(i)}
-                className={`flex-1 cursor-pointer rounded-xl border-2 p-4 text-center transition ${
+                className={`group flex-1 cursor-pointer rounded-[12px] p-[1.5px] text-center transition-all ${
                   selectedRating === i
-                    ? "border-[#2cb7ff] bg-[#eff9ff]"
-                    : "border-[rgba(22,26,35,0.06)] hover:border-[#2cb7ff] hover:bg-[#eff9ff]"
+                    ? "bg-gradient-to-l from-[#FF058A] via-[#B92BBA] to-[#531AEE]"
+                    : "bg-stroke-1 hover:bg-[linear-gradient(270deg,#FF058A,#B92BBA,#531AEE)]"
                 }`}
               >
-                <div className="text-2xl">{r.emoji}</div>
-                <div className={`mt-1.5 text-[12px] font-medium ${selectedRating === i ? "text-[#0a5f9e]" : "text-[#3d4659]"}`}>{r.label}</div>
+                <div className="rounded-[10.5px] bg-white p-4">
+                  <div className="text-2xl">{r.emoji}</div>
+                  <div className={`mt-1.5 text-[12px] font-medium ${selectedRating === i ? "text-[#161a23]" : "text-[#3d4659]"}`}>{r.label}</div>
+                </div>
               </button>
             ))}
           </div>
@@ -172,13 +203,19 @@ export function ExportSection({ email }: ExportSectionProps) {
                 <button
                   key={uc.value}
                   onClick={() => toggleUseCase(uc.value)}
-                  className={`cursor-pointer rounded-lg border-2 px-3 py-1.5 text-[12.5px] font-medium transition ${
+                  className={`group cursor-pointer rounded-[10px] p-[1.5px] transition-all ${
                     selectedUseCases.has(uc.value)
-                      ? "border-[#2cb7ff] bg-[#eff9ff] text-[#0a5f9e]"
-                      : "border-[rgba(22,26,35,0.06)] bg-white text-[#4d5870] hover:border-[#2cb7ff]"
+                      ? "bg-gradient-to-l from-[#FF058A] via-[#B92BBA] to-[#531AEE]"
+                      : "bg-stroke-1 hover:bg-[linear-gradient(270deg,#FF058A,#B92BBA,#531AEE)]"
                   }`}
                 >
-                  {uc.label}
+                  <span
+                    className={`block rounded-[8.5px] bg-white px-3 py-1.5 text-[12.5px] font-medium ${
+                      selectedUseCases.has(uc.value) ? "text-[#161a23]" : "text-[#4d5870]"
+                    }`}
+                  >
+                    {uc.label}
+                  </span>
                 </button>
               ))}
             </div>
@@ -189,15 +226,22 @@ export function ExportSection({ email }: ExportSectionProps) {
             <div className="mb-2.5 text-[13px] font-medium text-[#161a23]">What do you want to see next?</div>
             <div className="grid grid-cols-2 gap-2">
               {NEXT_FEATURES.map((f) => (
-                <label key={f.value} className="flex cursor-pointer items-center gap-2 rounded-lg border border-[rgba(22,26,35,0.06)] bg-white px-3 py-2.5 transition hover:border-[#2cb7ff]">
-                  <input
-                    type="checkbox"
-                    className="accent-[#1493dc]"
-                    checked={selectedFeatures.has(f.value)}
-                    onChange={() => toggleFeature(f.value)}
-                  />
-                  <span className="text-[12.5px] text-[#2c3343]">{f.label}</span>
-                </label>
+                <div
+                  key={f.value}
+                  className={`group rounded-[10px] p-[1.5px] transition-all ${
+                    selectedFeatures.has(f.value)
+                      ? "bg-gradient-to-l from-[#FF058A] via-[#B92BBA] to-[#531AEE]"
+                      : "bg-stroke-1 hover:bg-[linear-gradient(270deg,#FF058A,#B92BBA,#531AEE)]"
+                  }`}
+                >
+                  <label className="flex cursor-pointer items-center gap-2 rounded-[8.5px] bg-white px-3 py-2.5">
+                    <ZCheck
+                      checked={selectedFeatures.has(f.value)}
+                      onChange={() => toggleFeature(f.value)}
+                    />
+                    <span className="text-[12.5px] text-[#2c3343]">{f.label}</span>
+                  </label>
+                </div>
               ))}
             </div>
           </div>
