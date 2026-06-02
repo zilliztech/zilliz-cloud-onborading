@@ -4,7 +4,6 @@ import { StepProgress } from "./StepProgress";
 import { CodeBlock } from "./CodeBlock";
 import type { DatasetId } from "@/pages/playground";
 import { StepNavButtons } from "./StepNavButtons";
-import { DATASET_FILE_MAP } from "@/pages/playground";
 import { getEmbeddingPreview } from "@/data/playground";
 import { usePlaygroundData } from "@/hooks/usePlaygroundData";
 
@@ -32,7 +31,6 @@ export function VectorSection({ datasetId, onConfirm, confirmed, onNext }: Vecto
   const [computing, setComputing] = useState(false);
   const computed = confirmed;
 
-  const datasetFile = DATASET_FILE_MAP[datasetId];
   const { data, loading } = usePlaygroundData(
     () => getEmbeddingPreview(datasetId),
     [datasetId],
@@ -121,9 +119,6 @@ for record, vector in zip(records, vectors):
               <div>
                 <div className="mb-2 flex items-center justify-between">
                   <div className="text-[12px] text-[#64718a]">Select a chunk</div>
-                  <div className="font-mono text-[10.5px] text-[#8592a8]">
-                    {datasetFile}.step5-chunk-embeddings.json
-                  </div>
                 </div>
                 <div className="grid gap-2">
                   {data.chunks.map((c, i) => {

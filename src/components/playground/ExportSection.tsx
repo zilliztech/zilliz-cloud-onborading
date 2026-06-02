@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { StepProgress } from "./StepProgress";
-import { ArrowRightIcon, DocsIcon, IMIcon, MSNIcon } from "@/components/icons/ArrowRightIcon";
+import { ArrowRightIcon } from "@/components/icons/ArrowRightIcon";
 
 const HUBSPOT_PORTAL_ID = "24054828";
 const HUBSPOT_FORM_GUID = "7146e30c-d553-48f0-a85f-fd9448543662";
@@ -245,27 +245,24 @@ export function ExportSection({ datasetId, preset, email }: ExportSectionProps) 
             <span className="font-mono text-[11px] uppercase tracking-widest text-[#64718a]">What&apos;s next</span>
           </div>
           <h3 className="text-[17px] font-semibold leading-snug tracking-tight">Use this code in your business</h3>
-          <div className="mt-4 space-y-2">
+          <div className="mt-4 flex flex-col">
             {([
-              { href: "https://docs.zilliz.com/docs", title: "Full Documentation", desc: "Complete guide from getting started to production", icon: <DocsIcon /> },
-              { href: "https://discord.com/invite/8uyFbECzPX", title: "Join Discord", desc: "Zilliz team + developer community, instant support", icon: <IMIcon /> },
-              { href: "https://zilliz.com/contact-sales", title: "Get help going to production", desc: "Contact experts for a free consultation", icon: <MSNIcon /> },
+              { href: "https://docs.zilliz.com/docs", title: "Full Documentation", desc: "Complete guide from getting started to production" },
+              { href: "https://discord.com/invite/8uyFbECzPX", title: "Join Discord", desc: "Zilliz team + developer community, instant support" },
+              { href: "https://zilliz.com/contact-sales", title: "Get help going to production", desc: "Contact experts for a free consultation" },
             ] as const).map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-3 rounded-lg border border-[rgba(22,26,35,0.06)] p-3.5 transition hover:border-[#2cb7ff] hover:bg-[rgba(239,249,255,0.4)]"
+                className="group inline-flex items-baseline gap-2 py-1.5 text-[13.5px] text-blue-1 transition hover:text-blue-dark-1"
               >
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#eff9ff]">
-                  {link.icon}
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="text-[13.5px] font-medium text-[#161a23]">{link.title}</div>
-                  <div className="mt-0.5 text-[11.5px] text-[#64718a]">{link.desc}</div>
-                </div>
-                <ArrowRightIcon size={16} color="#8592a8" />
+                <span className="font-medium underline-offset-2 group-hover:underline">
+                  {link.title}
+                </span>
+                <span className="text-[11.5px] text-[#64718a]">{link.desc}</span>
+                <ArrowRightIcon size={14} color="currentColor" />
               </a>
             ))}
           </div>

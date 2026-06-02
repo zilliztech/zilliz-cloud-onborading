@@ -53,19 +53,13 @@ export function TryFirstSection({ onStart }: TryFirstSectionProps) {
         <div className="grid grid-cols-12 gap-0">
           {/* LEFT PANEL */}
           <div className="col-span-12 flex flex-col justify-between border-b border-[rgba(22,26,35,0.06)] bg-gradient-to-br from-[rgba(239,249,255,0.9)] via-white to-white p-6 lg:col-span-5 lg:border-b-0 lg:border-r">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[rgba(22,26,35,0.06)] bg-white px-2 py-1 font-mono text-[11px] text-blue-1">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#10b981]" />
-              Try first · no setup
-            </div>
-
             <h1 className="text-[28px] font-semibold leading-tight tracking-tight text-[#0a0d14]">
               Try First
             </h1>
 
             <p className="mt-3 max-w-[440px] text-[14px] leading-relaxed text-[#64718a]">
-              Skip the theory on vectors, chunking, and metadata. Experience a
-              real RAG pipeline first: Zilliz Cloud retrieves relevant passages,
-              then a model generates answers from them.
+              Experience a real RAG pipeline first: Zilliz Cloud retrieves
+              relevant passages, then a model generates answers from them.
               <a
                 href="https://docs.zilliz.com/docs/single-vector-search"
                 target="_blank"
@@ -98,9 +92,6 @@ export function TryFirstSection({ onStart }: TryFirstSectionProps) {
                   Pick a question, see the answer and cited passages instantly
                 </div>
               </div>
-              <span className="font-mono text-[10.5px] text-[#8592a8]">
-                RAG answer
-              </span>
             </div>
 
             {/* QUESTION CARDS */}

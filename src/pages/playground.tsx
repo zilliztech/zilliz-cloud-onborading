@@ -125,10 +125,6 @@ function PlaygroundContent() {
       {/* Top bar */}
       <div className="mb-6 flex flex-col items-start justify-between gap-3 md:flex-row md:items-center">
         <div className="flex items-center gap-3">
-          <span className="inline-flex items-center gap-2 rounded-full border border-[rgba(22,26,35,0.08)] bg-white px-2.5 py-1 text-[12px] font-medium text-[#3d4659] shadow-[0_1px_2px_rgba(13,43,72,0.04)]">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#1493dc] shadow-[0_0_0_3px_rgba(20,147,220,0.18)]" />
-            Prototype · v0.4 · Step 1–7
-          </span>
           <span className="text-[13px] text-[#8592a8]">
             Build a complete RAG pipeline with Zilliz Cloud in your browser
           </span>

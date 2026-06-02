@@ -87,7 +87,7 @@ export function DataSection({ selectedDataset, onSelectDataset, onNext }: DataSe
           Pick a dataset to start
         </h1>
         <p className="mt-0.5 text-[14px] text-[#64718a]">
-          With the cluster ready, the next step is to give the model &quot;external knowledge.&quot; Use a preset dataset to follow along.
+          With the cluster ready, the next step is to give the model &quot;external knowledge.&quot;
           <a
             href="https://docs.zilliz.com/docs/manage-collections"
             target="_blank"
@@ -118,7 +118,7 @@ export function DataSection({ selectedDataset, onSelectDataset, onNext }: DataSe
               <span className="font-mono text-[11px] text-[#8592a8]">3 preset</span>
             </div>
 
-            <div className="space-y-3 p-5">
+            <div className="flex flex-1 flex-col justify-between gap-3 p-5">
               {DATASETS.map((ds) => {
                 const isSelected = ds.id === selectedDataset;
                 return (
