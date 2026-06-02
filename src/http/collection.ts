@@ -52,6 +52,15 @@ export class CollectionApi {
       params
     );
   }
+
+  // Lists collection names on the cluster. Doubles as a connectivity /
+  // auth probe: it throws if the endpoint + key cannot reach this cluster.
+  listCollections(): Promise<ZillizResponse<string[]>> {
+    return this.client.post<string[]>(
+      "/v2/vectordb/collections/list",
+      {}
+    );
+  }
 }
 
 // Pre-built schema for the onboarding demo collection

@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react";
 import { ProvisioningStatusCard } from "./ProvisioningStatusCard";
-import type { ProvisioningPhase } from "@/hooks/useProvisioning";
+import type { ProvisioningPhase, ProvisioningMode } from "@/hooks/useProvisioning";
 
 interface ProvisioningStepProps {
+  mode: ProvisioningMode;
   phase: ProvisioningPhase;
   error: string | null;
+  clusterLimitHit: boolean;
   projectCreated: boolean;
   clusterReady: boolean;
   collectionCreated: boolean;
   onRetry: () => void;
   onGoBack: () => void;
+  onUseExisting: () => void;
 }
 
 function ProjectIcon() {
@@ -112,6 +115,21 @@ function getCollectionStatus(
   return { status: "pending", text: "Waiting..." };
 }
 
+// Existing-cluster mode: the cluster is the user's, so we only show a
+// connection check instead of project/cluster creation cards.
+function getConnectionStatus(
+  phase: ProvisioningPhase,
+  collectionCreated: boolean
+): { status: StepStatus; text: string } {
+  if (phase === "connecting")
+    return { status: "in-progress", text: "Connecting..." };
+  if (phase === "error")
+    return { status: "error", text: "Failed" };
+  if (phase === "creating-collection" || phase === "done" || collectionCreated)
+    return { status: "done", text: "Connected" };
+  return { status: "pending", text: "Pending" };
+}
+
 function getProgressLabel(phase: ProvisioningPhase): string {
   switch (phase) {
     case "creating-project":
@@ -120,6 +138,8 @@ function getProgressLabel(phase: ProvisioningPhase): string {
       return "Creating cluster...";
     case "waiting-for-cluster":
       return "Cluster is starting up...";
+    case "connecting":
+      return "Connecting to your cluster...";
     case "creating-collection":
       return "Creating collection...";
     case "done":
@@ -130,18 +150,23 @@ function getProgressLabel(phase: ProvisioningPhase): string {
 }
 
 export function ProvisioningStep({
+  mode,
   phase,
   error,
+  clusterLimitHit,
   projectCreated,
   clusterReady,
   collectionCreated,
   onRetry,
   onGoBack,
+  onUseExisting,
 }: ProvisioningStepProps) {
+  const isExisting = mode === "existing";
   const progress = useSimulatedProgress(phase);
   const project = getProjectStatus(phase, projectCreated);
   const cluster = getClusterStatus(phase, clusterReady);
   const collection = getCollectionStatus(phase, collectionCreated);
+  const connection = getConnectionStatus(phase, collectionCreated);
 
   return (
     <div className="flex flex-col gap-6">
@@ -150,24 +175,36 @@ export function ProvisioningStep({
           Setting Up Your Environment
         </h2>
         <p className="mt-2 text-sm text-black-2">
-          We&apos;re creating a project, cluster and collection for you. This
-          typically takes about a minute.
+          {isExisting
+            ? "We're connecting to your cluster and adding a demo collection. This only takes a few seconds."
+            : "We're creating a project, cluster and collection for you. This typically takes about a minute."}
         </p>
       </div>
 
       <div className="flex flex-col gap-3">
-        <ProvisioningStatusCard
-          icon={<ProjectIcon />}
-          title="Project"
-          status={project.status}
-          statusText={project.text}
-        />
-        <ProvisioningStatusCard
-          icon={<ClusterIcon />}
-          title="Free Cluster"
-          status={cluster.status}
-          statusText={cluster.text}
-        />
+        {isExisting ? (
+          <ProvisioningStatusCard
+            icon={<ClusterIcon />}
+            title="Cluster Connection"
+            status={connection.status}
+            statusText={connection.text}
+          />
+        ) : (
+          <>
+            <ProvisioningStatusCard
+              icon={<ProjectIcon />}
+              title="Project"
+              status={project.status}
+              statusText={project.text}
+            />
+            <ProvisioningStatusCard
+              icon={<ClusterIcon />}
+              title="Free Cluster"
+              status={cluster.status}
+              statusText={cluster.text}
+            />
+          </>
+        )}
         <ProvisioningStatusCard
           icon={<CollectionIcon />}
           title="Collection"
@@ -208,6 +245,12 @@ export function ProvisioningStep({
             </svg>
             <span>{error}</span>
           </div>
+          {clusterLimitHit && (
+            <p className="text-sm text-black-2">
+              Your account already has a free cluster. Connect it directly and
+              we&apos;ll add the demo collection to it.
+            </p>
+          )}
           <div className="flex gap-3">
             <button
               onClick={onGoBack}
@@ -215,12 +258,21 @@ export function ProvisioningStep({
             >
               Go Back
             </button>
-            <button
-              onClick={onRetry}
-              className="cursor-pointer rounded-badge bg-blue-1 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-dark-1"
-            >
-              Retry
-            </button>
+            {clusterLimitHit ? (
+              <button
+                onClick={onUseExisting}
+                className="cursor-pointer rounded-badge bg-blue-1 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-dark-1"
+              >
+                Use existing cluster
+              </button>
+            ) : (
+              <button
+                onClick={onRetry}
+                className="cursor-pointer rounded-badge bg-blue-1 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-dark-1"
+              >
+                Retry
+              </button>
+            )}
           </div>
         </div>
       )}

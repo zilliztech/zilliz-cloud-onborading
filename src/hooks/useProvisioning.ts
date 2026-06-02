@@ -7,13 +7,22 @@ export type ProvisioningPhase =
   | "creating-project"
   | "creating-cluster"
   | "waiting-for-cluster"
+  | "connecting"
   | "creating-collection"
   | "done"
   | "error";
 
+// "create": we provision a project + free cluster + collection.
+// "existing": user brings their own running cluster; we only add a collection.
+export type ProvisioningMode = "create" | "existing";
+
 export interface OnboardingState {
   activeStep: 0 | 1 | 2;
+  mode: ProvisioningMode;
   apiKey: string;
+  // Set when create-cluster fails because the account already owns a free
+  // cluster (Zilliz error 40045). Drives the "use existing cluster" hint.
+  clusterLimitHit: boolean;
   projectName: string | null;
   projectId: string | null;
   clusterName: string | null;
@@ -29,7 +38,9 @@ export interface OnboardingState {
 }
 
 type Action =
-  | { type: "SET_API_KEY"; apiKey: string }
+  | { type: "SET_API_KEY"; apiKey: string; mode: ProvisioningMode; endpoint?: string }
+  | { type: "SWITCH_TO_EXISTING" }
+  | { type: "CLUSTER_LIMIT_HIT"; error: string }
   | { type: "SET_PHASE"; phase: ProvisioningPhase }
   | {
       type: "PROJECT_CREATED";
@@ -52,7 +63,9 @@ type Action =
 
 const initialState: OnboardingState = {
   activeStep: 0,
+  mode: "create",
   apiKey: "",
+  clusterLimitHit: false,
   projectName: null,
   projectId: null,
   clusterName: null,
@@ -118,12 +131,33 @@ function reducer(state: OnboardingState, action: Action): OnboardingState {
   switch (action.type) {
     case "SET_API_KEY":
       next = {
-        ...state,
+        ...initialState,
+        mode: action.mode,
         apiKey: action.apiKey,
+        clusterEndpoint:
+          action.mode === "existing" ? normalizeEndpoint(action.endpoint) : null,
         activeStep: 1,
         provisioningPhase: "idle",
         error: null,
         startTrigger: state.startTrigger + 1,
+      };
+      break;
+    case "SWITCH_TO_EXISTING":
+      // Bounce back to the connect step with the existing-cluster tab,
+      // keeping the API key the user already entered.
+      next = {
+        ...initialState,
+        mode: "existing",
+        apiKey: state.apiKey,
+        activeStep: 0,
+      };
+      break;
+    case "CLUSTER_LIMIT_HIT":
+      next = {
+        ...state,
+        provisioningPhase: "error",
+        error: action.error,
+        clusterLimitHit: true,
       };
       break;
     case "SET_PHASE":
@@ -176,6 +210,7 @@ function reducer(state: OnboardingState, action: Action): OnboardingState {
         ...state,
         provisioningPhase: "idle",
         error: null,
+        clusterLimitHit: false,
         startTrigger: state.startTrigger + 1,
       };
       break;
@@ -191,9 +226,23 @@ function reducer(state: OnboardingState, action: Action): OnboardingState {
 
 const POLL_INTERVAL = 3000;
 const FREE_CLUSTER_REGION = "gcp-us-west1";
+// Fixed name so re-running onboarding on the same cluster reuses one
+// collection instead of piling up toward the free-tier limit.
+const DEMO_COLLECTION_NAME = "onboarding_demo";
+// Free clusters allow at most 10 collections.
+const FREE_COLLECTION_LIMIT = 10;
 
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function normalizeEndpoint(endpoint?: string | null): string | null {
+  if (!endpoint) return null;
+  const trimmed = endpoint.trim();
+  if (!trimmed) return null;
+  return trimmed.startsWith("http://") || trimmed.startsWith("https://")
+    ? trimmed
+    : `https://${trimmed}`;
 }
 
 function shortId() {
@@ -212,6 +261,73 @@ async function runProvisioning(
   };
 
   try {
+    // --- Existing-cluster mode: skip provisioning, only add a collection ---
+    if (state.mode === "existing") {
+      const endpoint = normalizeEndpoint(state.clusterEndpoint);
+      if (!endpoint) {
+        throw new Error("A cluster endpoint is required.");
+      }
+
+      // Probe connectivity + list collections (validates endpoint + key).
+      dispatch({ type: "SET_PHASE", phase: "connecting" });
+      const listRes = await fetch("/api/collections/list", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({ endpoint }),
+        signal,
+      });
+      const listData = await listRes.json();
+      if (!listRes.ok) {
+        throw new Error(
+          listData.message ||
+            "Could not connect to the cluster. Check the endpoint and API key."
+        );
+      }
+      if (signal.aborted) return;
+
+      const collections: string[] = Array.isArray(listData.data)
+        ? listData.data
+        : [];
+
+      // Reuse our demo collection if it already exists (idempotent re-runs).
+      if (collections.includes(DEMO_COLLECTION_NAME)) {
+        dispatch({
+          type: "COLLECTION_CREATED",
+          collectionName: DEMO_COLLECTION_NAME,
+        });
+        return;
+      }
+      if (collections.length >= FREE_COLLECTION_LIMIT) {
+        throw new Error(
+          `This cluster already has ${collections.length} collections (free-tier limit is ${FREE_COLLECTION_LIMIT}). Please drop one in the console, then retry.`
+        );
+      }
+
+      dispatch({ type: "SET_PHASE", phase: "creating-collection" });
+      const collRes = await fetch("/api/collections/create", {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          endpoint,
+          collectionName: DEMO_COLLECTION_NAME,
+        }),
+        signal,
+      });
+      const collData = await collRes.json();
+      if (
+        !collRes.ok ||
+        (collData.code && collData.code !== 0 && collData.code !== 200)
+      ) {
+        throw new Error(collData.message || "Failed to create collection");
+      }
+
+      dispatch({
+        type: "COLLECTION_CREATED",
+        collectionName: DEMO_COLLECTION_NAME,
+      });
+      return;
+    }
+
     // --- Step 1: Ensure project exists ---
     let projectId = state.projectId;
     if (!projectId) {
@@ -293,9 +409,14 @@ async function runProvisioning(
 
       const createData = await createRes.json();
       if (!createRes.ok || (createData.code && createData.code !== 0)) {
-        throw new Error(
-          createData.message || "Failed to create cluster"
-        );
+        const message = createData.message || "Failed to create cluster";
+        // 40045: the account already owns a free cluster. Route the user to
+        // the "use existing cluster" flow instead of a dead-end retry.
+        if (/\b40045\b/.test(message) || /only have one free cluster/i.test(message)) {
+          dispatch({ type: "CLUSTER_LIMIT_HIT", error: message });
+          return;
+        }
+        throw new Error(message);
       }
 
       clusterId = createData.data.clusterId;
@@ -407,7 +528,8 @@ export function useProvisioning() {
   }, [state.provisioningPhase]);
 
   const setApiKey = useCallback(
-    (apiKey: string) => dispatch({ type: "SET_API_KEY", apiKey }),
+    (apiKey: string, mode: ProvisioningMode = "create", endpoint?: string) =>
+      dispatch({ type: "SET_API_KEY", apiKey, mode, endpoint }),
     []
   );
 
@@ -415,5 +537,10 @@ export function useProvisioning() {
 
   const retry = useCallback(() => dispatch({ type: "RETRY" }), []);
 
-  return { state, setApiKey, goBack, retry };
+  const switchToExisting = useCallback(
+    () => dispatch({ type: "SWITCH_TO_EXISTING" }),
+    []
+  );
+
+  return { state, setApiKey, goBack, retry, switchToExisting };
 }

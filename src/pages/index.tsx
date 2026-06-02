@@ -61,7 +61,8 @@ function Stepper({ activeStep }: { activeStep: number }) {
 }
 
 export default function Home() {
-  const { state, setApiKey, goBack, retry } = useProvisioning();
+  const { state, setApiKey, goBack, retry, switchToExisting } =
+    useProvisioning();
   const router = useRouter();
 
   // Redirect to playground once provisioning is complete
@@ -85,17 +86,26 @@ export default function Home() {
         </div>
 
         <div className="rounded-card border border-stroke-1 bg-white p-8 shadow-light">
-          {state.activeStep === 0 && <ApiKeyStep onSubmit={setApiKey} />}
+          {state.activeStep === 0 && (
+            <ApiKeyStep
+              onSubmit={setApiKey}
+              initialMode={state.mode}
+              initialApiKey={state.apiKey}
+            />
+          )}
 
           {state.activeStep === 1 && (
             <ProvisioningStep
+              mode={state.mode}
               phase={state.provisioningPhase}
               error={state.error}
+              clusterLimitHit={state.clusterLimitHit}
               projectCreated={!!state.projectId}
               clusterReady={!!state.clusterEndpoint}
               collectionCreated={state.collectionCreated}
               onRetry={retry}
               onGoBack={goBack}
+              onUseExisting={switchToExisting}
             />
           )}
 
