@@ -1,61 +1,110 @@
-import data from "./playgroundData.json";
-
 type DatasetId = "docs" | "legal" | "arxiv";
 type ChunkPreset = "small" | "balanced" | "large";
 
-// Step 1: dataset preview
-export function getDatasetPreview(datasetId: DatasetId) {
-  return (data.step1 as Record<string, { label: string; text: string }[]>)[datasetId];
+// --- Types ---
+
+export type ChunkData = {
+  chunkSize: number;
+  chunkOverlap: number;
+  chunkCount: number;
+  chunks: { text: string }[];
+};
+
+export type MetadataData = {
+  metadataFields: string[];
+  chunkCount: number;
+  chunks: { text: string; meta: Record<string, unknown> }[];
+};
+
+export type EmbeddingData = {
+  model: string;
+  dimension: number;
+  chunks: { id: string; displayText: string; embeddingFirst64: number[] }[];
+};
+
+export type InsertData = {
+  recordCount: number;
+  sourceFile: string;
+  records: Record<string, unknown>[];
+};
+
+export type RetrievalQuestion = {
+  id: string;
+  query: string;
+  variants: {
+    label: string;
+    filter: string | null;
+    hits: { score: number; text: string; source: string; chunkId: number }[];
+    answer: string;
+    citations: string[];
+  }[];
+};
+
+interface DatasetBundle {
+  step1: { label: string; text: string }[];
+  step2: Record<string, ChunkData>;
+  step3: Record<string, MetadataData>;
+  step4: EmbeddingData;
+  step5: Record<string, InsertData>;
+  step6: RetrievalQuestion[];
 }
 
-// Step 2: chunk preview
-export function getChunkPreview(datasetId: DatasetId, preset: ChunkPreset) {
-  return (data.step2 as Record<string, Record<string, {
-    chunkSize: number;
-    chunkOverlap: number;
-    chunkCount: number;
-    chunks: { text: string }[];
-  }>>)[datasetId][preset];
+// --- In-memory cache ---
+
+const cache = new Map<string, Promise<DatasetBundle>>();
+
+function fetchDataset(datasetId: DatasetId): Promise<DatasetBundle> {
+  const existing = cache.get(datasetId);
+  if (existing) return existing;
+
+  const promise = fetch(`/datasets/preview/${datasetId}.json`)
+    .then((res) => {
+      if (!res.ok) throw new Error(`Failed to load dataset: ${res.status}`);
+      return res.json() as Promise<DatasetBundle>;
+    })
+    .catch((err) => {
+      cache.delete(datasetId); // allow retry on failure
+      throw err;
+    });
+
+  cache.set(datasetId, promise);
+  return promise;
 }
 
-// Step 3: metadata preview
-export function getMetadataPreview(datasetId: DatasetId, preset: ChunkPreset) {
-  return (data.step3 as Record<string, Record<string, {
-    metadataFields: string[];
-    chunkCount: number;
-    chunks: { text: string; meta: Record<string, unknown> }[];
-  }>>)[datasetId][preset];
+// --- Preload (fire & forget) ---
+
+export function preloadDataset(datasetId: DatasetId) {
+  fetchDataset(datasetId);
 }
 
-// Step 4: embedding preview
-export function getEmbeddingPreview(datasetId: DatasetId) {
-  return (data.step4 as Record<string, {
-    model: string;
-    dimension: number;
-    chunks: { id: string; displayText: string; embeddingFirst64: number[] }[];
-  }>)[datasetId];
+// --- Async getters ---
+
+export async function getDatasetPreview(datasetId: DatasetId) {
+  const bundle = await fetchDataset(datasetId);
+  return bundle.step1;
 }
 
-// Step 5: insert preview
-export function getInsertPreview(datasetId: DatasetId, preset: ChunkPreset) {
-  return (data.step5 as Record<string, Record<string, {
-    recordCount: number;
-    sourceFile: string;
-    records: Record<string, unknown>[];
-  }>>)[datasetId][preset];
+export async function getChunkPreview(datasetId: DatasetId, preset: ChunkPreset) {
+  const bundle = await fetchDataset(datasetId);
+  return bundle.step2[preset];
 }
 
-// Step 6: retrieval questions & answers
-export function getRetrievalData(datasetId: DatasetId) {
-  return (data.step6 as Record<string, {
-    id: string;
-    query: string;
-    variants: {
-      label: string;
-      filter: string | null;
-      hits: { score: number; text: string; source: string; chunkId: number }[];
-      answer: string;
-      citations: string[];
-    }[];
-  }[]>)[datasetId];
+export async function getMetadataPreview(datasetId: DatasetId, preset: ChunkPreset) {
+  const bundle = await fetchDataset(datasetId);
+  return bundle.step3[preset];
+}
+
+export async function getEmbeddingPreview(datasetId: DatasetId) {
+  const bundle = await fetchDataset(datasetId);
+  return bundle.step4;
+}
+
+export async function getInsertPreview(datasetId: DatasetId, preset: ChunkPreset) {
+  const bundle = await fetchDataset(datasetId);
+  return bundle.step5[preset];
+}
+
+export async function getRetrievalData(datasetId: DatasetId) {
+  const bundle = await fetchDataset(datasetId);
+  return bundle.step6;
 }

@@ -8,6 +8,7 @@ import { StepNavButtons } from "./StepNavButtons";
 import type { DatasetId, ChunkPreset } from "@/pages/playground";
 import { DATASET_FILE_MAP, DATASET_LABELS } from "@/pages/playground";
 import { getMetadataPreview } from "@/data/playground";
+import { usePlaygroundData } from "@/hooks/usePlaygroundData";
 
 import { Button } from "@/components/ui/Button";
 
@@ -25,7 +26,20 @@ export function TagsSection({ datasetId, preset, onConfirm, confirmed, onNext }:
 
   const datasetFile = DATASET_FILE_MAP[datasetId];
   const datasetLabel = DATASET_LABELS[datasetId];
-  const data = getMetadataPreview(datasetId, preset);
+  const { data, loading } = usePlaygroundData(
+    () => getMetadataPreview(datasetId, preset),
+    [datasetId, preset],
+  );
+
+  if (loading || !data) {
+    return (
+      <section id="step-tags" className="animate-[rise_500ms_cubic-bezier(.2,.7,.2,1)_both]">
+        <div className="flex items-center justify-center rounded-xl border border-[rgba(22,26,35,0.06)] bg-white p-12 shadow-[0_1px_2px_rgba(13,43,72,0.04),0_4px_12px_rgba(20,147,220,0.08)]">
+          <span className="text-[13px] text-[#8592a8]">Loading metadata preview...</span>
+        </div>
+      </section>
+    );
+  }
 
   const handleTag = () => {
     setTagging(true);

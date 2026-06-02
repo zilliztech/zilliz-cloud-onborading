@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { useRouter } from "next/router";
 import { StepNav } from "@/components/playground/StepNav";
 import { TryFirstSection } from "@/components/playground/TryFirstSection";
@@ -10,6 +10,7 @@ import { IngestSection } from "@/components/playground/IngestSection";
 import { SearchSection } from "@/components/playground/SearchSection";
 import { ExportSection } from "@/components/playground/ExportSection";
 import type { OnboardingState } from "@/hooks/useProvisioning";
+import { preloadDataset } from "@/data/playground";
 
 const EMAIL_STORAGE_KEY = "zilliz-onboarding-email";
 
@@ -44,8 +45,12 @@ function PlaygroundContent() {
   const router = useRouter();
   const [onboarding] = useState<OnboardingState | null>(loadOnboardingState);
 
+  // Allow direct preview in local dev; enforce the onboarding guard in production.
+  const DISABLE_ACCESS_GUARD = process.env.NODE_ENV === "development";
+
   // Guard: redirect to onboarding if not provisioned
   useEffect(() => {
+    if (DISABLE_ACCESS_GUARD) return;
     if (
       !onboarding ||
       onboarding.activeStep !== 2 ||
@@ -56,9 +61,10 @@ function PlaygroundContent() {
   }, [onboarding, router]);
 
   if (
-    !onboarding ||
-    onboarding.activeStep !== 2 ||
-    onboarding.provisioningPhase !== "done"
+    !DISABLE_ACCESS_GUARD &&
+    (!onboarding ||
+      onboarding.activeStep !== 2 ||
+      onboarding.provisioningPhase !== "done")
   ) {
     return null;
   }
@@ -74,6 +80,15 @@ function PlaygroundContent() {
   const [insertCompleted, setInsertCompleted] = useState(false);
 
   const canInsert = chunkConfirmed && tagsConfirmed && embeddingConfirmed;
+
+  // Preload default dataset on mount
+  const preloadedRef = useRef(false);
+  useEffect(() => {
+    if (!preloadedRef.current) {
+      preloadedRef.current = true;
+      preloadDataset(selectedDataset);
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Capture email from URL query and persist to sessionStorage
   const [userEmail, setUserEmail] = useState("");
@@ -95,6 +110,7 @@ function PlaygroundContent() {
     setTagsConfirmed(false);
     setEmbeddingConfirmed(false);
     setInsertCompleted(false);
+    preloadDataset(id);
   }, []);
 
   const handleSelectPreset = useCallback((preset: ChunkPreset) => {
@@ -105,9 +121,9 @@ function PlaygroundContent() {
     setInsertCompleted(false);
   }, []);
 
-  const endpoint = onboarding.clusterEndpoint?.startsWith("https://")
+  const endpoint = onboarding?.clusterEndpoint?.startsWith("https://")
     ? onboarding.clusterEndpoint
-    : `https://${onboarding.clusterEndpoint}`;
+    : `https://${onboarding?.clusterEndpoint ?? ""}`;
 
   return (
     <div className="pt-8 pb-20">
@@ -167,9 +183,9 @@ function PlaygroundContent() {
         <IngestSection
           datasetId={selectedDataset}
           preset={selectedPreset}
-          apiKey={onboarding.apiKey}
+          apiKey={onboarding?.apiKey ?? ""}
           clusterEndpoint={endpoint}
-          collectionName={onboarding.collectionName!}
+          collectionName={onboarding?.collectionName ?? ""}
           canInsert={canInsert}
           onInsertComplete={() => setInsertCompleted(true)}
           onNext={() => {

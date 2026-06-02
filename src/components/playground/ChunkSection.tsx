@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/Button";
 import type { DatasetId, ChunkPreset } from "@/pages/playground";
 import { DATASET_FILE_MAP, DATASET_LABELS } from "@/pages/playground";
 import { getChunkPreview } from "@/data/playground";
+import { usePlaygroundData } from "@/hooks/usePlaygroundData";
 
 interface ChunkSectionProps {
   datasetId: DatasetId;
@@ -64,7 +65,21 @@ export function ChunkSection({
   const datasetLabel = DATASET_LABELS[datasetId];
 
   const preset = PRESETS.find((p) => p.id === selectedPreset)!;
-  const chunkData = getChunkPreview(datasetId, selectedPreset);
+  const { data: chunkData, loading } = usePlaygroundData(
+    () => getChunkPreview(datasetId, selectedPreset),
+    [datasetId, selectedPreset],
+  );
+
+  if (loading || !chunkData) {
+    return (
+      <section id="step-chunk" className="animate-[rise_500ms_cubic-bezier(.2,.7,.2,1)_both]">
+        <div className="flex items-center justify-center rounded-xl border border-[rgba(22,26,35,0.06)] bg-white p-12 shadow-[0_1px_2px_rgba(13,43,72,0.04),0_4px_12px_rgba(20,147,220,0.08)]">
+          <span className="text-[13px] text-[#8592a8]">Loading chunk preview...</span>
+        </div>
+      </section>
+    );
+  }
+
   const displayChunks = chunkData.chunks;
 
   return (

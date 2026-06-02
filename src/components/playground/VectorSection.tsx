@@ -6,6 +6,7 @@ import type { DatasetId } from "@/pages/playground";
 import { StepNavButtons } from "./StepNavButtons";
 import { DATASET_FILE_MAP } from "@/pages/playground";
 import { getEmbeddingPreview } from "@/data/playground";
+import { usePlaygroundData } from "@/hooks/usePlaygroundData";
 
 import { Button } from "@/components/ui/Button";
 
@@ -32,7 +33,21 @@ export function VectorSection({ datasetId, onConfirm, confirmed, onNext }: Vecto
   const computed = confirmed;
 
   const datasetFile = DATASET_FILE_MAP[datasetId];
-  const data = getEmbeddingPreview(datasetId);
+  const { data, loading } = usePlaygroundData(
+    () => getEmbeddingPreview(datasetId),
+    [datasetId],
+  );
+
+  if (loading || !data) {
+    return (
+      <section id="step-vector" className="animate-[rise_500ms_cubic-bezier(.2,.7,.2,1)_both]">
+        <div className="flex items-center justify-center rounded-xl border border-[rgba(22,26,35,0.06)] bg-white p-12 shadow-[0_1px_2px_rgba(13,43,72,0.04),0_4px_12px_rgba(20,147,220,0.08)]">
+          <span className="text-[13px] text-[#8592a8]">Loading embedding preview...</span>
+        </div>
+      </section>
+    );
+  }
+
   const chunk = data.chunks[selectedChunk];
 
   const codeSnippet = `from openai import OpenAI
