@@ -190,7 +190,7 @@ client.insert("${datasetFile}", data=records)`;
       <div className="mt-6 grid grid-cols-12 gap-6">
         {/* LEFT: Data preview + insert */}
         <div className="col-span-12 lg:col-span-6">
-          <div className="overflow-hidden rounded-xl border border-[rgba(22,26,35,0.06)] bg-white shadow-[0_1px_2px_rgba(13,43,72,0.04),0_4px_12px_rgba(20,147,220,0.08)]">
+          <div className="h-full overflow-hidden rounded-xl border border-[rgba(22,26,35,0.06)] bg-white shadow-[0_1px_2px_rgba(13,43,72,0.04),0_4px_12px_rgba(20,147,220,0.08)]">
             {/* Header */}
             <div className="flex items-center justify-between border-b border-[rgba(22,26,35,0.06)] px-5 py-3.5">
               <div className="flex items-center gap-2">
@@ -328,9 +328,9 @@ client.insert("${datasetFile}", data=records)`;
 
         {/* RIGHT: Concept + Code */}
         <div className="col-span-12 lg:col-span-6">
-          <div className="flex h-full flex-col space-y-5">
+          <div className="flex h-full flex-col gap-5">
             {/* Concept card */}
-            <div className="rounded-xl border border-[rgba(22,26,35,0.06)] bg-white p-5 shadow-[0_1px_2px_rgba(13,43,72,0.04),0_4px_12px_rgba(20,147,220,0.08)]">
+            <div className="shrink-0 rounded-xl border border-[rgba(22,26,35,0.06)] bg-white p-5 shadow-[0_1px_2px_rgba(13,43,72,0.04),0_4px_12px_rgba(20,147,220,0.08)]">
               <div className="mb-3">
                 <span className="font-mono text-[11px] uppercase tracking-widest text-blue-1">Concept</span>
               </div>
@@ -347,7 +347,7 @@ client.insert("${datasetFile}", data=records)`;
             </div>
 
             {/* Code block */}
-            <div className="flex-1">
+            <div className="min-h-0 flex-1">
               <CodeBlock filename="insert.py" code={codeSnippet} />
             </div>
           </div>

@@ -127,7 +127,7 @@ for i, chunk in enumerate(chunks):
       <div className="mt-6 grid grid-cols-12 gap-6">
         {/* LEFT: Metadata fields + chunks */}
         <div className="col-span-12 lg:col-span-6">
-          <div className="overflow-hidden rounded-xl border border-[rgba(22,26,35,0.06)] bg-white shadow-[0_1px_2px_rgba(13,43,72,0.04),0_4px_12px_rgba(20,147,220,0.08)]">
+          <div className="h-full overflow-hidden rounded-xl border border-[rgba(22,26,35,0.06)] bg-white shadow-[0_1px_2px_rgba(13,43,72,0.04),0_4px_12px_rgba(20,147,220,0.08)]">
             {/* Header */}
             <div className="flex items-center justify-between border-b border-[rgba(22,26,35,0.06)] px-5 py-3.5">
               <div className="flex items-center gap-2">
@@ -214,9 +214,9 @@ for i, chunk in enumerate(chunks):
         </div>
 
         {/* RIGHT: Concept + Code */}
-        <div className="col-span-12 space-y-5 lg:col-span-6">
+        <div className="col-span-12 flex h-full flex-col gap-5 lg:col-span-6">
           {/* Concept card */}
-          <div className="rounded-xl border border-[rgba(22,26,35,0.06)] bg-white p-4 shadow-[0_1px_2px_rgba(13,43,72,0.04),0_4px_12px_rgba(20,147,220,0.08)]">
+          <div className="shrink-0 rounded-xl border border-[rgba(22,26,35,0.06)] bg-white p-4 shadow-[0_1px_2px_rgba(13,43,72,0.04),0_4px_12px_rgba(20,147,220,0.08)]">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <div className="mb-1 font-mono text-[11px] uppercase tracking-widest text-blue-1">Concept</div>
@@ -242,7 +242,9 @@ for i, chunk in enumerate(chunks):
           </div>
 
           {/* Code block */}
-          <CodeBlock filename="metadata.py" code={codeSnippet} />
+          <div className="min-h-0 flex-1">
+            <CodeBlock filename="metadata.py" code={codeSnippet} />
+          </div>
         </div>
       </div>
 
