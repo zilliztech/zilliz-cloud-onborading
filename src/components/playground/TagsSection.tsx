@@ -126,8 +126,8 @@ for i, chunk in enumerate(chunks):
       {/* Content grid */}
       <div className="mt-6 grid grid-cols-12 gap-6">
         {/* LEFT: Metadata fields + chunks */}
-        <div className="col-span-12 lg:col-span-6">
-          <div className="overflow-hidden rounded-xl border border-[rgba(22,26,35,0.06)] bg-white shadow-[0_1px_2px_rgba(13,43,72,0.04),0_4px_12px_rgba(20,147,220,0.08)]">
+        <div className="col-span-12 flex h-full flex-col lg:col-span-6">
+          <div className="shrink-0 overflow-hidden rounded-xl border border-[rgba(22,26,35,0.06)] bg-white shadow-[0_1px_2px_rgba(13,43,72,0.04),0_4px_12px_rgba(20,147,220,0.08)]">
             {/* Header */}
             <div className="flex items-center justify-between border-b border-[rgba(22,26,35,0.06)] px-5 py-3.5">
               <div className="flex items-center gap-2">
@@ -199,8 +199,11 @@ for i, chunk in enumerate(chunks):
             </div>
           </div>
 
+          {/* Spacer pushes the tip to the bottom so it aligns with the code block */}
+          <div className="min-h-[16px] flex-1" />
+
           {/* Tip box */}
-          <div className="mt-4">
+          <div className="shrink-0">
             <Alert severity="info">
               <div className="text-[13px] font-medium text-black-1">Pro tip</div>
               <div className="mt-1">
