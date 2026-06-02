@@ -45,12 +45,8 @@ function PlaygroundContent() {
   const router = useRouter();
   const [onboarding] = useState<OnboardingState | null>(loadOnboardingState);
 
-  // Allow direct preview in local dev; enforce the onboarding guard in production.
-  const DISABLE_ACCESS_GUARD = process.env.NODE_ENV === "development";
-
   // Guard: redirect to onboarding if not provisioned
   useEffect(() => {
-    if (DISABLE_ACCESS_GUARD) return;
     if (
       !onboarding ||
       onboarding.activeStep !== 2 ||
@@ -61,10 +57,9 @@ function PlaygroundContent() {
   }, [onboarding, router]);
 
   if (
-    !DISABLE_ACCESS_GUARD &&
-    (!onboarding ||
-      onboarding.activeStep !== 2 ||
-      onboarding.provisioningPhase !== "done")
+    !onboarding ||
+    onboarding.activeStep !== 2 ||
+    onboarding.provisioningPhase !== "done"
   ) {
     return null;
   }
@@ -121,9 +116,9 @@ function PlaygroundContent() {
     setInsertCompleted(false);
   }, []);
 
-  const endpoint = onboarding?.clusterEndpoint?.startsWith("https://")
+  const endpoint = onboarding.clusterEndpoint?.startsWith("https://")
     ? onboarding.clusterEndpoint
-    : `https://${onboarding?.clusterEndpoint ?? ""}`;
+    : `https://${onboarding.clusterEndpoint}`;
 
   return (
     <div className="pt-8 pb-20">
@@ -183,9 +178,9 @@ function PlaygroundContent() {
         <IngestSection
           datasetId={selectedDataset}
           preset={selectedPreset}
-          apiKey={onboarding?.apiKey ?? ""}
+          apiKey={onboarding.apiKey}
           clusterEndpoint={endpoint}
-          collectionName={onboarding?.collectionName ?? ""}
+          collectionName={onboarding.collectionName!}
           canInsert={canInsert}
           onInsertComplete={() => setInsertCompleted(true)}
           onNext={() => {
