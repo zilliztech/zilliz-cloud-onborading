@@ -228,13 +228,15 @@ export function ExportSection({ email }: ExportSectionProps) {
               {NEXT_FEATURES.map((f) => (
                 <label
                   key={f.value}
-                  className="flex cursor-pointer items-center gap-2 rounded-lg border border-[rgba(22,26,35,0.06)] bg-white px-3 py-2.5 transition hover:border-[#2cb7ff]"
+                  className="group cursor-pointer rounded-[10px] bg-stroke-1 p-[1.5px] transition-all hover:bg-[linear-gradient(270deg,#FF058A,#B92BBA,#531AEE)]"
                 >
-                  <ZCheck
-                    checked={selectedFeatures.has(f.value)}
-                    onChange={() => toggleFeature(f.value)}
-                  />
-                  <span className="text-[12.5px] text-[#2c3343]">{f.label}</span>
+                  <div className="flex items-center gap-2 rounded-[8.5px] bg-white px-3 py-2.5">
+                    <ZCheck
+                      checked={selectedFeatures.has(f.value)}
+                      onChange={() => toggleFeature(f.value)}
+                    />
+                    <span className="text-[12.5px] text-[#2c3343]">{f.label}</span>
+                  </div>
                 </label>
               ))}
             </div>
