@@ -274,6 +274,19 @@ export function ProvisioningStep({
               </button>
             )}
           </div>
+          {!isExisting && !clusterLimitHit && (
+            <p className="text-xs text-black-3">
+              Already have a Zilliz Cloud cluster?{" "}
+              <button
+                type="button"
+                onClick={onUseExisting}
+                className="cursor-pointer font-medium text-blue-1 hover:underline"
+              >
+                Use it instead
+              </button>
+              .
+            </p>
+          )}
         </div>
       )}
     </div>

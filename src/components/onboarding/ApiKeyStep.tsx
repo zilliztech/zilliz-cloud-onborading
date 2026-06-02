@@ -66,6 +66,30 @@ export function ApiKeyStep({
         ))}
       </div>
 
+      {mode === "existing" && (
+        <div className="flex flex-col gap-2">
+          <label
+            htmlFor="cluster-endpoint"
+            className="text-sm font-medium text-black-1"
+          >
+            Cluster Endpoint
+          </label>
+          <input
+            id="cluster-endpoint"
+            type="text"
+            placeholder="https://in03-xxxx.serverless.gcp-us-west1.cloud.zilliz.com"
+            value={endpoint}
+            onChange={(e) => setEndpoint(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
+            className="w-full rounded-badge border border-stroke-1 px-3 py-2 text-sm text-black-1 placeholder-black-3 outline-none transition-colors focus:border-blue-1 focus:ring-2 focus:ring-blue-1/20"
+          />
+          <p className="text-xs text-black-3">
+            Copy the Public Endpoint from your cluster&apos;s connect page in the
+            Zilliz Cloud Console.
+          </p>
+        </div>
+      )}
+
       <div className="flex flex-col gap-2">
         <label htmlFor="api-key" className="text-sm font-medium text-black-1">
           API Key
@@ -103,34 +127,11 @@ export function ApiKeyStep({
           </p>
         ) : (
           <p className="text-xs text-black-3">
-            Use an API key that has access to the cluster you connect below.
+            Make sure this API key has read &amp; write access to the project the
+            cluster belongs to.
           </p>
         )}
       </div>
-
-      {mode === "existing" && (
-        <div className="flex flex-col gap-2">
-          <label
-            htmlFor="cluster-endpoint"
-            className="text-sm font-medium text-black-1"
-          >
-            Cluster Endpoint
-          </label>
-          <input
-            id="cluster-endpoint"
-            type="text"
-            placeholder="https://in03-xxxx.serverless.gcp-us-west1.cloud.zilliz.com"
-            value={endpoint}
-            onChange={(e) => setEndpoint(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
-            className="w-full rounded-badge border border-stroke-1 px-3 py-2 text-sm text-black-1 placeholder-black-3 outline-none transition-colors focus:border-blue-1 focus:ring-2 focus:ring-blue-1/20"
-          />
-          <p className="text-xs text-black-3">
-            Copy the Public Endpoint from your cluster&apos;s connect page in the
-            Zilliz Cloud Console.
-          </p>
-        </div>
-      )}
 
       <div className="flex items-start gap-3 rounded-badge border border-blue-3 bg-blue-5 px-4 py-3 text-sm text-blue-dark-2">
         <svg
