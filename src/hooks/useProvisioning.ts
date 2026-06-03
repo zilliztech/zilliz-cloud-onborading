@@ -42,6 +42,7 @@ type Action =
   | { type: "SWITCH_TO_EXISTING" }
   | { type: "CLUSTER_LIMIT_HIT"; error: string }
   | { type: "SET_PHASE"; phase: ProvisioningPhase }
+  | { type: "HYDRATE"; state: OnboardingState }
   | {
       type: "PROJECT_CREATED";
       projectName: string;
@@ -129,6 +130,10 @@ function reducer(state: OnboardingState, action: Action): OnboardingState {
   let next: OnboardingState;
 
   switch (action.type) {
+    case "HYDRATE":
+      // Restore persisted state after mount. Don't re-save — it's already
+      // in sessionStorage, and this runs only to match SSR on first paint.
+      return action.state;
     case "SET_API_KEY":
       next = {
         ...initialState,
@@ -493,14 +498,18 @@ async function runProvisioning(
 // --- Hook ---
 
 export function useProvisioning() {
-  const [state, dispatch] = useReducer(reducer, initialState, () => {
-    // SSR guard: sessionStorage only available on client
-    if (typeof window === "undefined") return initialState;
-    return loadState() || initialState;
-  });
+  // Always start from initialState so the first client render matches SSR.
+  // Persisted state is restored in the mount effect below (HYDRATE), avoiding
+  // a hydration mismatch when sessionStorage holds non-default state.
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const stateRef = useRef(state);
   stateRef.current = state;
+
+  useEffect(() => {
+    const saved = loadState();
+    if (saved) dispatch({ type: "HYDRATE", state: saved });
+  }, []);
 
   useEffect(() => {
     if (state.startTrigger === 0) return;
