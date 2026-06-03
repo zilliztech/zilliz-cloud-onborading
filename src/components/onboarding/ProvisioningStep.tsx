@@ -177,11 +177,11 @@ export function ProvisioningStep({
         <p className="mt-2 text-sm text-black-2">
           {isExisting
             ? "We're connecting to your cluster and adding a demo collection. This only takes a few seconds."
-            : "We're creating a project, cluster and collection for you. This typically takes about a minute."}
+            : "We're creating a project, cluster and collection for you."}
         </p>
       </div>
 
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-5">
         {isExisting ? (
           <ProvisioningStatusCard
             icon={<ClusterIcon />}
@@ -197,12 +197,19 @@ export function ProvisioningStep({
               status={project.status}
               statusText={project.text}
             />
-            <ProvisioningStatusCard
-              icon={<ClusterIcon />}
-              title="Free Cluster"
-              status={cluster.status}
-              statusText={cluster.text}
-            />
+            <div className="flex flex-col gap-1.5">
+              <ProvisioningStatusCard
+                icon={<ClusterIcon />}
+                title="Free Cluster"
+                status={cluster.status}
+                statusText={cluster.text}
+              />
+              {cluster.status === "in-progress" && (
+                <p className="px-1 text-xs text-black-3">
+                  This typically takes about a minute.
+                </p>
+              )}
+            </div>
           </>
         )}
         <ProvisioningStatusCard
