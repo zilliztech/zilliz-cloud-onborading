@@ -14,8 +14,8 @@ export function StepNavButtons({
   onNext,
 }: StepNavButtonsProps) {
   return (
-    <div className="mt-6 flex items-center justify-between">
-      {prevLabel && prevAnchor ? (
+    <div className="mt-6 flex items-center justify-center gap-3">
+      {prevLabel && prevAnchor && (
         <a
           href={prevAnchor}
           className="inline-flex cursor-pointer items-center gap-1 rounded-lg border border-[rgba(22,26,35,0.12)] bg-white px-4 py-2.5 text-[13px] font-medium text-black-2 shadow-[0_1px_2px_rgba(13,43,72,0.04)] transition hover:border-blue-1 hover:text-blue-1"
@@ -23,8 +23,6 @@ export function StepNavButtons({
           <ArrowLeftIcon size={14} />
           {prevLabel}
         </a>
-      ) : (
-        <div />
       )}
       {nextLabel && onNext && (
         <button

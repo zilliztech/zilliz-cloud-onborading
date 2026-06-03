@@ -70,6 +70,11 @@
   }
 }
 
+/* Offset anchor/scrollIntoView jumps so targets clear the sticky 56px header */
+html {
+  scroll-padding-top: 80px;
+}
+
 body {
   background: var(--color-black-5);
   color: var(--foreground);
