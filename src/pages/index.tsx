@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Geist } from "next/font/google";
 import { useProvisioning } from "@/hooks/useProvisioning";
@@ -11,6 +11,8 @@ const geistSans = Geist({
 });
 
 const STEPS = ["Connect", "Set Up Environment", "Explore"];
+
+const ORG_ID_STORAGE_KEY = "zilliz-onboarding-org-id";
 
 function Stepper({ activeStep }: { activeStep: number }) {
   return (
@@ -65,6 +67,20 @@ export default function Home() {
     useProvisioning();
   const router = useRouter();
 
+  // Capture orgId from the URL query (read after mount to avoid SSR mismatch)
+  // and persist it so the API-key hint can link straight to the org's page.
+  const [orgId, setOrgId] = useState("");
+  useEffect(() => {
+    const fromQuery = new URLSearchParams(window.location.search).get("orgId");
+    if (fromQuery) {
+      sessionStorage.setItem(ORG_ID_STORAGE_KEY, fromQuery);
+      setOrgId(fromQuery);
+    } else {
+      const stored = sessionStorage.getItem(ORG_ID_STORAGE_KEY);
+      if (stored) setOrgId(stored);
+    }
+  }, []);
+
   // Redirect to playground once provisioning is complete
   useEffect(() => {
     if (state.activeStep === 2) {
@@ -91,6 +107,7 @@ export default function Home() {
               onSubmit={setApiKey}
               initialMode={state.mode}
               initialApiKey={state.apiKey}
+              orgId={orgId}
             />
           )}
 

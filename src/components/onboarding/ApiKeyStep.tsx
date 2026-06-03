@@ -5,6 +5,9 @@ interface ApiKeyStepProps {
   onSubmit: (apiKey: string, mode: ProvisioningMode, endpoint?: string) => void;
   initialMode?: ProvisioningMode;
   initialApiKey?: string;
+  // When the user arrives with an orgId in the query, we can link straight
+  // to their org's API keys page instead of the generic console.
+  orgId?: string;
 }
 
 const TABS: { id: ProvisioningMode; label: string }[] = [
@@ -16,11 +19,16 @@ export function ApiKeyStep({
   onSubmit,
   initialMode = "create",
   initialApiKey = "",
+  orgId,
 }: ApiKeyStepProps) {
   const [mode, setMode] = useState<ProvisioningMode>(initialMode);
   const [apiKey, setApiKey] = useState(initialApiKey);
   const [endpoint, setEndpoint] = useState("");
   const [showKey, setShowKey] = useState(false);
+
+  const apiKeyConsoleUrl = orgId
+    ? `https://cloud.zilliz.com/orgs/${orgId}/api-keys/my-key`
+    : "https://cloud.zilliz.com";
 
   const canSubmit =
     apiKey.trim().length > 0 &&
@@ -116,14 +124,14 @@ export function ApiKeyStep({
           <p className="text-xs text-black-3">
             You can find or create your API key in the{" "}
             <a
-              href="https://cloud.zilliz.com"
+              href={apiKeyConsoleUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-1 hover:underline"
             >
               Zilliz Cloud Console
-            </a>{" "}
-            under Project &gt; API Keys.
+            </a>
+            {orgId ? "." : <> under Project &gt; API Keys.</>}
           </p>
         ) : (
           <p className="text-xs text-black-3">
