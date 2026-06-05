@@ -1,4 +1,5 @@
 import { ArrowRightIcon, ArrowLeftIcon } from "@/components/icons/ArrowRightIcon";
+import { trackEvent } from "@/lib/gtm";
 
 interface StepNavButtonsProps {
   prevLabel?: string;
@@ -26,7 +27,10 @@ export function StepNavButtons({
       )}
       {nextLabel && onNext && (
         <button
-          onClick={onNext}
+          onClick={() => {
+            trackEvent("playground_next_step", { next_label: nextLabel });
+            onNext();
+          }}
           className="inline-flex cursor-pointer items-center gap-1 rounded-lg bg-blue-1 px-5 py-2.5 text-[13px] font-medium text-white transition-all hover:bg-blue-dark-1"
         >
           {nextLabel}

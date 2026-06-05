@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ArrowRightIcon } from "@/components/icons/ArrowRightIcon";
 import { Tag } from "@/components/ui/Tag";
+import { trackEvent } from "@/lib/gtm";
 
 interface TryFirstSectionProps {
   onStart: () => void;
@@ -75,7 +76,10 @@ export function TryFirstSection({ onStart }: TryFirstSectionProps) {
 
             <div className="mt-5">
               <button
-                onClick={onStart}
+                onClick={() => {
+                  trackEvent("playground_start");
+                  onStart();
+                }}
                 className="cursor-pointer rounded-lg bg-blue-1 px-5 py-2.5 text-[13px] font-medium text-white transition-all hover:bg-blue-dark-1"
               >
                 Start Step 1

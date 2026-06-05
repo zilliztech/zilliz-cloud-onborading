@@ -8,6 +8,7 @@ import { StepNavButtons } from "./StepNavButtons";
 import { DATASET_FILE_MAP } from "@/pages/playground";
 import { getInsertPreview } from "@/data/playground";
 import { usePlaygroundData } from "@/hooks/usePlaygroundData";
+import { trackEvent } from "@/lib/gtm";
 
 import { Button } from "@/components/ui/Button";
 
@@ -64,6 +65,10 @@ export function IngestSection({
   }
 
   const handleInsert = async () => {
+    trackEvent("playground_insert", {
+      dataset_id: datasetId,
+      chunk_preset: preset,
+    });
     setInserting(true);
     setProgress(0);
     setError(null);

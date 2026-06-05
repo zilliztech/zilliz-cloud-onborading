@@ -3,6 +3,7 @@ import { ArrowRightIcon } from "@/components/icons/ArrowRightIcon";
 import { Tag } from "@/components/ui/Tag";
 import type { DatasetId } from "@/pages/playground";
 import { StepNavButtons } from "./StepNavButtons";
+import { trackEvent } from "@/lib/gtm";
 
 interface DataSectionProps {
   selectedDataset: DatasetId;
@@ -124,7 +125,10 @@ export function DataSection({ selectedDataset, onSelectDataset, onNext }: DataSe
                 return (
                   <div
                     key={ds.id}
-                    onClick={() => onSelectDataset(ds.id as DatasetId)}
+                    onClick={() => {
+                      trackEvent("playground_select_dataset", { dataset_id: ds.id });
+                      onSelectDataset(ds.id as DatasetId);
+                    }}
                     className={`group cursor-pointer rounded-[12px] p-[1.5px] transition-all ${
                       isSelected
                         ? "bg-gradient-to-l from-[#FF058A] via-[#B92BBA] to-[#531AEE]"

@@ -7,6 +7,7 @@ import type { DatasetId, ChunkPreset } from "@/pages/playground";
 import { DATASET_FILE_MAP, DATASET_LABELS } from "@/pages/playground";
 import { getChunkPreview } from "@/data/playground";
 import { usePlaygroundData } from "@/hooks/usePlaygroundData";
+import { trackEvent } from "@/lib/gtm";
 
 interface ChunkSectionProps {
   datasetId: DatasetId;
@@ -131,7 +132,14 @@ export function ChunkSection({
                   return (
                     <button
                       key={p.id}
-                      onClick={() => onSelectPreset(p.id)}
+                      onClick={() => {
+                        trackEvent("playground_chunk", {
+                          action: "select_preset",
+                          chunk_preset: p.id,
+                          dataset_id: datasetId,
+                        });
+                        onSelectPreset(p.id);
+                      }}
                       className={`group min-h-[142px] cursor-pointer rounded-[12px] p-[1.5px] text-left transition-all ${
                         isActive
                           ? "bg-gradient-to-l from-[#FF058A] via-[#B92BBA] to-[#531AEE]"
@@ -227,6 +235,11 @@ export function ChunkSection({
                   loading={confirming}
                   disabled={confirmed}
                   onClick={() => {
+                    trackEvent("playground_chunk", {
+                      action: "confirm",
+                      chunk_preset: selectedPreset,
+                      dataset_id: datasetId,
+                    });
                     setConfirming(true);
                     setTimeout(() => {
                       setConfirming(false);

@@ -9,6 +9,7 @@ import { StepNavButtons } from "./StepNavButtons";
 import { DATASET_FILE_MAP, DATASET_LABELS } from "@/pages/playground";
 import { getRetrievalData } from "@/data/playground";
 import { usePlaygroundData } from "@/hooks/usePlaygroundData";
+import { trackEvent } from "@/lib/gtm";
 
 interface SearchSectionProps {
   datasetId: DatasetId;
@@ -260,7 +261,18 @@ answer = oai.chat.completions.create(model="gpt-4o", ...)`;
                 </div>
 
                 {genState === "idle" ? (
-                  <Button onClick={() => setGenState("streaming")} variant="primary" size="small">
+                  <Button
+                    onClick={() => {
+                      trackEvent("playground_generate", {
+                        dataset_id: datasetId,
+                        question_id: question?.id,
+                        filter_variant: variant?.label,
+                      });
+                      setGenState("streaming");
+                    }}
+                    variant="primary"
+                    size="small"
+                  >
                     Generate answer
                   </Button>
                 ) : (

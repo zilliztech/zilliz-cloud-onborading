@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { StepProgress } from "./StepProgress";
 import { ArrowRightIcon } from "@/components/icons/ArrowRightIcon";
+import { trackEvent } from "@/lib/gtm";
 
 const HUBSPOT_PORTAL_ID = "24054828";
 const HUBSPOT_FORM_GUID = "7146e30c-d553-48f0-a85f-fd9448543662";
@@ -93,6 +94,13 @@ export function ExportSection({ email }: ExportSectionProps) {
   };
 
   const submitToHubSpot = async (emailToSubmit: string) => {
+    // Deliberately no email in the dataLayer — keep PII out of GA.
+    trackEvent("playground_submit_feedback", {
+      rating: selectedRating !== null ? RATINGS[selectedRating].value : "",
+      use_case_count: selectedUseCases.size,
+      feature_count: selectedFeatures.size,
+      has_text_feedback: additionalFeedback.trim().length > 0,
+    });
     setSubmitting(true);
     try {
       const fields = [
