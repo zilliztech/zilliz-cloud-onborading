@@ -253,13 +253,15 @@ export function ExportSection({ email }: ExportSectionProps) {
           {/* Additional feedback */}
           <div className="mt-6 border-t border-[rgba(22,26,35,0.06)] pt-5">
             <div className="mb-2.5 text-[13px] font-medium text-[#161a23]">Additional feedback</div>
-            <textarea
-              value={additionalFeedback}
-              onChange={(e) => setAdditionalFeedback(e.target.value)}
-              placeholder="Anything else you'd like to share..."
-              className="w-full resize-none rounded-lg border border-[rgba(22,26,35,0.12)] px-3 py-2.5 text-[13px] text-[#161a23] placeholder-[#8592a8] outline-none transition focus:border-[#2cb7ff] focus:ring-1 focus:ring-[#2cb7ff]"
-              rows={3}
-            />
+            <div className="rounded-lg bg-stroke-1 p-[1.5px] transition-all focus-within:bg-[linear-gradient(270deg,#FF058A,#B92BBA,#531AEE)]">
+              <textarea
+                value={additionalFeedback}
+                onChange={(e) => setAdditionalFeedback(e.target.value)}
+                placeholder="Anything else you'd like to share..."
+                className="block w-full resize-none rounded-[6.5px] bg-white px-3 py-2.5 text-[13px] text-[#161a23] placeholder-[#8592a8] outline-none"
+                rows={3}
+              />
+            </div>
           </div>
 
           <button
